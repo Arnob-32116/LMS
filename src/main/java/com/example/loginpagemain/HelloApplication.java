@@ -1,5 +1,6 @@
 package com.example.loginpagemain;
 
+import animatefx.animation.FadeIn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ public class HelloApplication extends Application {
         stage.setTitle("UIU LMS");
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
