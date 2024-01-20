@@ -27,9 +27,12 @@ public class HelloController implements Initializable{
 
         @FXML
         private Button signin_button;
+        @FXML
         private Hyperlink signup_button,forget_pass_button;
+        @FXML
         private BorderPane borderpane1;
-        private Pane pane1,pane2;
+        @FXML
+        private Pane pane1,pane2,pane3,pane4;
         @FXML
         public void button_animation(ActionEvent event) throws Exception{
             new FadeInRight(signin_button).play();
@@ -38,6 +41,7 @@ public class HelloController implements Initializable{
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            //root.setOnMouseClicked(new FadeIn(pane3).play());
             new FadeInRight(root).play();
         }
         @FXML
@@ -47,7 +51,12 @@ public class HelloController implements Initializable{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        new FadeIn(root).play();
+        new FadeInRight(root).play();
+        }
+
+        @FXML
+        void unclick_textarea(ActionEvent event) throws Exception{
+            
         }
 
 

@@ -39,16 +39,16 @@
                <children>
                   <Pane fx:id="pane2" prefHeight="400.0" prefWidth="407.0">
                      <children>
-                        <TextField layoutX="40.0" layoutY="112.0" prefHeight="35.0" prefWidth="261.0" promptText="Email" />
-                        <PasswordField layoutX="39.0" layoutY="166.0" prefHeight="34.0" prefWidth="263.0" promptText="Password" />
+                        <TextField layoutX="55.0" layoutY="99.0" prefHeight="35.0" prefWidth="261.0" promptText="Email" />
+                        <PasswordField layoutX="54.0" layoutY="152.0" prefHeight="34.0" prefWidth="263.0" promptText="Password" />
                         <Button fx:id="signin_button" layoutX="202.0" layoutY="226.0" mnemonicParsing="false" onAction="#button_animation" style="-fx-background-color: #Ffa500;" text="SIGN IN">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Hyperlink fx:id="signup_button" layoutX="62.0" layoutY="324.0" onAction="#button_animation" text="Don't Have an Account? Sign up" />
-                        <Hyperlink fx:id="forget_pass_button" layoutX="40.0" layoutY="231.0" onAction="#button_animation" text="Forget Password" />
-                        <Label layoutX="39.0" layoutY="41.0" text="SIGN IN" textFill="#142e9e">
+                        <Hyperlink fx:id="signup_button1" layoutX="62.0" layoutY="324.0" onAction="#sign_up_method" text="Don't Have an Account? Sign up" />
+                        <Hyperlink fx:id="forget_pass_button1" layoutX="40.0" layoutY="231.0" onAction="#button_animation" text="Forget Password" />
+                        <Label layoutX="54.0" layoutY="43.0" text="SIGN IN" textFill="#142e9e">
                            <font>
                               <Font size="29.0" />
                            </font>
