@@ -35,23 +35,23 @@
             <center>
                 <StackPane prefHeight="400.0" prefWidth="373.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane fx:id="pane3" prefHeight="200.0" prefWidth="200.0">
+                        <Pane fx:id="pane3" onMouseClicked="#unclick_textarea" prefHeight="200.0" prefWidth="200.0">
                             <children>
                                 <Label layoutX="53.0" layoutY="43.0" text="SIGN UP" textFill="#142e9e">
                                     <font>
                                         <Font size="29.0" />
                                     </font>
                                 </Label>
-                                <TextField layoutX="53.0" layoutY="97.0" prefHeight="35.0" prefWidth="261.0" promptText="Username" />
-                                <TextField layoutX="53.0" layoutY="153.0" prefHeight="35.0" prefWidth="261.0" promptText="Email" />
-                                <TextField layoutX="53.0" layoutY="207.0" prefHeight="35.0" prefWidth="261.0" promptText="Student ID " />
-                                <TextField layoutX="53.0" layoutY="260.0" prefHeight="35.0" prefWidth="261.0" promptText="Name" />
+                                <TextField fx:id="signup_username_txt_field" layoutX="53.0" layoutY="97.0" prefHeight="35.0" prefWidth="261.0" promptText="Username" />
+                                <TextField fx:id="signup_email_txt_field" layoutX="53.0" layoutY="153.0" prefHeight="35.0" prefWidth="261.0" promptText="Email" />
+                                <TextField fx:id="signup_student_id_txt_field" layoutX="53.0" layoutY="207.0" prefHeight="35.0" prefWidth="261.0" promptText="Student ID " />
+                                <TextField fx:id="signup_name_txt_field" layoutX="53.0" layoutY="260.0" prefHeight="35.0" prefWidth="261.0" promptText="Name" />
                         <Button layoutX="280.0" layoutY="326.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="68.0" text="NEXT">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="41.0" layoutY="326.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="72.0" text="BACK">
+                        <Button fx:id="BounceInUp" layoutX="41.0" layoutY="326.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="72.0" text="BACK">
                            <font>
                               <Font size="15.0" />
                            </font>
