@@ -48,7 +48,7 @@
                         </Button>
                         <Hyperlink fx:id="signup_button1" layoutX="62.0" layoutY="324.0" onAction="#sign_up_btn_control_method" text="Don't Have an Account? Sign up" />
                         <Hyperlink fx:id="forget_pass_button1" layoutX="40.0" layoutY="231.0" onAction="#signin_button_control" text="Forget Password" />
-                        <Label layoutX="54.0" layoutY="43.0" text="SIGN IN" textFill="#142e9e">
+                        <Label fx:id="sign_in_title" layoutX="54.0" layoutY="52.0" stylesheets="@loginpage.css" text="SIGN IN" textFill="#142e9e">
                            <font>
                               <Font size="29.0" />
                            </font>

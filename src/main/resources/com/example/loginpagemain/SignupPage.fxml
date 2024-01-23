@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -35,7 +36,25 @@
             <center>
                 <StackPane prefHeight="400.0" prefWidth="373.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane fx:id="pane3" onMouseClicked="#unclick_textarea" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="pane5" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <Button fx:id="back_button_page2" layoutX="39.0" layoutY="326.0" mnemonicParsing="false" onAction="#signup_next" prefHeight="36.0" prefWidth="73.0" text="BACK">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="gurdian_phone_number" layoutX="53.0" layoutY="260.0" onKeyTyped="#number_constrains_for_text_fields" prefHeight="35.0" prefWidth="261.0" promptText="Gurdian's Phone Number" />
+                        <TextField fx:id="signup_username_txt_field1" layoutX="53.0" layoutY="96.0" prefHeight="35.0" prefWidth="261.0" promptText="Phone Number" />
+                        <Label layoutX="57.0" layoutY="46.0" text="SIGN UP" textFill="#142e9e">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                        <PasswordField layoutX="55.0" layoutY="155.0" prefHeight="31.0" prefWidth="258.0" promptText="Password" />
+                        <PasswordField layoutX="55.0" layoutY="209.0" prefHeight="31.0" prefWidth="258.0" promptText="Retype Password" />
+                     </children>
+                  </Pane>
+                        <Pane fx:id="pane3" onMouseClicked="#unclick_textarea" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
                             <children>
                                 <Label layoutX="53.0" layoutY="43.0" text="SIGN UP" textFill="#142e9e">
                                     <font>
@@ -46,12 +65,12 @@
                                 <TextField fx:id="signup_email_txt_field" layoutX="53.0" layoutY="153.0" prefHeight="35.0" prefWidth="261.0" promptText="Email" />
                                 <TextField fx:id="signup_student_id_txt_field" layoutX="53.0" layoutY="207.0" prefHeight="35.0" prefWidth="261.0" promptText="Student ID " />
                                 <TextField fx:id="signup_name_txt_field" layoutX="53.0" layoutY="260.0" prefHeight="35.0" prefWidth="261.0" promptText="Name" />
-                        <Button layoutX="280.0" layoutY="326.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="68.0" text="NEXT">
+                        <Button fx:id="next_button" layoutX="280.0" layoutY="326.0" mnemonicParsing="false" onAction="#signup_next" prefHeight="35.0" prefWidth="68.0" text="NEXT">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="BounceInUp" layoutX="41.0" layoutY="326.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="72.0" text="BACK">
+                        <Button fx:id="back_button" layoutX="41.0" layoutY="326.0" mnemonicParsing="false" onAction="#signup_next" prefHeight="36.0" prefWidth="72.0" text="BACK">
                            <font>
                               <Font size="15.0" />
                            </font>
