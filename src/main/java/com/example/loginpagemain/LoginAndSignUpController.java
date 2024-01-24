@@ -1,10 +1,8 @@
 package com.example.loginpagemain;
 
-import animatefx.animation.Bounce;
-import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInRight;
+import animatefx.animation.Shake;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -28,7 +25,7 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 
-public class HelloController implements Initializable{
+public class LoginAndSignUpController implements Initializable{
         private Stage stage;
         private Scene scene;
         private Parent root;
@@ -93,8 +90,17 @@ public class HelloController implements Initializable{
                 new FadeInRight(root).play();
             }
             else {
-                new FadeInRight(panes.peek()).play();
-                panes.peek().toFront();
+                if (panes.size() >=2 && empty_text_field_shake(panes.get(panes.size() - 2))){
+                    new FadeInRight(panes.peek()).play();
+                    panes.peek().toFront();
+                }
+                else if (panes.size() ==1 && empty_text_field_shake(pane3)){
+                    new FadeInRight(panes.peek()).play();
+                    panes.peek().toFront();
+                }
+                else{
+                    empty_text_field_shake(panes.peek());
+                }
             }
 
         }
@@ -102,6 +108,7 @@ public class HelloController implements Initializable{
 
         @FXML
         public void unclick_textarea(MouseEvent event) throws Exception {
+            Boolean check = false;
             Pane pane = (Pane) event.getSource();
             for (Node node : pane.getChildren()) {
                 if (node instanceof TextField) {
@@ -128,12 +135,75 @@ public class HelloController implements Initializable{
                 TextField numfield = (TextField) event.getSource();
                 if(!event.getCharacter().matches("\\d")){
                     event.consume();
-                    numfield.setStyle("-fx-border-color: red");
+                    if(event.getCharacter().matches("\b") && numfield.getText().length() - 1 != 0){
+                        String text = numfield.getText();
+                        Boolean check = true;
+                        for(int i = 1 ; i <= text.length() ; i++){
+                            if(text.charAt(i-1) == '0' || text.charAt(i-1) == '1' || text.charAt(i-1) == '2'
+                                    || text.charAt(i-1) == '3' || text.charAt(i-1) == '4' ||
+                                    text.charAt(i-1) == '5' || text.charAt(i-1) == '6' ||
+                                    text.charAt(i-1) == '7' || text.charAt(i-1) == '8' ||
+                                    text.charAt(i-1) == '9') {
+                                check = true;
+                            }
+                            else{
+                                check = false;
+                                break;
+                            }
+                        }
+                        if (check)
+                            numfield.setStyle("-fx-border-color: black");
+                        else
+                            numfield.setStyle("-fx-border-color: red");
+                    }
+                    else {
+                        numfield.setStyle("-fx-border-color: red");
+                    }
                 }
                 else {
-                    numfield.setStyle("-fx-border-color: black");
+                    String text = numfield.getText();
+                    Boolean check = true;
+                    for(int i = 1 ; i <= text.length() ; i++){
+                        if(text.charAt(i-1) == '0' || text.charAt(i-1) == '1' || text.charAt(i-1) == '2'
+                                || text.charAt(i-1) == '3' || text.charAt(i-1) == '4' ||
+                                text.charAt(i-1) == '5' || text.charAt(i-1) == '6' ||
+                                text.charAt(i-1) == '7' || text.charAt(i-1) == '8' ||
+                                text.charAt(i-1) == '9') {
+                            check = true;
+                        }
+                        else{
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check)
+                        numfield.setStyle("-fx-border-color: black");
+                    else
+                        numfield.setStyle("-fx-border-color: red");
                 }
         }
+
+
+        private Boolean empty_text_field_shake(Pane pane){
+            System.out.println(pane);
+            List<TextField> textFields = new ArrayList<>();
+            for (Node node : pane.getChildren()) {
+                if (node instanceof TextField) {
+                    textFields.add((TextField) node);
+                }
+            }
+            for(TextField text_fields : textFields){
+                if(text_fields.getText().isEmpty()==true){
+                    new Shake(text_fields).play();
+                    return false;
+                }
+            }
+            return  true;
+        }
+
+
+
+
 
 
 

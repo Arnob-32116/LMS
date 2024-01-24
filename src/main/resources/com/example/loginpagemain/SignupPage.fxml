@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.LoginAndSignUpController">
     <children>
         <BorderPane prefHeight="400.0" prefWidth="600.0">
             <left>
@@ -44,7 +44,7 @@
                            </font>
                         </Button>
                         <TextField fx:id="gurdian_phone_number" layoutX="53.0" layoutY="260.0" onKeyTyped="#number_constrains_for_text_fields" prefHeight="35.0" prefWidth="261.0" promptText="Gurdian's Phone Number" />
-                        <TextField fx:id="signup_username_txt_field1" layoutX="53.0" layoutY="96.0" prefHeight="35.0" prefWidth="261.0" promptText="Phone Number" />
+                        <TextField fx:id="signup_username_txt_field1" layoutX="53.0" layoutY="96.0" onKeyTyped="#number_constrains_for_text_fields" prefHeight="35.0" prefWidth="261.0" promptText="Phone Number" />
                         <Label layoutX="57.0" layoutY="46.0" text="SIGN UP" textFill="#142e9e">
                            <font>
                               <Font size="29.0" />
