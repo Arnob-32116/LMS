@@ -44,15 +44,22 @@ public class LoginAndSignUpController implements Initializable{
         @FXML
         private Button next_button , back_button, back_button_page2;
         @FXML
+        private TextField signin_email_txt_field,signup_username_txt_field1,gurdian_phone_number ,signup_student_id_txt_field,signup_email_txt_field;
+        @FXML
         public void signin_button_control(ActionEvent event) throws Exception{
-            new FadeInRight(signin_button).play();
-            Parent root = FXMLLoader.load(getClass().getResource("SignupPage.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            //root.setOnMouseClicked(new FadeIn(pane3).play());
-            new FadeInRight(root).play();
+            if(correct_email_check(signin_email_txt_field.getText())) {
+                new FadeInRight(signin_button).play();
+                Parent root = FXMLLoader.load(getClass().getResource("SignupPage.fxml"));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                //root.setOnMouseClicked(new FadeIn(pane3).play());
+                new FadeInRight(root).play();
+            }
+            else{
+                new Shake(signin_email_txt_field).play();
+            }
         }
         @FXML
         public void sign_up_btn_control_method(ActionEvent event) throws Exception{
@@ -91,8 +98,30 @@ public class LoginAndSignUpController implements Initializable{
             }
             else {
                 if (panes.size() >=2 && empty_text_field_shake(panes.get(panes.size() - 2))){
-                    new FadeInRight(panes.peek()).play();
-                    panes.peek().toFront();
+                    if(panes.peek() == pane3){
+                        if(all_numbers_textfield_check(signup_username_txt_field1.getText()) && all_numbers_textfield_check(gurdian_phone_number.getText()) ){
+                            new FadeInRight(panes.peek()).play();
+                            panes.peek().toFront();
+                        }
+                        else{
+                            empty_text_field_shake(panes.peek());
+                        }
+                    }
+                    else if (panes.peek() == pane5){
+                        if(all_numbers_textfield_check(signup_student_id_txt_field.getText()) && correct_email_check(signup_email_txt_field.getText())){
+                            new FadeInRight(panes.peek()).play();
+                            panes.peek().toFront();
+                        }
+                        else if (!all_numbers_textfield_check(signup_student_id_txt_field.getText())){
+                            new Shake(signup_student_id_txt_field).play();
+                            panes.pop();
+                        }
+                        else if (!correct_email_check(signup_email_txt_field.getText())){
+                            new Shake(signup_email_txt_field).play();
+                            panes.pop();
+                        }
+                    }
+
                 }
                 else if (panes.size() ==1 && empty_text_field_shake(pane3)){
                     new FadeInRight(panes.peek()).play();
@@ -131,56 +160,35 @@ public class LoginAndSignUpController implements Initializable{
         }
 
         @FXML
-        public void number_constrains_for_text_fields(KeyEvent event){
+        public Boolean number_constrains_for_text_fields(KeyEvent event){
                 TextField numfield = (TextField) event.getSource();
                 if(!event.getCharacter().matches("\\d")){
                     event.consume();
                     if(event.getCharacter().matches("\b") && numfield.getText().length() - 1 != 0){
                         String text = numfield.getText();
                         Boolean check = true;
-                        for(int i = 1 ; i <= text.length() ; i++){
-                            if(text.charAt(i-1) == '0' || text.charAt(i-1) == '1' || text.charAt(i-1) == '2'
-                                    || text.charAt(i-1) == '3' || text.charAt(i-1) == '4' ||
-                                    text.charAt(i-1) == '5' || text.charAt(i-1) == '6' ||
-                                    text.charAt(i-1) == '7' || text.charAt(i-1) == '8' ||
-                                    text.charAt(i-1) == '9') {
-                                check = true;
-                            }
-                            else{
-                                check = false;
-                                break;
-                            }
-                        }
+                        check = all_numbers_textfield_check(text);
                         if (check)
                             numfield.setStyle("-fx-border-color: black");
                         else
                             numfield.setStyle("-fx-border-color: red");
+                        return check;
                     }
                     else {
                         numfield.setStyle("-fx-border-color: red");
+                        return false;
                     }
                 }
                 else {
                     String text = numfield.getText();
-                    Boolean check = true;
-                    for(int i = 1 ; i <= text.length() ; i++){
-                        if(text.charAt(i-1) == '0' || text.charAt(i-1) == '1' || text.charAt(i-1) == '2'
-                                || text.charAt(i-1) == '3' || text.charAt(i-1) == '4' ||
-                                text.charAt(i-1) == '5' || text.charAt(i-1) == '6' ||
-                                text.charAt(i-1) == '7' || text.charAt(i-1) == '8' ||
-                                text.charAt(i-1) == '9') {
-                            check = true;
-                        }
-                        else{
-                            check = false;
-                            break;
-                        }
-                    }
+                    Boolean check = all_numbers_textfield_check(text);
                     if (check)
                         numfield.setStyle("-fx-border-color: black");
                     else
                         numfield.setStyle("-fx-border-color: red");
+                    return check;
                 }
+
         }
 
 
@@ -200,6 +208,41 @@ public class LoginAndSignUpController implements Initializable{
             }
             return  true;
         }
+
+        private Boolean all_numbers_textfield_check(String text){
+            Boolean check = true;
+            for(int i = 1 ; i <= text.length() ; i++){
+                if(text.charAt(i-1) == '0' || text.charAt(i-1) == '1' || text.charAt(i-1) == '2'
+                        || text.charAt(i-1) == '3' || text.charAt(i-1) == '4' ||
+                        text.charAt(i-1) == '5' || text.charAt(i-1) == '6' ||
+                        text.charAt(i-1) == '7' || text.charAt(i-1) == '8' ||
+                        text.charAt(i-1) == '9') {
+                    check = true;
+                }
+                else{
+                    check = false;
+                    break;
+                }
+            }
+            return check;
+        }
+
+        private Boolean correct_email_check(String text){
+            int count1 = 0 ,count2=0;
+            for(int i = 0 ; i < text.length() ; i++ ){
+                if(text.charAt(i) == '@')
+                    count1++;
+                if(text.charAt(i) == '.')
+                    count2++;
+            }
+
+            if(count1 == 1 && count2>0)
+                return true;
+            else
+                return false;
+        }
+
+
 
 
 

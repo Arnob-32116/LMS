@@ -63,7 +63,7 @@
                                 </Label>
                                 <TextField fx:id="signup_username_txt_field" layoutX="53.0" layoutY="97.0" prefHeight="35.0" prefWidth="261.0" promptText="Username" />
                                 <TextField fx:id="signup_email_txt_field" layoutX="53.0" layoutY="153.0" prefHeight="35.0" prefWidth="261.0" promptText="Email" />
-                                <TextField fx:id="signup_student_id_txt_field" layoutX="53.0" layoutY="207.0" prefHeight="35.0" prefWidth="261.0" promptText="Student ID " />
+                                <TextField fx:id="signup_student_id_txt_field" layoutX="53.0" layoutY="207.0" onKeyTyped="#number_constrains_for_text_fields" prefHeight="35.0" prefWidth="261.0" promptText="Student ID " />
                                 <TextField fx:id="signup_name_txt_field" layoutX="53.0" layoutY="260.0" prefHeight="35.0" prefWidth="261.0" promptText="Name" />
                         <Button fx:id="next_button" layoutX="280.0" layoutY="326.0" mnemonicParsing="false" onAction="#signup_next" prefHeight="35.0" prefWidth="68.0" text="NEXT">
                            <font>
