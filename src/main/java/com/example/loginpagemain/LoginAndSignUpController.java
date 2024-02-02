@@ -71,6 +71,16 @@ public class LoginAndSignUpController implements Initializable{
         new FadeInRight(root).play();
         }
 
+    @FXML
+    public void forgetpassword_btn_control_method(ActionEvent event) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("ForgetPassword.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        new FadeInRight(root).play();
+    }
+
 
         @FXML
         public void signup_next(ActionEvent event) throws Exception{
@@ -192,8 +202,7 @@ public class LoginAndSignUpController implements Initializable{
         }
 
 
-        private Boolean empty_text_field_shake(Pane pane){
-            System.out.println(pane);
+        public Boolean empty_text_field_shake(Pane pane){
             List<TextField> textFields = new ArrayList<>();
             for (Node node : pane.getChildren()) {
                 if (node instanceof TextField) {
@@ -206,10 +215,11 @@ public class LoginAndSignUpController implements Initializable{
                     return false;
                 }
             }
+            System.out.println("TRUE");
             return  true;
         }
 
-        private Boolean all_numbers_textfield_check(String text){
+        public Boolean all_numbers_textfield_check(String text){
             Boolean check = true;
             for(int i = 1 ; i <= text.length() ; i++){
                 if(text.charAt(i-1) == '0' || text.charAt(i-1) == '1' || text.charAt(i-1) == '2'
@@ -227,7 +237,7 @@ public class LoginAndSignUpController implements Initializable{
             return check;
         }
 
-        private Boolean correct_email_check(String text){
+        public Boolean correct_email_check(String text){
             int count1 = 0 ,count2=0;
             for(int i = 0 ; i < text.length() ; i++ ){
                 if(text.charAt(i) == '@')

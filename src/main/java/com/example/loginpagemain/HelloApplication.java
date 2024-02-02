@@ -5,21 +5,26 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javax.net.ssl.SSLSession;
+import java.util.Properties;
 
-import java.io.IOException;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 public class HelloApplication extends Application {
-    @Override
+
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("UIU LMS");
         stage.setScene(scene);
         stage.show();
-
+       // HelloApplication.send_email();
     }
 
     public static void main(String[] args) {
         launch();
     }
+
+
 }
