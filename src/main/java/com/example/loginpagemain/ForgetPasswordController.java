@@ -4,25 +4,36 @@ import animatefx.animation.BounceInUp;
 import animatefx.animation.Shake;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class ForgetPasswordController implements Initializable {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    private Stack<Pane> panes = new Stack<>();
 
     @FXML
     private TextField forget_pass_email_txt_field, forget_pass_id_txt_field;
     @FXML
     private Pane forget_pass_pane1,forget_pass_pane2;
+
 
     private int OTP = 100000000;
 
@@ -51,8 +62,12 @@ public class ForgetPasswordController implements Initializable {
             new Shake(forget_pass_email_txt_field).play();
         }
         else {
-            send_OTP_email(forget_pass_email_txt_field.getText());
+            SendingOTP sendingOTP = new SendingOTP(forget_pass_email_txt_field.getText());
+            Thread thread = new Thread(sendingOTP);
+            thread.start();
             forget_pass_pane2.toFront();
+            System.out.println(Thread.currentThread().getName());
+            panes.push(forget_pass_pane1);
         }
     }
 
@@ -101,6 +116,7 @@ public class ForgetPasswordController implements Initializable {
             throw new RuntimeException(e);
         }
 
+        System.out.println(Thread.currentThread().getName());
 
     }
 
@@ -131,6 +147,23 @@ public class ForgetPasswordController implements Initializable {
         else
             System.out.println("NO");
     }
+
+
+    @FXML
+    private void back_functionality_1(ActionEvent event) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void back_functionality_2(ActionEvent event) throws Exception {
+        forget_pass_pane1.toFront();
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
