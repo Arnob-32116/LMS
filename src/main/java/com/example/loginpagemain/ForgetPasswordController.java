@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +36,9 @@ public class ForgetPasswordController implements Initializable {
     private Pane forget_pass_pane1,forget_pass_pane2;
 
 
-    private int OTP = 100000000;
+    private static int OTP = 100000000;
+    @FXML
+    private ComboBox<String> combobox ;
 
     @FXML
     public void unclick_textarea(MouseEvent event) throws Exception {
@@ -117,6 +120,7 @@ public class ForgetPasswordController implements Initializable {
         }
 
         System.out.println(Thread.currentThread().getName());
+        System.out.println(OTP);
 
     }
 
@@ -141,7 +145,7 @@ public class ForgetPasswordController implements Initializable {
                 user_otp+=Integer.parseInt(c);
             }
         }
-
+        System.out.println(OTP + "    "+user_otp);
         if(OTP==user_otp)
             System.out.println("YES");
         else
