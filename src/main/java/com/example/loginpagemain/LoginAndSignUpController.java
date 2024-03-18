@@ -40,7 +40,7 @@ public class LoginAndSignUpController implements Initializable{
         @FXML
         private BorderPane borderpane1;
         @FXML
-        private Pane pane1,pane2,pane3,pane4,pane5;
+        private Pane pane1,pane2,pane3,pane4,pane5,forget_pass_pane1;
         @FXML
         private Button next_button , back_button, back_button_page2;
         @FXML
@@ -78,6 +78,8 @@ public class LoginAndSignUpController implements Initializable{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        ForgetPasswordController forgetPasswordController = new ForgetPasswordController();
+
         new FadeInRight(root).play();
     }
 

@@ -1,33 +1,352 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.MainPage">
    <children>
-      <VBox layoutY="65.0" prefHeight="655.0" prefWidth="149.0" />
-      <MenuBar layoutY="1.0" prefHeight="27.0" prefWidth="1299.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      <BorderPane layoutX="-2.0" layoutY="-1.0" prefHeight="720.0" prefWidth="1360.0">
+         <top>
+            <HBox prefHeight="72.0" prefWidth="1360.0" style="-fx-background-color: #28282B;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="50.0" prefWidth="62.0">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                     <children>
+                        <ImageView fitHeight="50.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../personal_icons/icon.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="50.0" prefWidth="56.0">
+                     <HBox.margin>
+                        <Insets left="870.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #28282B;">
+                           <graphic>
+                              <ImageView fitHeight="46.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/notification_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="50.0" prefWidth="50.0">
+                     <HBox.margin>
+                        <Insets left="75.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #28282B;">
+                           <graphic>
+                              <ImageView fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/settings_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="50.0" prefWidth="50.0">
+                     <HBox.margin>
+                        <Insets left="75.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #28282B;">
+                           <graphic>
+                              <ImageView fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/logout_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </top>
+         <left>
+            <VBox prefHeight="648.0" prefWidth="138.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="155.0" prefWidth="138.0" style="-fx-background-color: #000000;">
+                     <children>
+                        <ImageView fitHeight="50.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets left="45.0" top="10.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../../../personal_icons/profile_pic_female.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="24.0" prefWidth="106.0" style="-fx-background-color: #FFFFFF;" text="    Username">
+                           <VBox.margin>
+                              <Insets left="15.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label prefHeight="24.0" prefWidth="106.0" style="-fx-background-color: #FFFFFF;" text="    Student ID">
+                           <VBox.margin>
+                              <Insets left="15.0" top="15.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="130.0" prefWidth="138.0" style="-fx-background-color: #EC650B;">
+                     <children>
+                        <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="79.0" prefWidth="110.0" style="-fx-background-color: #EC650B;" text="News Feed">
+                           <VBox.margin>
+                              <Insets left="15.0" top="30.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/newsfeed_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="130.0" prefWidth="138.0" style="-fx-background-color: #EC650B;">
+                     <children>
+                        <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="79.0" prefWidth="110.0" style="-fx-background-color: #EC650B;" text="Message">
+                           <VBox.margin>
+                              <Insets left="15.0" top="30.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/message_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="130.0" prefWidth="138.0" style="-fx-background-color: #EC650B;">
+                     <children>
+                        <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="79.0" prefWidth="110.0" style="-fx-background-color: #EC650B;" text="Section">
+                           <VBox.margin>
+                              <Insets left="15.0" top="30.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/section_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="130.0" prefWidth="138.0" style="-fx-background-color: #EC650B;">
+                     <children>
+                        <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="79.0" prefWidth="110.0" style="-fx-background-color: #EC650B;" text="Quiz">
+                           <VBox.margin>
+                              <Insets left="15.0" top="30.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/quiz_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </left>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox layoutY="-5.0" prefHeight="153.0" prefWidth="1223.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <VBox prefHeight="153.0" prefWidth="188.0">
+                           <children>
+                              <HBox prefHeight="84.0" prefWidth="212.0">
+                                 <children>
+                                    <Label prefHeight="54.0" prefWidth="117.0" text="Tag Filter">
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="10.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="37.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../personal_icons/tag_icon.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="2.0" top="18.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="99.0" prefWidth="212.0">
+                                 <children>
+                                    <MFXComboBox>
+                                       <HBox.margin>
+                                          <Insets left="35.0" />
+                                       </HBox.margin>
+                                    </MFXComboBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="153.0" prefWidth="194.0">
+                           <children>
+                              <HBox prefHeight="84.0" prefWidth="212.0">
+                                 <children>
+                                    <Label prefHeight="54.0" prefWidth="117.0" text="Date Filter">
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="10.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="37.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../personal_icons/calender_icon.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="2.0" top="18.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="99.0" prefWidth="212.0">
+                                 <children>
+                                    <MFXComboBox>
+                                       <HBox.margin>
+                                          <Insets left="35.0" />
+                                       </HBox.margin>
+                                    </MFXComboBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="153.0" prefWidth="568.0">
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="365.0" text="Want to Share Something?">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Don't keep your thoughts only in your head. Share it. Why not start from here.">
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" right="25.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="131.0" prefWidth="73.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: #FFFFFF;">
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../personal_icons/add_photo_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: #FFFFFF;">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../personal_icons/add_video_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="73.0" style="-fx-background-color: #FFFFFF;">
+                                 <graphic>
+                                    <ImageView fitHeight="34.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../personal_icons/add_tags_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="-20.0" top="-10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="173.0" prefWidth="131.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="70.0" style="-fx-background-color: #FFFFFF;">
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="80.0" />
+                                 </VBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="57.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../personal_icons/Submit_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <ScrollPane layoutX="-1.0" layoutY="149.0" prefHeight="500.0" prefWidth="1222.0" />
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
