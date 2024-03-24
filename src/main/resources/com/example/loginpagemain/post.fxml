@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.mfxcore.controls.Label?>
-<?import io.github.palexdev.mfxcore.controls.Text?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="-4.0" layoutY="-1.0" prefHeight="150.0" prefWidth="1109.0">
+      <HBox prefHeight="301.0" prefWidth="1200.0">
          <children>
-            <HBox prefHeight="117.0" prefWidth="1095.0">
+            <VBox prefHeight="301.0" prefWidth="942.0">
                <children>
-                  <VBox prefHeight="117.0" prefWidth="1104.0">
-                     <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="54.0" layoutY="4.0" prefHeight="20.0" prefWidth="280.0" text="Full Name">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Text layoutX="106.0" layoutY="72.0" />
-                              <TextFlow layoutX="33.0" layoutY="29.0" prefHeight="87.0" prefWidth="1051.0" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </VBox>
+                  <Label prefHeight="51.0" prefWidth="266.0" text="Name">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SHOW TEXT HERE " wrappingWidth="936.7294921875">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Text>
                </children>
-            </HBox>
+            </VBox>
+            <VBox prefHeight="300.0" prefWidth="407.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <children>
+                  <ImageView fitHeight="301.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
-</Pane>
+</VBox>
