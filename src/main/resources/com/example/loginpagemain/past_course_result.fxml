@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.scene.layout.HBox?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefHeight="50.0" prefWidth="201.0" text="Course  Code" />
+      <Label prefHeight="50.0" prefWidth="368.0" text="Course Name" />
+      <Label prefHeight="50.0" prefWidth="132.0" text="Coures Credit" />
+      <Label prefHeight="50.0" prefWidth="98.0" text="CGPA" />
+   </children>
+</HBox>
