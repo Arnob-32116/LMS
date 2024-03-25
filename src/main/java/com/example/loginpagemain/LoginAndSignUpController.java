@@ -49,7 +49,7 @@ public class LoginAndSignUpController implements Initializable{
         public void signin_button_control(ActionEvent event) throws Exception{
             if(correct_email_check(signin_email_txt_field.getText())) {
                 new FadeInRight(signin_button).play();
-                Parent root = FXMLLoader.load(getClass().getResource("SignupPage.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -253,6 +253,11 @@ public class LoginAndSignUpController implements Initializable{
             else
                 return false;
         }
+
+
+
+
+
 
 
 
