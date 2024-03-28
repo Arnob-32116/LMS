@@ -3,6 +3,7 @@ module com.example.loginpagemain {
     requires javafx.fxml;
     requires AnimateFX;
     requires javax.mail;
+    requires MaterialFX;
 
 
     opens com.example.loginpagemain to javafx.fxml;

@@ -5,18 +5,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+
 
 public class MainPage implements Initializable {
     @FXML
@@ -24,35 +29,59 @@ public class MainPage implements Initializable {
     @FXML
     Pane newsfeed_pane,section_pane,message_pane,quiz_pane;
     @FXML
-    VBox newsfeed_vbox,section_vbox, quiz_vbox,message_vbox;
+    VBox newsfeed_vbox,section_vbox, quiz_vbox,message_vbox,section_selection_vbox;
     @FXML
-    LineChart<?,?> cgpa_graph;
+    LineChart<?,?> cgpa_graph,last_five_exam_result_graph,alltime_exam_result_graph;
     @FXML
     PieChart credit_pie , assignment_pie ;
+    @FXML
+    MFXComboBox<String> tag_box = new MFXComboBox<>();
+    @FXML
+    MFXComboBox<String> date_box = new MFXComboBox<>();
+    @FXML
+    SplitMenuButton Running_courses_splitmenu;
+    @FXML
+    ScrollPane newsfeed_scrollpane;
 
     public ArrayList<VBox> vBoxes = new ArrayList<>();
+    private Stack<MenuItem> runningcourseitems = new Stack<>();
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         vBoxes.add(newsfeed_vbox);
         vBoxes.add(section_vbox);
         vBoxes.add(quiz_vbox);
         vBoxes.add(message_vbox);
         vbox_change_colors(newsfeed_vbox);
+        tag_box.setPromptText("Choose Tag");
+        date_box.setPromptText("Choose Date");
+        try {
+            getposts();
+
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        getTagboxdata();
+        getDateboxdata();
         setCgpa_graph();
         setCredit_pie();
         setAssignment_pie();
+        setRunning_courses_splitmenu();
+        setAlltime_exam_result_graph();
+        setLast_five_exam_result_graph();
+
     }
 
     void vbox_change_colors(VBox selected ){
             for(VBox vbox : vBoxes){
                 if(vbox==selected) {
                     selected.setStyle("-fx-background-color: black");
-                    System.out.println(vbox.getId() + "1");
+                    //System.out.println(vbox.getId() + "1");
                 }
                 else {
                     vbox.setStyle("-fx-background-color: #EC650B");
-                    System.out.println(vbox.getId() + "2");
+                    //System.out.println(vbox.getId() + "2");
                 }
             }
     }
@@ -129,8 +158,132 @@ public class MainPage implements Initializable {
         );
 
         assignment_pie.setData(pieChartData);
+    }
+
+
+    @FXML
+    public void setAlltime_exam_result_graph(){
+        XYChart.Series series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data("Exam1", 4.00));
+        series.getData().add(new XYChart.Data("Exam2", 3.50));
+        series.getData().add(new XYChart.Data("Exam3", 4.00));
+        alltime_exam_result_graph.getData().addAll(series);
+    }
+
+    @FXML
+    public void setLast_five_exam_result_graph(){
+        XYChart.Series series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data("Exam1", 4.00));
+        series.getData().add(new XYChart.Data("Exam2", 3.50));
+        series.getData().add(new XYChart.Data("Exam3", 4.00));
+        last_five_exam_result_graph.getData().addAll(series);
+    }
+
+    @FXML
+    public void getTagboxdata(){
+        tag_box.getItems().addAll("Admission","Academia","Research","Project","Lost and Found","Complain");
+        tag_box.setPromptText("Choose Tag");
+    }
+    @FXML
+    public void getDateboxdata(){
+        date_box.getItems().addAll("Today","This week","This month","Last year");
+        date_box.setPromptText("Choose Date");
+    }
+
+    @FXML
+    public void setRunning_courses_splitmenu(){
+        MenuItem choice1 = new MenuItem("CSE 1115");
+        MenuItem choice2 = new MenuItem("CSE 1116");
+        MenuItem choice3 = new MenuItem("BDS 1201");
+
+        Running_courses_splitmenu.getItems().addAll(choice1, choice2, choice3);
 
     }
+
+
+    @FXML
+    public void getposts() throws Exception {
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+        VBox parent = new VBox();
+       // parent.setSpacing(20); // Set spacing between VBox elements
+        for (int i = 0; i < 1; i++) {
+            // Create a new VBox instance for each post
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+            VBox vbox = fxmlLoader.load();
+            parent.getChildren().add(vbox);
+            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("post.fxml"));
+            VBox vbox2 = fxmlLoader2.load();
+            parent.getChildren().add(vbox2);
+
+            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("post.fxml"));
+            VBox vbox3 = fxmlLoader3.load();
+            parent.getChildren().add(vbox3);
+
+            FXMLLoader fxmlLoader4 = new FXMLLoader(getClass().getResource("post.fxml"));
+            VBox vbox4 = fxmlLoader4.load();
+            parent.getChildren().add(vbox4);
+
+
+            FXMLLoader fxmlLoader5 = new FXMLLoader(getClass().getResource("post.fxml"));
+            VBox vbox5 = fxmlLoader5.load();
+            parent.getChildren().add(vbox5);
+
+
+            FXMLLoader fxmlLoader6 = new FXMLLoader(getClass().getResource("post.fxml"));
+            VBox vbox6 = fxmlLoader6.load();
+            parent.getChildren().add(vbox6);
+
+            System.out.println("TEST Scrollll");
+        }
+
+        newsfeed_scrollpane.setContent(parent);
+    }
+
+    @FXML
+    public void add_section_selection(ActionEvent event) throws Exception{
+        getsectionlist();
+    }
+
+    @FXML
+    public void getsectionlist() throws Exception {
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+
+        // parent.setSpacing(20); // Set spacing between VBox elements
+
+            // Create a new VBox instance for each post
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("section.fxml"));
+            HBox hbox = fxmlLoader.load();
+            //parent.getChildren().add(hbox);
+            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("section.fxml"));
+            HBox hbox2 = fxmlLoader2.load();
+            //parent.getChildren().add(hbox2);
+
+            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("section.fxml"));
+            HBox hbox3 = fxmlLoader3.load();
+            //parent.getChildren().add(hbox3);
+
+            FXMLLoader fxmlLoader4 = new FXMLLoader(getClass().getResource("section.fxml"));
+            HBox hbox4 = fxmlLoader4.load();
+            //parent.getChildren().add(hbox4);
+
+
+            FXMLLoader fxmlLoader5 = new FXMLLoader(getClass().getResource("section.fxml"));
+            HBox hbox5 = fxmlLoader5.load();
+            //parent.getChildren().add(hbox5);
+
+
+            FXMLLoader fxmlLoader6 = new FXMLLoader(getClass().getResource("section.fxml"));
+            HBox hbox6 = fxmlLoader6.load();
+            //parent.getChildren().add(hbox6);
+
+            System.out.println("TEST Scrollll");
+
+
+        section_selection_vbox.getChildren().addAll(hbox,hbox2);
+    }
+
+
+
 
 
 
