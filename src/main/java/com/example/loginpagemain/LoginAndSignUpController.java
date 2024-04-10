@@ -26,6 +26,7 @@ import java.util.Stack;
 
 
 public class LoginAndSignUpController implements Initializable{
+        String username,student_name,password,student_id,student_number,guardian_number,email;
         private Stage stage;
         private Scene scene;
         private Parent root;
@@ -40,11 +41,13 @@ public class LoginAndSignUpController implements Initializable{
         @FXML
         private BorderPane borderpane1;
         @FXML
-        private Pane pane1,pane2,pane3,pane4,pane5,forget_pass_pane1;
+        private Pane pane1,pane2,pane3,pane4,pane5,forget_pass_pane1,signup_otp_pane;
+        @FXML
+        Pane forget_pass_pane2;
         @FXML
         private Button next_button , back_button, back_button_page2;
         @FXML
-        private TextField signin_email_txt_field,signup_username_txt_field1,gurdian_phone_number ,signup_student_id_txt_field,signup_email_txt_field;
+        private TextField signin_email_txt_field,signup_student_phonenumber_txt_field,gurdian_phone_number ,signup_student_id_txt_field,signup_email_txt_field;
         @FXML
         public void signin_button_control(ActionEvent event) throws Exception{
             if(correct_email_check(signin_email_txt_field.getText())) {
@@ -111,7 +114,7 @@ public class LoginAndSignUpController implements Initializable{
             else {
                 if (panes.size() >=2 && empty_text_field_shake(panes.get(panes.size() - 2))){
                     if(panes.peek() == pane3){
-                        if(all_numbers_textfield_check(signup_username_txt_field1.getText()) && all_numbers_textfield_check(gurdian_phone_number.getText()) ){
+                        if(all_numbers_textfield_check(signup_student_phonenumber_txt_field.getText()) && all_numbers_textfield_check(gurdian_phone_number.getText()) ){
                             new FadeInRight(panes.peek()).play();
                             panes.peek().toFront();
                         }
@@ -253,7 +256,59 @@ public class LoginAndSignUpController implements Initializable{
             else
                 return false;
         }
+        void setForget_pass_Pane2_front(){
+            forget_pass_pane2.toFront();
+        }
 
+
+        @FXML
+        public void final_signup_button(ActionEvent event) throws  Exception{
+            get_information();
+            Hash hash = new Hash(password);
+            password = hash.HashFunction();
+            SendingOTP sendingOTP = new SendingOTP(email);
+            Thread thread = new Thread(sendingOTP);
+            thread.start();
+            System.out.println(Thread.currentThread().getName() + "MAIN");
+            Parent root = FXMLLoader.load(getClass().getResource("OnlyOTP.fxml"));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            SignUpOTP signUpOTP = new SignUpOTP(username,student_name,password,student_id,student_number,guardian_number,email);
+
+        }
+
+
+        void get_information(){
+            for(Node node : pane3.getChildren()){
+                if (node instanceof TextField) {
+                    TextField tf = (TextField) node;
+                    if(tf.getId().equals("signup_username_txt_field"))
+                        username = tf.getText();
+                    else if(tf.getId().equals("signup_email_txt_field"))
+                        email = tf.getText();
+                    else if(tf.getId().equals("signup_student_id_txt_field"))
+                        student_id = tf.getText();
+                    else if(tf.getId().equals("signup_name_txt_field"))
+                        student_name = tf.getText();
+                }
+            }
+
+            for(Node node : pane5.getChildren()){
+                if (node instanceof TextField) {
+                    TextField tf = (TextField) node;
+                    if(tf.getId().equals("signup_student_phonenumber_txt_field"))
+                        student_number = tf.getText();
+                    else if(tf.getId().equals("signup_password_txt_field"))
+                        password = tf.getText();
+                    else if(tf.getId().equals("gurdian_phone_number"))
+                        guardian_number = tf.getText();
+                }
+            }
+
+
+        }
 
 
 

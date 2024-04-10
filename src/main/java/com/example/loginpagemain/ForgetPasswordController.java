@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ForgetPasswordController implements Initializable {
+public class ForgetPasswordController extends OTP implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -36,7 +36,6 @@ public class ForgetPasswordController implements Initializable {
     private Pane forget_pass_pane1,forget_pass_pane2;
 
 
-    private static int OTP = 100000000;
     @FXML
     private ComboBox<String> combobox ;
 
@@ -76,60 +75,19 @@ public class ForgetPasswordController implements Initializable {
 
 
 
-    public void send_OTP_email(String to){
-        String from = "roughuse32116@gmail.com";
-        final String username = "roughuse32116";
-        final String password = "omiludbuwfcdaegy";
 
-        String host = "smtp.gmail.com";
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
-
-        // Get the Session object.
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
-
-        try {
-            Message message = new MimeMessage(session);
-
-            message.setFrom(new InternetAddress(from));
-
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to));
-
-            message.setSubject("One Time Password From E-Learning Managment Software United International University");
-            Random random = new Random();
-            OTP = random.nextInt(10000,99999);
-
-            message.setText("Your OTP is " + OTP + " .Please Type is correctly within 5 minutes. If this was not you don't reply to this mail");
-
-            Transport.send(message);
-
-            System.out.println("Sent message successfully....");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println(Thread.currentThread().getName());
-        System.out.println(OTP);
-
+    @FXML
+    public void verify_OTP() throws Exception{
+        verify_OTP_Main(forget_pass_pane2);
     }
 
 
-    @FXML
-    public void verify_OTP(ActionEvent event ) throws Exception{
+
+
+    public Boolean verify_OTP_Main(Pane pane) throws Exception{
         int user_otp =0;
         List<TextField> textFields = new ArrayList<>();
-        for (Node node : forget_pass_pane2.getChildren()) {
+        for (Node node : pane.getChildren()) {
             if (node instanceof TextField) {
                 textFields.add((TextField) node);
             }
@@ -147,11 +105,14 @@ public class ForgetPasswordController implements Initializable {
         }
         System.out.println(OTP + "    "+user_otp);
         if(OTP==user_otp)
-            System.out.println("YES");
+            return true;
         else
-            System.out.println("NO");
+            return false;
     }
 
+    public int getOTP(){
+        return OTP;
+    }
 
     @FXML
     private void back_functionality_1(ActionEvent event) throws Exception {
@@ -166,6 +127,14 @@ public class ForgetPasswordController implements Initializable {
     private void back_functionality_2(ActionEvent event) throws Exception {
         forget_pass_pane1.toFront();
     }
+    @FXML
+    void setForget_pass_Pane2_front(){
+        forget_pass_pane2.toFront();
+    }
+
+
+
+
 
 
 

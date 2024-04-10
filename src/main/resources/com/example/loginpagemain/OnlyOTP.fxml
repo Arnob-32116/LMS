@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.SignUpOTP">
+   <children>
+      <Pane fx:id="pane4" prefHeight="400.0" prefWidth="196.0" style="-fx-background-color: #Ffa500;">
+         <children>
+            <ImageView fitHeight="127.0" fitWidth="121.0" layoutX="33.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../personal_icons/icon.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="46.0" layoutY="200.0" text="UIU LMS">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label layoutX="34.0" layoutY="244.0" text="A Complete Learning" />
+            <Label layoutX="33.0" layoutY="266.0" text="Management System" />
+         </children>
+      </Pane>
+      <StackPane layoutX="195.0" prefHeight="401.0" prefWidth="408.0" style="-fx-background-color: #FFFFFF';">
+         <children>
+            <Pane fx:id="Incorrect_OTP_pane" prefHeight="284.0" prefWidth="242.0">
+               <children>
+                  <Label layoutX="135.0" layoutY="109.0" prefHeight="84.0" prefWidth="138.0" text="INCORRECT OTP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="106.0" layoutY="278.0" mnemonicParsing="false" onAction="#Incorrect_case_btn_handeling" prefHeight="47.0" prefWidth="196.0" style="-fx-background-color: #Ffa500;" text="Go To SignUP Page">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="Only_OTP_Pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+               <children>
+                  <Label layoutX="54.0" layoutY="52.0" prefHeight="21.0" prefWidth="324.0" text="A Verification Code has been sent">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="54.0" layoutY="82.0" prefHeight="21.0" prefWidth="324.0" text="to your email. Please enter the">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="54.0" layoutY="112.0" prefHeight="21.0" prefWidth="324.0" text="code below">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <MFXTextField layoutX="47.0" layoutY="164.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="47.0" style="-fx-font-size: 22;" textLimit="1" />
+                  <MFXTextField layoutX="107.0" layoutY="164.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="47.0" style="-fx-font-size: 22;" textLimit="1" />
+                  <MFXTextField layoutX="167.0" layoutY="164.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="47.0" style="-fx-font-size: 22;" textLimit="1" />
+                  <MFXTextField layoutX="227.0" layoutY="164.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="47.0" style="-fx-font-size: 22;" textLimit="1" />
+                  <MFXTextField layoutX="287.0" layoutY="164.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="47.0" style="-fx-font-size: 22;" textLimit="1" />
+                  <MFXButton buttonType="RAISED" layoutX="29.0" layoutY="255.0" onAction="#Incorrect_case_btn_handeling" prefHeight="41.0" prefWidth="84.0" rippleColor="#ee9047" style="-fx-background-color: #EB6802;" text="BACK">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton buttonType="RAISED" layoutX="250.0" layoutY="255.0" onAction="#verify_OTP_Main" prefHeight="41.0" prefWidth="121.0" rippleColor="#ee9047" style="-fx-background-color: #EB6802;" text="VERIFY">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
