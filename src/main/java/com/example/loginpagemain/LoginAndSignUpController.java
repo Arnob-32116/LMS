@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.Stack;
 
 
 public class LoginAndSignUpController implements Initializable{
-        String username,student_name,password,student_id,student_number,guardian_number,email;
+        static String username,student_name,password,student_id,student_number,guardian_number,email;
         private Stage stage;
         private Scene scene;
         private Parent root;
@@ -47,22 +48,35 @@ public class LoginAndSignUpController implements Initializable{
         @FXML
         private Button next_button , back_button, back_button_page2;
         @FXML
-        private TextField signin_email_txt_field,signup_student_phonenumber_txt_field,gurdian_phone_number ,signup_student_id_txt_field,signup_email_txt_field;
+        private TextField signin_email_txt_field,signup_student_phonenumber_txt_field,gurdian_phone_number ,signup_student_id_txt_field,signup_email_txt_field,signin_password_txt_field;
         @FXML
         public void signin_button_control(ActionEvent event) throws Exception{
-            if(correct_email_check(signin_email_txt_field.getText())) {
-                new FadeInRight(signin_button).play();
+            LoginDatabase loginDatabase = new LoginDatabase();
+            String loginemail,loginpassword;
+            loginemail = signin_email_txt_field.getText();
+            loginpassword = signin_password_txt_field.getText();
+            Hash hash = new Hash(loginpassword);
+            loginpassword = hash.HashFunction();
+            if(correct_email_check(signin_email_txt_field.getText()) && check_login_credentials(loginDatabase.get_all_login_info(),loginemail,loginpassword)){
                 Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-                //root.setOnMouseClicked(new FadeIn(pane3).play());
                 new FadeInRight(root).play();
             }
             else{
                 new Shake(signin_email_txt_field).play();
             }
+        }
+        Boolean check_login_credentials(ArrayList<Pair<String,String>> logininfos ,String login_mail ,String login_password){
+            for(Pair<String,String> element : logininfos){
+                if(element.getKey().equals(login_mail) && element.getValue().equals(login_password)) {
+                    this.email = element.getKey();
+                    return true;
+                }
+            }
+            return false;
         }
         @FXML
         public void sign_up_btn_control_method(ActionEvent event) throws Exception{
@@ -263,19 +277,26 @@ public class LoginAndSignUpController implements Initializable{
 
         @FXML
         public void final_signup_button(ActionEvent event) throws  Exception{
+            ArrayList<String> emails = new ArrayList<String>();
             get_information();
             Hash hash = new Hash(password);
             password = hash.HashFunction();
-            SendingOTP sendingOTP = new SendingOTP(email);
-            Thread thread = new Thread(sendingOTP);
-            thread.start();
-            System.out.println(Thread.currentThread().getName() + "MAIN");
-            Parent root = FXMLLoader.load(getClass().getResource("OnlyOTP.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            SignUpOTP signUpOTP = new SignUpOTP(username,student_name,password,student_id,student_number,guardian_number,email);
+            LoginDatabase loginDatabase = new LoginDatabase(username,student_name,password,student_id,student_number,guardian_number,email,0);
+            emails = loginDatabase.get_all_emails();
+            if(is_duplicate_email(emails)) {
+                SendingOTP sendingOTP = new SendingOTP(email);
+                Thread thread = new Thread(sendingOTP);
+                thread.start();
+                Parent root = FXMLLoader.load(getClass().getResource("OnlyOTP.fxml"));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                loginDatabase.Login_Information_connection();
+            }
+            else{
+                System.out.println("Email Already exists");
+            }
 
         }
 
@@ -309,6 +330,27 @@ public class LoginAndSignUpController implements Initializable{
 
 
         }
+
+        Boolean is_duplicate_email(ArrayList<String> emails){
+            for(String element : emails){
+                if(element.equals(null))
+                    continue;
+                if(element.equals(email))
+                    return false;
+            }
+            System.out.println("Failed");
+            return true;
+        }
+
+        public String get_username(){
+            return username;
+        }
+
+        public String getEmail(){
+            return this.email;
+        }
+
+
 
 
 

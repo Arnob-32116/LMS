@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.Post">
    <children>
       <HBox prefHeight="301.0" prefWidth="1200.0">
          <children>
@@ -15,16 +15,16 @@
                <children>
                   <HBox prefHeight="42.0" prefWidth="1102.0">
                      <children>
-                        <Label prefHeight="51.0" prefWidth="266.0" text="Name" />
-                        <Label prefHeight="42.0" prefWidth="153.0" text="Tag">
+                        <Label fx:id="username_lable" prefHeight="51.0" prefWidth="266.0" text="Name" />
+                        <Label fx:id="tag_lable" prefHeight="42.0" prefWidth="153.0" text="Tag">
                            <HBox.margin>
                               <Insets left="400.0" />
                            </HBox.margin>
                         </Label>
-                        <Label prefHeight="42.0" prefWidth="160.0" text="Date" />
+                        <Label fx:id="date_lable" prefHeight="42.0" prefWidth="160.0" text="Date" />
                      </children>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SHOW TEXT HERE " wrappingWidth="936.7294921875">
+                  <Text fx:id="post_text_text" strokeType="OUTSIDE" strokeWidth="0.0" text="SHOW TEXT HERE " wrappingWidth="936.7294921875">
                      <VBox.margin>
                         <Insets left="25.0" top="15.0" />
                      </VBox.margin>

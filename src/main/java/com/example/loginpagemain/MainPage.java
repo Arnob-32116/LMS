@@ -42,10 +42,14 @@ public class MainPage implements Initializable {
     SplitMenuButton Running_courses_splitmenu;
     @FXML
     ScrollPane newsfeed_scrollpane;
+    @FXML
+    TextArea status_text_area;
+    @FXML
+    Label username_lable_mainpage,studentid_lable_mainpage;
 
     public ArrayList<VBox> vBoxes = new ArrayList<>();
     private Stack<MenuItem> runningcourseitems = new Stack<>();
-
+    static String status="";
     @Override
     public void initialize(URL location, ResourceBundle resources){
         vBoxes.add(newsfeed_vbox);
@@ -55,8 +59,10 @@ public class MainPage implements Initializable {
         vbox_change_colors(newsfeed_vbox);
         tag_box.setPromptText("Choose Tag");
         date_box.setPromptText("Choose Date");
+        setusernameinpage();
+        setuseridinpage();
         try {
-            getposts();
+            //getposts();
 
         }
         catch(Exception e){
@@ -201,43 +207,45 @@ public class MainPage implements Initializable {
     }
 
 
-    @FXML
-    public void getposts() throws Exception {
-        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-        VBox parent = new VBox();
-       // parent.setSpacing(20); // Set spacing between VBox elements
-        for (int i = 0; i < 1; i++) {
-            // Create a new VBox instance for each post
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-            VBox vbox = fxmlLoader.load();
-            parent.getChildren().add(vbox);
-            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("post.fxml"));
-            VBox vbox2 = fxmlLoader2.load();
-            parent.getChildren().add(vbox2);
-
-            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("post.fxml"));
-            VBox vbox3 = fxmlLoader3.load();
-            parent.getChildren().add(vbox3);
-
-            FXMLLoader fxmlLoader4 = new FXMLLoader(getClass().getResource("post.fxml"));
-            VBox vbox4 = fxmlLoader4.load();
-            parent.getChildren().add(vbox4);
-
-
-            FXMLLoader fxmlLoader5 = new FXMLLoader(getClass().getResource("post.fxml"));
-            VBox vbox5 = fxmlLoader5.load();
-            parent.getChildren().add(vbox5);
-
-
-            FXMLLoader fxmlLoader6 = new FXMLLoader(getClass().getResource("post.fxml"));
-            VBox vbox6 = fxmlLoader6.load();
-            parent.getChildren().add(vbox6);
-
-            System.out.println("TEST Scrollll");
-        }
-
-        newsfeed_scrollpane.setContent(parent);
-    }
+//    @FXML
+//    public void getposts() throws Exception {
+//        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+//        VBox parent = new VBox();
+//       // parent.setSpacing(20); // Set spacing between VBox elements
+//        for (int i = 0; i < 1; i++) {
+//            // Create a new VBox instance for each post
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+//            VBox vbox = fxmlLoader.load();
+//            Label label = new Label("HI My name is ");
+//            vbox.getChildren().addAll(label);
+//            parent.getChildren().add(vbox);
+//            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("post.fxml"));
+//            VBox vbox2 = fxmlLoader2.load();
+//            parent.getChildren().add(vbox2);
+//
+//            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("post.fxml"));
+//            VBox vbox3 = fxmlLoader3.load();
+//            parent.getChildren().add(vbox3);
+//
+//            FXMLLoader fxmlLoader4 = new FXMLLoader(getClass().getResource("post.fxml"));
+//            VBox vbox4 = fxmlLoader4.load();
+//            parent.getChildren().add(vbox4);
+//
+//
+//            FXMLLoader fxmlLoader5 = new FXMLLoader(getClass().getResource("post.fxml"));
+//            VBox vbox5 = fxmlLoader5.load();
+//            parent.getChildren().add(vbox5);
+//
+//
+//            FXMLLoader fxmlLoader6 = new FXMLLoader(getClass().getResource("post.fxml"));
+//            VBox vbox6 = fxmlLoader6.load();
+//            parent.getChildren().add(vbox6);
+//
+//            System.out.println("TEST Scrollll");
+//        }
+//
+//        newsfeed_scrollpane.setContent(parent);
+//    }
 
     @FXML
     public void add_section_selection(ActionEvent event) throws Exception{
@@ -282,9 +290,34 @@ public class MainPage implements Initializable {
         section_selection_vbox.getChildren().addAll(hbox,hbox2);
     }
 
+    @FXML
+    public void update_status(ActionEvent event) throws Exception{
+        String username , status , date , tag ;
+        LoginDatabase loginDatabase = new LoginDatabase();
+        status = status_text_area.getText();
+        username = loginDatabase.getUsername();
+        StatusDatabase statusDatabase = new StatusDatabase(status,"date", "tag" , username);
+        statusDatabase.status_information_connection();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+        VBox vbox = fxmlLoader.load();
+        System.out.println("TEST");
+        newsfeed_scrollpane.setContent(vbox);
+    }
+
+    public void setusernameinpage(){
+        LoginDatabase loginDatabase = new LoginDatabase();
+        username_lable_mainpage.setText(loginDatabase.getUsername());
+    }
+
+    public void setuseridinpage(){
+        LoginDatabase loginDatabase = new LoginDatabase();
+        studentid_lable_mainpage.setText(loginDatabase.getStudent_ID());
+    }
 
 
-
+    public String get_status_text(){
+        return status_text_area.getText();
+    }
 
 
 

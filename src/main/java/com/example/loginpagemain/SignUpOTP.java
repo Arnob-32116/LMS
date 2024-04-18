@@ -32,21 +32,12 @@ public class SignUpOTP extends OTP implements Initializable{
     @FXML
     private Pane Only_OTP_Pane,Incorrect_OTP_pane;
 
-    String username,student_name,password,student_id,student_number,guardian_number,email;
 
     @FXML
     private ComboBox<String> combobox ;
 
 
-    SignUpOTP( String username,String student_name,String password,String student_id,String student_number,String guardian_number,String email){
-        this.username = username;
-        this.password = password;
-        this.student_id = student_id;
-        this.student_name = student_name;
-        this.student_number = student_number;
-        this.guardian_number = guardian_number;
-        this.email = email;
-    }
+
 
 
 
