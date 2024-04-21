@@ -49,7 +49,7 @@ public class MainPage implements Initializable {
 
     public ArrayList<VBox> vBoxes = new ArrayList<>();
     private Stack<MenuItem> runningcourseitems = new Stack<>();
-    static String status="";
+    static String status="",status_username="",post_date="",post_tag="";
     @Override
     public void initialize(URL location, ResourceBundle resources){
         vBoxes.add(newsfeed_vbox);
@@ -62,7 +62,7 @@ public class MainPage implements Initializable {
         setusernameinpage();
         setuseridinpage();
         try {
-            //getposts();
+            getposts();
 
         }
         catch(Exception e){
@@ -207,45 +207,23 @@ public class MainPage implements Initializable {
     }
 
 
-//    @FXML
-//    public void getposts() throws Exception {
-//        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-//        VBox parent = new VBox();
-//       // parent.setSpacing(20); // Set spacing between VBox elements
-//        for (int i = 0; i < 1; i++) {
-//            // Create a new VBox instance for each post
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-//            VBox vbox = fxmlLoader.load();
-//            Label label = new Label("HI My name is ");
-//            vbox.getChildren().addAll(label);
-//            parent.getChildren().add(vbox);
-//            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("post.fxml"));
-//            VBox vbox2 = fxmlLoader2.load();
-//            parent.getChildren().add(vbox2);
-//
-//            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("post.fxml"));
-//            VBox vbox3 = fxmlLoader3.load();
-//            parent.getChildren().add(vbox3);
-//
-//            FXMLLoader fxmlLoader4 = new FXMLLoader(getClass().getResource("post.fxml"));
-//            VBox vbox4 = fxmlLoader4.load();
-//            parent.getChildren().add(vbox4);
-//
-//
-//            FXMLLoader fxmlLoader5 = new FXMLLoader(getClass().getResource("post.fxml"));
-//            VBox vbox5 = fxmlLoader5.load();
-//            parent.getChildren().add(vbox5);
-//
-//
-//            FXMLLoader fxmlLoader6 = new FXMLLoader(getClass().getResource("post.fxml"));
-//            VBox vbox6 = fxmlLoader6.load();
-//            parent.getChildren().add(vbox6);
-//
-//            System.out.println("TEST Scrollll");
-//        }
-//
-//        newsfeed_scrollpane.setContent(parent);
-//    }
+    @FXML
+    public void getposts() throws Exception {
+        VBox parent = new VBox();
+        ArrayList<ArrayList<String>> info = new ArrayList<>();
+        StatusDatabase statusDatabase = new StatusDatabase();
+        info = statusDatabase.get_status_infromation();
+        for(ArrayList<String> rows : info){
+            status_username = rows.get(0);
+            status = rows.get(1);
+            post_tag = rows.get(2);
+            post_date = rows.get(4);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+            VBox vbox = fxmlLoader.load();
+            parent.getChildren().add(vbox);
+        }
+        newsfeed_scrollpane.setContent(parent);
+    }
 
     @FXML
     public void add_section_selection(ActionEvent event) throws Exception{
@@ -292,16 +270,17 @@ public class MainPage implements Initializable {
 
     @FXML
     public void update_status(ActionEvent event) throws Exception{
-        String username , status , date , tag ;
+        String username , date , tag ;
         LoginDatabase loginDatabase = new LoginDatabase();
         status = status_text_area.getText();
         username = loginDatabase.getUsername();
         StatusDatabase statusDatabase = new StatusDatabase(status,"date", "tag" , username);
         statusDatabase.status_information_connection();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-        VBox vbox = fxmlLoader.load();
-        System.out.println("TEST");
-        newsfeed_scrollpane.setContent(vbox);
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+//        VBox vbox = fxmlLoader.load();
+//        System.out.println("TEST");
+//        newsfeed_scrollpane.setContent(vbox);
+        status_text_area.setText("");
     }
 
     public void setusernameinpage(){
@@ -314,9 +293,14 @@ public class MainPage implements Initializable {
         studentid_lable_mainpage.setText(loginDatabase.getStudent_ID());
     }
 
-
     public String get_status_text(){
         return status_text_area.getText();
+    }
+
+
+    @FXML
+    public void reload_posts(ActionEvent event) throws Exception{
+        getposts();
     }
 
 

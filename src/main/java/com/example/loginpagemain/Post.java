@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Post extends MainPage implements Initializable{
+public class Post implements Initializable{
     @FXML
     Label username_lable,tag_lable,date_lable;
     @FXML
@@ -16,9 +16,9 @@ public class Post extends MainPage implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoginDatabase loginDatabase = new LoginDatabase();
-        username_lable.setText(loginDatabase.getUsername());
-        post_text_text.setText(status_text_area.getText());
-        tag_lable.setText("tag");
-        date_lable.setText("date");
+        username_lable.setText(MainPage.status_username);
+        post_text_text.setText(MainPage.status);
+        tag_lable.setText(MainPage.post_tag);
+        date_lable.setText(MainPage.post_date);
     }
 }
