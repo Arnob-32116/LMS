@@ -108,7 +108,7 @@ public class LoginDatabase {
         ArrayList<Pair<String,String>> login_info = new ArrayList<Pair<String,String>>();
         ArrayList<String> emails = new ArrayList<String>();
         ArrayList<String>passwords = new ArrayList<String>();
-        String get_password_command = "SELECT Password FROM Student_Login_Informations";
+       // String get_password_command = "SELECT Password FROM Student_Login_Informations";
         emails = get_all_emails();
         passwords = get_all_passwords();
 
@@ -166,4 +166,80 @@ public class LoginDatabase {
         }
         return temp_ID;
     }
+
+    ArrayList<String> get_all_student_name() {
+        ArrayList<String> all_student_name = new ArrayList<String>();
+        String get_string_command = "SELECT Name FROM Student_Login_Informations";
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery(get_string_command);
+            while (resultSet.next()){
+                all_student_name.add(resultSet.getString(1));
+                //  System.out.println(resultSet.getString(1));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return all_student_name;
+    }
+
+    ArrayList<String> get_all_student_ID() {
+        ArrayList<String> all_student_id = new ArrayList<String>();
+        String get_string_command = "SELECT ID FROM Student_Login_Informations";
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery(get_string_command);
+            while (resultSet.next()){
+                all_student_id.add(resultSet.getString(1));
+                //  System.out.println(resultSet.getString(1));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return all_student_id;
+    }
+
+    ArrayList<String> get_all_acess_level() {
+        ArrayList<String> all_acess_level = new ArrayList<String>();
+        String get_string_command = "SELECT Acess_Level FROM Student_Login_Informations";
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery(get_string_command);
+            while (resultSet.next()){
+                all_acess_level.add(resultSet.getString(1));
+                //  System.out.println(resultSet.getString(1));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return all_acess_level;
+    }
+
+
+
+
 }

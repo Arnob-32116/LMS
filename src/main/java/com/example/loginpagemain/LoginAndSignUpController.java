@@ -55,9 +55,20 @@ public class LoginAndSignUpController implements Initializable{
             String loginemail,loginpassword;
             loginemail = signin_email_txt_field.getText();
             loginpassword = signin_password_txt_field.getText();
+            String dummy = loginpassword;
             Hash hash = new Hash(loginpassword);
             loginpassword = hash.HashFunction();
-            if(correct_email_check(signin_email_txt_field.getText()) && check_login_credentials(loginDatabase.get_all_login_info(),loginemail,loginpassword)){
+            if(loginemail.equals("admin@gmail.com") && dummy.equals("admin"))
+            {
+                Parent root = FXMLLoader.load(getClass().getResource("AdminPanel.fxml"));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                new FadeInRight(root).play();
+
+            }
+            else if(correct_email_check(signin_email_txt_field.getText()) && check_login_credentials(loginDatabase.get_all_login_info(),loginemail,loginpassword)){
                 Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);

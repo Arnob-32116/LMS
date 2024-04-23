@@ -238,12 +238,12 @@
                                           <VBox prefHeight="319.0" prefWidth="494.0">
                                              <children>
                                                 <LineChart fx:id="alltime_exam_result_graph" legendVisible="false" title="ALL EXAM RESULT">
-                                                  <xAxis>
-                                                    <CategoryAxis side="BOTTOM" />
-                                                  </xAxis>
-                                                  <yAxis>
-                                                    <NumberAxis side="LEFT" />
-                                                  </yAxis>
+                                                   <xAxis>
+                                                      <CategoryAxis side="BOTTOM" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis side="LEFT" />
+                                                   </yAxis>
                                                 </LineChart>
                                              </children>
                                           </VBox>
@@ -253,12 +253,12 @@
                                              </HBox.margin>
                                              <children>
                                                 <LineChart fx:id="last_five_exam_result_graph" legendVisible="false" title="LAST FIVE EXAMS">
-                                                  <xAxis>
-                                                    <CategoryAxis side="BOTTOM" />
-                                                  </xAxis>
-                                                  <yAxis>
-                                                    <NumberAxis side="LEFT" />
-                                                  </yAxis>
+                                                   <xAxis>
+                                                      <CategoryAxis side="BOTTOM" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis side="LEFT" />
+                                                   </yAxis>
                                                 </LineChart>
                                              </children>
                                           </VBox>
@@ -270,60 +270,7 @@
                         </StackPane>
                      </children>
                   </Pane>
-                  <Pane fx:id="section_pane" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <HBox layoutX="-1.0" prefHeight="649.0" prefWidth="1225.0">
-                           <children>
-                              <VBox prefHeight="649.0" prefWidth="190.0">
-                                 <children>
-                                    <Button fx:id="section_selection_button" mnemonicParsing="false" onAction="#add_section_selection" prefHeight="93.0" prefWidth="195.0" text="Section Selection" />
-                                    <Button mnemonicParsing="false" prefHeight="93.0" prefWidth="195.0" text="Previous History" />
-                                    <SplitMenuButton fx:id="Running_courses_splitmenu" mnemonicParsing="false" prefHeight="60.0" prefWidth="190.0" text="Running Courses" />
-                                 </children>
-                              </VBox>
-                              <VBox fx:id="section_selection_vbox" prefHeight="649.0" prefWidth="700.0" />
-                              <VBox prefHeight="649.0" prefWidth="466.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <children>
-                                    <HBox prefHeight="336.0" prefWidth="536.0">
-                                       <children>
-                                          <VBox prefHeight="336.0" prefWidth="281.0">
-                                             <children>
-                                                <PieChart fx:id="assignment_pie" legendVisible="false" title="Assignments Pending" VBox.vgrow="ALWAYS">
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </PieChart>
-                                             </children>
-                                          </VBox>
-                                          <VBox prefHeight="336.0" prefWidth="281.0">
-                                             <children>
-                                                <PieChart fx:id="credit_pie" legendVisible="false" title="Credit Completed" VBox.vgrow="ALWAYS" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <VBox prefHeight="289.0" prefWidth="536.0">
-                                       <children>
-                                          <LineChart fx:id="cgpa_graph" legendVisible="false" title="CGPA GRAPH" titleSide="BOTTOM">
-                                            <xAxis>
-                                              <CategoryAxis side="BOTTOM" />
-                                            </xAxis>
-                                            <yAxis>
-                                              <NumberAxis side="LEFT" />
-                                            </yAxis>
-                                          </LineChart>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="newsfeed_pane">
+                  <Pane fx:id="newsfeed_pane" visible="false">
                      <children>
                         <HBox layoutY="-5.0" prefHeight="153.0" prefWidth="1223.0" style="-fx-background-color: #FFFFFF;">
                            <children>
@@ -481,6 +428,66 @@
                            </children>
                         </HBox>
                         <ScrollPane fx:id="newsfeed_scrollpane" layoutX="-1.0" layoutY="149.0" prefHeight="500.0" prefWidth="1222.0" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="section_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="-1.0" prefHeight="649.0" prefWidth="1225.0">
+                           <children>
+                              <VBox prefHeight="649.0" prefWidth="190.0">
+                                 <children>
+                                    <Button fx:id="section_selection_button" mnemonicParsing="false" onAction="#add_section_selection" prefHeight="93.0" prefWidth="195.0" text="Section Selection" />
+                                    <Button fx:id="section_selection_button" mnemonicParsing="false" prefHeight="93.0" prefWidth="195.0" text="Previous History" />
+                                    <SplitMenuButton fx:id="Running_courses_splitmenu" mnemonicParsing="false" prefHeight="60.0" prefWidth="190.0" text="Running Courses" />
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="section_selection_vbox" prefHeight="649.0" prefWidth="700.0">
+                                 <children>
+                                    <ScrollPane fx:id="section_selection_scrollpane" prefHeight="651.0" prefWidth="656.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                      </content>
+                                    </ScrollPane>
+                                 </children></VBox>
+                              <VBox prefHeight="649.0" prefWidth="466.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <children>
+                                    <HBox prefHeight="336.0" prefWidth="536.0">
+                                       <children>
+                                          <VBox prefHeight="336.0" prefWidth="281.0">
+                                             <children>
+                                                <PieChart fx:id="assignment_pie" legendVisible="false" title="Assignments Pending" VBox.vgrow="ALWAYS">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </PieChart>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="336.0" prefWidth="281.0">
+                                             <children>
+                                                <PieChart fx:id="credit_pie" legendVisible="false" title="Credit Completed" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <VBox prefHeight="289.0" prefWidth="536.0">
+                                       <children>
+                                          <LineChart fx:id="cgpa_graph" legendVisible="false" title="CGPA GRAPH" titleSide="BOTTOM">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </LineChart>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
                   </Pane>
                </children>

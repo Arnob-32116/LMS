@@ -19,7 +19,6 @@ public class HelloApplication extends Application {
         stage.setTitle("UIU LMS");
         stage.setScene(scene);
         stage.show();
-       // HelloApplication.send_email();
     }
 
     public static void main(String[] args) {
