@@ -114,7 +114,7 @@
                   <VBox fx:id="newsfeed_vbox" prefHeight="130.0" prefWidth="138.0" />
                   <VBox fx:id="message_vbox" prefHeight="130.0" prefWidth="138.0">
                      <children>
-                        <Button fx:id="admin_section_button" contentDisplay="TOP" mnemonicParsing="false" prefHeight="115.0" prefWidth="139.0" style="-fx-background-color: #EC650B;" text="Section">
+                        <Button fx:id="admin_section_button" contentDisplay="TOP" mnemonicParsing="false" onAction="#switch_to_section" prefHeight="115.0" prefWidth="139.0" style="-fx-background-color: #EC650B;" text="Section">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -133,7 +133,7 @@
                   </VBox>
                   <VBox fx:id="section_vbox" prefHeight="130.0" prefWidth="138.0">
                      <children>
-                        <Button fx:id="admin_createuser_button" contentDisplay="TOP" mnemonicParsing="false" prefHeight="115.0" prefWidth="145.0" style="-fx-background-color: #EC650B;" text="Create User">
+                        <Button fx:id="admin_createuser_button" contentDisplay="TOP" mnemonicParsing="false" onAction="#switch_to_createuser" prefHeight="115.0" prefWidth="145.0" style="-fx-background-color: #EC650B;" text="Create User">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -160,7 +160,7 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <Pane fx:id="admin_createuser_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <VBox layoutX="1.0" prefHeight="648.0" prefWidth="1222.0">
                            <children>
@@ -303,7 +303,15 @@
                               <VBox prefHeight="650.0" prefWidth="844.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="37.0" prefWidth="611.0" text="Courses Available" textAlignment="JUSTIFY" />
-                                    <ScrollPane fx:id="available_Courses_scrollpane" prefHeight="604.0" prefWidth="818.0">
+                                    <Button fx:id="admin_section_submit" mnemonicParsing="false" onAction="#add_selected_courses_to_database" prefHeight="41.0" prefWidth="97.0" text="SUBMIT">
+                                       <VBox.margin>
+                                          <Insets left="700.0" top="10.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <ScrollPane fx:id="available_Courses_scrollpane" prefHeight="599.0" prefWidth="726.0">
                                        <VBox.margin>
                                           <Insets left="20.0" top="20.0" />
                                        </VBox.margin>

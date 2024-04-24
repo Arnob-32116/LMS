@@ -16,6 +16,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        scene.getStylesheets().add(getClass().getResource("MainPage.css").toExternalForm());
         stage.setTitle("UIU LMS");
         stage.setScene(scene);
         stage.show();

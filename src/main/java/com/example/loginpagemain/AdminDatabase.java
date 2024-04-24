@@ -120,4 +120,30 @@ public class AdminDatabase {
         return course_title;
     }
 
+
+    void insert_admin_course_selection(ArrayList<String>student_id_selected , ArrayList<String> course_selected) {
+        System.out.println("DONE DONE DONE");
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            for(int i = 0 ; i < student_id_selected.size() ; i++){
+                for(int j = 0 ; j < course_selected.size() ; j++) {
+                    String insertQuery = "UPDATE Student_Course_Selection SET " +course_selected.get(j)+" ='Current' WHERE Student_ID= '"+student_id_selected.get(i)+"'";
+                    System.out.println(insertQuery);
+                    Statement statement = connection.createStatement();
+                    statement.execute(insertQuery);
+                }
+            }
+            connection.close();
+            System.out.println("Conncetion done");
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+    }
+
 }
