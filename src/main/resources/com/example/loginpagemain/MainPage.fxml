@@ -436,18 +436,44 @@
                            <children>
                               <VBox prefHeight="649.0" prefWidth="190.0">
                                  <children>
-                                    <Button fx:id="section_selection_button" mnemonicParsing="false" onAction="#add_section_selection" prefHeight="93.0" prefWidth="195.0" text="Section Selection" />
-                                    <Button fx:id="section_selection_button" mnemonicParsing="false" prefHeight="93.0" prefWidth="195.0" text="Previous History" />
-                                    <SplitMenuButton fx:id="Running_courses_splitmenu" mnemonicParsing="false" prefHeight="60.0" prefWidth="190.0" text="Running Courses" />
+                                    <VBox prefHeight="95.0" prefWidth="146.0">
+                                       <children>
+                                          <Button fx:id="section_selection_button" mnemonicParsing="false" onAction="#add_section_selection" prefHeight="79.0" prefWidth="146.0" text="Section Selection">
+                                             <VBox.margin>
+                                                <Insets top="6.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="90.0" prefWidth="146.0">
+                                       <children>
+                                          <Button fx:id="section_selection_button" mnemonicParsing="false" prefHeight="76.0" prefWidth="146.0" text="Previous History">
+                                             <VBox.margin>
+                                                <Insets top="6.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="71.0" prefWidth="146.0">
+                                       <children>
+                                          <SplitMenuButton fx:id="Running_courses_splitmenu" mnemonicParsing="false" prefHeight="60.0" prefWidth="190.0" text="Running Courses">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </SplitMenuButton>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </VBox>
                                  </children>
                               </VBox>
                               <VBox fx:id="section_selection_vbox" prefHeight="649.0" prefWidth="700.0">
                                  <children>
-                                    <ScrollPane fx:id="section_selection_scrollpane" prefHeight="651.0" prefWidth="656.0">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                                      </content>
-                                    </ScrollPane>
+                                    <ScrollPane fx:id="section_selection_scrollpane" prefHeight="651.0" prefWidth="656.0" />
                                  </children></VBox>
                               <VBox prefHeight="649.0" prefWidth="466.0">
                                  <HBox.margin>

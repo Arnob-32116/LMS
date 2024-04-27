@@ -25,6 +25,8 @@ public class AdminController implements Initializable {
     ScrollPane available_Courses_scrollpane , student_id_scrollpane;
     @FXML
     TextField search_student_id_textfield;
+    @FXML
+    VBox admin_section_vbox , admin_createuser_vbox;
     public  static String credit , course_code, course_name , static_student_id , static_student_name;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,6 +37,8 @@ public class AdminController implements Initializable {
             admin_section_pane.setVisible(true);
             admin_createuser_pane.toBack();
             admin_createuser_pane.setVisible(false);
+            admin_section_vbox.setStyle("-fx-background-color: black");
+            admin_createuser_vbox.setStyle("-fx-background-color: #EC650B");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -210,14 +214,19 @@ public class AdminController implements Initializable {
     public void switch_to_section(ActionEvent event){
         admin_section_pane.toFront();
         admin_section_pane.setVisible(true);
+        admin_section_vbox.setStyle("-fx-background-color: black");
+        admin_createuser_vbox.setStyle("-fx-background-color: #EC650B");
         admin_createuser_pane.toBack();
         admin_createuser_pane.setVisible(false);
+
     }
 
     @FXML
     public void switch_to_createuser (ActionEvent event){
         admin_createuser_pane.toFront();
         admin_createuser_pane.setVisible(true);
+        admin_createuser_vbox.setStyle("-fx-background-color: black");
+        admin_section_vbox.setStyle("-fx-background-color: #EC650B");
         admin_section_pane.toBack();
         admin_section_pane.setVisible(false);
     }

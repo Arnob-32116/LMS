@@ -65,31 +65,96 @@ public class AdminDatabase {
         return course_credit;
     }
 
-    ArrayList<String> get_course_done_by_student(){
-        ArrayList<String> course_done = new ArrayList<String>();
+    ArrayList<String> get_current_course_by_student(String Student_id){
+        ArrayList<String> current_course = new ArrayList<String>();
+        ArrayList<String> course_titles_list = new ArrayList<String>();
+        ArrayList<String> courses_given_list = new ArrayList<String>();
         Connection connection = null;
-
         try {
             // below two lines are used for connectivity.
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/myDB",
                     "Arnob", "password_3306");
-            String insertQuery = "Select * from Student_Course_Selection where Student_Id="+Student_Id;
+            String insertQuery1 = "SELECT COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE\n" +
+                    "FROM INFORMATION_SCHEMA.COLUMNS\n" +
+                    "WHERE TABLE_NAME = 'Student_Course_Selection'\n" +
+                    "ORDER BY 2;\n";
+            String insertQuery = "Select * from Student_Course_Selection where Student_Id="+Student_id;
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(insertQuery);
             while (resultSet.next()){
                 for(int i = 2 ; i < 19 ; i++) {
-                    course_done.add(resultSet.getString(i));
+                        current_course.add(resultSet.getString(i));
                 }
             }
+
+            resultSet = statement.executeQuery(insertQuery1);
+
+            while (resultSet.next()){
+                course_titles_list.add(resultSet.getString(1));
+            }
             connection.close();
-            System.out.println("Conncetion done");
         } catch (Exception exception) {
             //System.out.println("AR");
             System.out.println(exception);
         }
-        return course_done;
+
+        for(int i = 0 , j = 1 ; i<current_course.size() ; i++, j++ ){
+            if(current_course.get(i) == null)
+                continue;
+            if(current_course.get(i).equals("Current")){
+                courses_given_list.add(course_titles_list.get(j));
+            }
+        }
+
+        return courses_given_list;
+    }
+
+
+    ArrayList<Integer> get_index_undone_course_by_student(String Student_id){
+        ArrayList<String> current_course = new ArrayList<String>();
+        ArrayList<String> course_titles_list = new ArrayList<String>();
+        ArrayList<Integer> courses_given_index = new ArrayList<Integer>();
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            String insertQuery1 = "SELECT COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE\n" +
+                    "FROM INFORMATION_SCHEMA.COLUMNS\n" +
+                    "WHERE TABLE_NAME = 'Student_Course_Selection'\n" +
+                    "ORDER BY 2;\n";
+            String insertQuery = "Select * from Student_Course_Selection where Student_Id="+Student_id;
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(insertQuery);
+            while (resultSet.next()){
+                for(int i = 2 ; i <= 19 ; i++) {
+                    current_course.add(resultSet.getString(i));
+                }
+            }
+
+            resultSet = statement.executeQuery(insertQuery1);
+
+            while (resultSet.next()){
+                course_titles_list.add(resultSet.getString(1));
+            }
+            connection.close();
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+
+        for(int i = 0 , j = 1 ; i< current_course.size() ; i++, j++ ){
+            System.out.println(current_course.get(i));
+            if(current_course.get(i) == null){
+                courses_given_index.add(i);
+            }
+        }
+
+        return courses_given_index;
     }
 
     ArrayList<String> get_course_title(){

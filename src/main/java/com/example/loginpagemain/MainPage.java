@@ -41,7 +41,7 @@ public class MainPage implements Initializable {
     @FXML
     SplitMenuButton Running_courses_splitmenu;
     @FXML
-    ScrollPane newsfeed_scrollpane;
+    ScrollPane newsfeed_scrollpane , section_selection_scrollpane ;
     @FXML
     TextArea status_text_area;
     @FXML
@@ -198,11 +198,19 @@ public class MainPage implements Initializable {
 
     @FXML
     public void setRunning_courses_splitmenu(){
-        MenuItem choice1 = new MenuItem("CSE 1115");
-        MenuItem choice2 = new MenuItem("CSE 1116");
-        MenuItem choice3 = new MenuItem("BDS 1201");
+        ArrayList<String> current_courses = new ArrayList<String>();
+        AdminDatabase adminDatabase = new AdminDatabase();
+        String id = studentid_lable_mainpage.getText();
+        current_courses = adminDatabase.get_current_course_by_student(id);
+        ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+        for(int i = 0 ; i < current_courses.size() ; i++){
+            MenuItem menuItem = new MenuItem(current_courses.get(i));
+            menuItems.add(menuItem);
+        }
+        for(int i = 0 ; i < menuItems.size() ; i++){
+            Running_courses_splitmenu.getItems().add(menuItems.get(i));
 
-        Running_courses_splitmenu.getItems().addAll(choice1, choice2, choice3);
+        }
 
     }
 
@@ -232,40 +240,29 @@ public class MainPage implements Initializable {
 
     @FXML
     public void getsectionlist() throws Exception {
-        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-
-        // parent.setSpacing(20); // Set spacing between VBox elements
-
-            // Create a new VBox instance for each post
+        ArrayList<Integer> undone_courses_index = new ArrayList<Integer>();
+        ArrayList<String> not_done_courses_title = new ArrayList<String>();
+        ArrayList<String> not_done_courses_credit = new ArrayList<String>();
+        ArrayList<String> not_done_courses_name = new ArrayList<String>();
+        AdminDatabase adminDatabase = new AdminDatabase();
+        String id = studentid_lable_mainpage.getText();
+        undone_courses_index = adminDatabase.get_index_undone_course_by_student(id);
+        not_done_courses_title =get_undone_courses_title(undone_courses_index);
+        not_done_courses_name = get_undone_courses_name(undone_courses_index);
+        not_done_courses_credit = get_undone_courses_credit(undone_courses_index);
+        VBox parent = new VBox();
+        for(int i = 0 ; i < Math.min(5,not_done_courses_title.size())   ; i++){
+            AdminController.course_code = not_done_courses_title.get(i);
+            AdminController.course_name = not_done_courses_name.get(i);
+            AdminController.credit = not_done_courses_credit.get(i);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("section.fxml"));
-            HBox hbox = fxmlLoader.load();
-            //parent.getChildren().add(hbox);
-            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("section.fxml"));
-            HBox hbox2 = fxmlLoader2.load();
-            //parent.getChildren().add(hbox2);
+            HBox hBox = fxmlLoader.load();
+            parent.getChildren().add(hBox);
+            System.out.println(not_done_courses_title.get(i) + " " + not_done_courses_name.get(i) + " " + not_done_courses_credit.get(i));
+        }
 
-            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("section.fxml"));
-            HBox hbox3 = fxmlLoader3.load();
-            //parent.getChildren().add(hbox3);
+        section_selection_scrollpane.setContent(parent);
 
-            FXMLLoader fxmlLoader4 = new FXMLLoader(getClass().getResource("section.fxml"));
-            HBox hbox4 = fxmlLoader4.load();
-            //parent.getChildren().add(hbox4);
-
-
-            FXMLLoader fxmlLoader5 = new FXMLLoader(getClass().getResource("section.fxml"));
-            HBox hbox5 = fxmlLoader5.load();
-            //parent.getChildren().add(hbox5);
-
-
-            FXMLLoader fxmlLoader6 = new FXMLLoader(getClass().getResource("section.fxml"));
-            HBox hbox6 = fxmlLoader6.load();
-            //parent.getChildren().add(hbox6);
-
-            System.out.println("TEST Scrollll");
-
-
-        section_selection_vbox.getChildren().addAll(hbox,hbox2);
     }
 
     @FXML
@@ -301,6 +298,59 @@ public class MainPage implements Initializable {
     @FXML
     public void reload_posts(ActionEvent event) throws Exception{
         getposts();
+    }
+
+    private ArrayList<String> get_undone_courses_name(ArrayList<Integer> undone_courses_index){
+        ArrayList<String> undone_courses_list = new ArrayList<String>();
+        ArrayList<String> all_courses_name = new ArrayList<String>();
+        AdminDatabase adminDatabase = new AdminDatabase();
+        all_courses_name = adminDatabase.get_course_name();
+        int j = 0 ;
+        for(int i = 1  ; i < all_courses_name.size() ; i++){
+            if(j>=undone_courses_index.size())
+                break;
+            if(i == undone_courses_index.get(j)){
+                j++;
+                undone_courses_list.add(all_courses_name.get(i));
+            }
+        }
+
+        return undone_courses_list;
+    }
+
+    private ArrayList<String> get_undone_courses_title(ArrayList<Integer> undone_courses_index){
+        ArrayList<String> undone_courses_title_list = new ArrayList<String>();
+        ArrayList<String> all_courses_title = new ArrayList<String>();
+        AdminDatabase adminDatabase = new AdminDatabase();
+        all_courses_title = adminDatabase.get_course_title();
+        int j = 0 ;
+        for(int i = 1  ; i < all_courses_title.size() ; i++){
+            if(j>=undone_courses_index.size())
+                break;
+            if(i == undone_courses_index.get(j)+1){
+                j++;
+                undone_courses_title_list.add(all_courses_title.get(i));
+            }
+        }
+        return undone_courses_title_list;
+    }
+
+    private ArrayList<String> get_undone_courses_credit(ArrayList<Integer> undone_courses_index){
+        ArrayList<String> undone_courses_credit_list = new ArrayList<String>();
+        ArrayList<String> all_courses_credit = new ArrayList<String>();
+        AdminDatabase adminDatabase = new AdminDatabase();
+        all_courses_credit = adminDatabase.get_course_credit();
+        int j = 0 ;
+        for(int i = 0  ; i < all_courses_credit.size() ; i++){
+            if(j>=undone_courses_index.size())
+                break;
+            if(i == undone_courses_index.get(j)){
+                j++;
+                undone_courses_credit_list.add(all_courses_credit.get(i));
+            }
+        }
+
+        return undone_courses_credit_list;
     }
 
 

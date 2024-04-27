@@ -239,7 +239,23 @@ public class LoginDatabase {
         return all_acess_level;
     }
 
+    void add_courseinfo_to_signup_user(){
+        String get_string_command = "INSERT INTO Student_Course_Selection (Student_ID) VALUES ('"+student_id+"')";
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            Statement statement = connection.createStatement();
+            statement.execute(get_string_command);
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
 
 
 }

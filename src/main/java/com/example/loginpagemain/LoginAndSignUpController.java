@@ -294,6 +294,7 @@ public class LoginAndSignUpController implements Initializable{
             password = hash.HashFunction();
             LoginDatabase loginDatabase = new LoginDatabase(username,student_name,password,student_id,student_number,guardian_number,email,0);
             emails = loginDatabase.get_all_emails();
+            loginDatabase.add_courseinfo_to_signup_user();
             if(is_duplicate_email(emails)) {
                 SendingOTP sendingOTP = new SendingOTP(email);
                 Thread thread = new Thread(sendingOTP);
