@@ -31,7 +31,7 @@ public class Section implements Initializable {
 
     @FXML
     void when_selected(){
-            section_hbox.setStyle("-fx-border-color: blue ; -fx-border-width: 5px;");
+            section_hbox.setStyle("-fx-border-color: #6CBFCA ; -fx-border-width: 5px;");
             section_remove_btn.setVisible(true);
             section_add_btn.setVisible(false);
     }

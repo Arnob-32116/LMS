@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -22,7 +23,7 @@ public class AdminController implements Initializable {
     @FXML
     Pane admin_section_pane,admin_createuser_pane;
     @FXML
-    ScrollPane available_Courses_scrollpane , student_id_scrollpane;
+    ScrollPane available_Courses_scrollpane , student_id_scrollpane  ;
     @FXML
     TextField search_student_id_textfield;
     @FXML
@@ -231,7 +232,10 @@ public class AdminController implements Initializable {
         admin_section_pane.setVisible(false);
     }
 
+    @FXML
+    void startChatting(ActionEvent event){
 
+    }
 
 
 

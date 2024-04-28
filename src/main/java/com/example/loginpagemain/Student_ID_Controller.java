@@ -25,7 +25,8 @@ public class Student_ID_Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         student_id_lable.setText(AdminController.static_student_id);
         full_name_lable.setText(AdminController.static_student_name);
-        admin_student_id_hbox.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,new BorderWidths(5))));
+        admin_student_id_hbox.setStyle("-fx-border-color: #E1FCFD; -fx-border-width : 5px");
+//      //  admin_student_id_hbox.setBorder(new Border(new BorderStroke(Color.#E1FCFD;,BorderStrokeStyle.SOLID,null,new BorderWidths(5))));
 
     }
 
@@ -33,9 +34,9 @@ public class Student_ID_Controller implements Initializable {
     void get_selected_student() throws Exception{
         number_of_times_clicked++;
         if(number_of_times_clicked%2==1)
-            admin_student_id_hbox.setBorder(new Border(new BorderStroke(Color.BLUE,BorderStrokeStyle.SOLID,null,new BorderWidths(5))));
+            admin_student_id_hbox.setStyle("-fx-border-color: black; -fx-border-width : 5px");
         else
-            admin_student_id_hbox.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,null,new BorderWidths(5))));
+            admin_student_id_hbox.setStyle("-fx-border-color: #E1FCFD; -fx-border-width : 5px");
 
 
     }

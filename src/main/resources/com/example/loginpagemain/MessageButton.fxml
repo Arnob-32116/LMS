@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="message_button_vbox_fxml" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="135.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="message_button_of_Courses" mnemonicParsing="false" prefHeight="121.0" prefWidth="109.0" text="Button">
+         <VBox.margin>
+            <Insets left="14.0" top="15.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

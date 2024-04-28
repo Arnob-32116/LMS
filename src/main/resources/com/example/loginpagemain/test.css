@@ -1,0 +1,20 @@
+.fullname{
+   -fx-background-color: cyan;
+}
+
+.studentid {
+    -fx-background-color: #5AC3B0;
+}
+
+.hbox{
+    -fx-background-color: #E1FCFD;
+}
+
+
+.roundvbox{
+    -fx-padding: 10;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-insets: 5;
+    -fx-border-radius: 5;
+}

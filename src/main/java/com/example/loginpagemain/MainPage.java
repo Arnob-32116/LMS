@@ -16,10 +16,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.Stack;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 
 
@@ -41,12 +47,20 @@ public class MainPage implements Initializable {
     @FXML
     SplitMenuButton Running_courses_splitmenu;
     @FXML
-    ScrollPane newsfeed_scrollpane , section_selection_scrollpane ;
+    ScrollPane newsfeed_scrollpane , section_selection_scrollpane ,  message_scrollpane;;
     @FXML
-    TextArea status_text_area;
+    TextArea status_text_area ;
     @FXML
     Label username_lable_mainpage,studentid_lable_mainpage;
+    @FXML
+    Button send_message_button;
+    @FXML
+    TextField send_message_textfield ;
+    @FXML
+    TextArea chat_text_area;
 
+
+    Client c ;
     public ArrayList<VBox> vBoxes = new ArrayList<>();
     private Stack<MenuItem> runningcourseitems = new Stack<>();
     static String status="",status_username="",post_date="",post_tag="";
@@ -352,6 +366,60 @@ public class MainPage implements Initializable {
 
         return undone_courses_credit_list;
     }
+
+
+
+    @FXML
+    void startChatting(ActionEvent event) throws IOException{
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        if(!Server.isRunning) {
+            executorService.execute(() -> {
+                try {
+                    ServerSocket serverSocket = new ServerSocket(1234);
+                    Server server = new Server(serverSocket);
+                    System.out.println("Test");
+                    server.startServer();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+        }
+        executorService.execute(() -> {
+            try {
+                System.out.println("Enter your Username for the group chat:");
+                String username = username_lable_mainpage.getText();
+                Socket socket = new Socket("localhost", 1234);
+                Client client = new Client(socket, username);
+                c = client;
+                client.listenForMessage();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @FXML
+    void SendMessage() throws IOException{
+
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        System.out.println(c.getUsername());
+            executorService.execute(() -> {
+                try {
+                    c.sendMessage(send_message_textfield.getText());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+
+        chat_text_area.appendText(send_message_textfield.getText());
+     //   System.out.println(send_message_textfield.getText());
+        }
+
+
+
 
 
 

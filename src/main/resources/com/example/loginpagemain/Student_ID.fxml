@@ -3,9 +3,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="admin_student_id_hbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#get_selected_student" prefHeight="50.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.Student_ID_Controller">
+<HBox fx:id="admin_student_id_hbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#get_selected_student" prefHeight="50.0" prefWidth="384.0" styleClass="hbox" stylesheets="@test.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.Student_ID_Controller">
    <children>
-      <Label fx:id="full_name_lable" alignment="CENTER" prefHeight="50.0" prefWidth="190.0" text="Full Name" />
-      <Label fx:id="student_id_lable" alignment="CENTER" prefHeight="50.0" prefWidth="190.0" text="StudentID" />
+      <Label fx:id="full_name_lable" alignment="CENTER" prefHeight="50.0" prefWidth="190.0" styleClass="fullname" stylesheets="@test.css" text="Full Name" />
+      <Label fx:id="student_id_lable" alignment="CENTER" prefHeight="50.0" prefWidth="190.0" styleClass="studentid" stylesheets="@test.css" text="StudentID" />
    </children>
 </HBox>

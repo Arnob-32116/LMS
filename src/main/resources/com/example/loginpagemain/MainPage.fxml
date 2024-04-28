@@ -206,7 +206,6 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="message_pane" prefHeight="200.0" prefWidth="200.0" visible="false" />
                   <Pane fx:id="quiz_pane" prefHeight="648.0" prefWidth="1213.0" visible="false">
                      <StackPane.margin>
                         <Insets />
@@ -270,6 +269,35 @@
                         </StackPane>
                      </children>
                   </Pane>
+                  <Pane fx:id="message_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="message_pane_vbox" layoutX="7.0" layoutY="1.0" prefHeight="647.0" prefWidth="135.0" />
+                        <VBox layoutX="185.0" layoutY="8.0" prefHeight="633.0" prefWidth="1017.0">
+                           <children>
+                              <ScrollPane fx:id="message_show_scrollpane" prefHeight="483.0" prefWidth="997.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                </content>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </ScrollPane>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <TextArea prefHeight="100.0" prefWidth="891.0" />
+                                    <Button fx:id="send_message_button" mnemonicParsing="false" prefHeight="37.0" prefWidth="68.0" text="Button">
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="50.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children></Pane>
                   <Pane fx:id="newsfeed_pane" visible="false">
                      <children>
                         <HBox layoutY="-5.0" prefHeight="153.0" prefWidth="1223.0" style="-fx-background-color: #FFFFFF;">
@@ -430,7 +458,7 @@
                         <ScrollPane fx:id="newsfeed_scrollpane" layoutX="-1.0" layoutY="149.0" prefHeight="500.0" prefWidth="1222.0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="section_pane" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="section_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <HBox layoutX="-1.0" prefHeight="649.0" prefWidth="1225.0">
                            <children>
