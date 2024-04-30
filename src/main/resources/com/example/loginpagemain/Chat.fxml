@@ -13,7 +13,7 @@
       <VBox layoutY="7.0" prefHeight="624.0" prefWidth="1017.0">
          <children>
             <Button fx:id="start_chat_button" mnemonicParsing="false" onAction="#startChatting" text="Button" />
-            <ScrollPane fx:id="message_show_scrollpane" onMouseMoved="#messages" prefHeight="485.0" prefWidth="985.0">
+            <ScrollPane fx:id="message_show_scrollpane" prefHeight="485.0" prefWidth="985.0">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="15.0" />
                </VBox.margin>

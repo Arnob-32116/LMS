@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ChatController implements Initializable {
 
@@ -29,6 +31,7 @@ public class ChatController implements Initializable {
     Button send_message_button;
     @FXML
     ScrollPane message_show_scrollpane;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     int port;
     public void SetPort(int port){
         this.port = port;
@@ -36,28 +39,9 @@ public class ChatController implements Initializable {
     String username ;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        try {
-//            startChatting();
-//        }
-//        catch (Exception e){
-//            System.out.println("Server Already in Use");
-//        }
         this.username = getUsername();
-        Thread backgroundThread = new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(1000); // Adjust the interval as needed
-                } catch (InterruptedException e) {
-                    // Handle interruption (e.g., if the application is closed)
-                    break;
-                }
+        scheduler.scheduleAtFixedRate(this::messages, 0, 1, TimeUnit.SECONDS);
 
-                Platform.runLater(() -> {
-                    // Execute your messages() function here
-                    messages();
-                });
-            }
-        });
     }
 
     String  getUsername(){
@@ -125,6 +109,6 @@ public class ChatController implements Initializable {
         for(int i = 0 ; i < curret_messages.size() ; i++){
             parent.getChildren().add(curret_messages.get(i));
         }
-        message_show_scrollpane.setContent(parent);
+        Platform.runLater(()->message_show_scrollpane.setContent(parent));
     }
 }
