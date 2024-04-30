@@ -2,17 +2,24 @@ package com.example.loginpagemain;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-    private String username;
+    private String message;
+    public static  String username ;
+    public static ArrayList<VBox> current_message = new ArrayList<VBox>();
     public Client(Socket socket, String username) {
         try {
             this.socket = socket;
@@ -43,10 +50,13 @@ public class Client {
                 String msgFromGroupChat;
                 while (socket.isConnected()) {
                     msgFromGroupChat = bufferedReader.readLine();
-                    System.out.println("Receive " + msgFromGroupChat);
+                    System.out.println(msgFromGroupChat);
+                    setMessage(msgFromGroupChat);
                 }
             } catch (IOException exception) {
                 closeEverything(socket, bufferedReader, bufferedWriter);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }).start();
     }
@@ -69,6 +79,33 @@ public class Client {
 
     public String getUsername(){
         return username;
+    }
+
+    public String getMessage(){
+        return message;
+    }
+
+    private void setMessage(String incomingmessage) throws Exception{
+        VBox vBox = new VBox();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageLables.fxml"));
+        VBox vbox = fxmlLoader.load();
+        MessageLableController messageLableController = fxmlLoader.getController();
+        String senderUsername ="" , msg="";
+        int i = 0 ;
+        int count = 0 ;
+        while(i<incomingmessage.length()){
+            if(incomingmessage.charAt(i)==' ')
+                count++;
+            if(count==0)
+            senderUsername+= incomingmessage.charAt(i);
+            else{
+                msg+=incomingmessage.charAt(i);
+            }
+            i++;
+        }
+
+        messageLableController.SetMessageAndUsername(msg,senderUsername);
+        current_message.add(vbox);
     }
 
 //    public static void main(String[] args) throws IOException {

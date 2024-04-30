@@ -11,6 +11,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -35,7 +36,7 @@ public class MainPage implements Initializable {
     @FXML
     Pane newsfeed_pane,section_pane,message_pane,quiz_pane;
     @FXML
-    VBox newsfeed_vbox,section_vbox, quiz_vbox,message_vbox,section_selection_vbox;
+    VBox newsfeed_vbox,section_vbox, quiz_vbox,message_vbox,section_selection_vbox , message_pane_vbox , incoming_message_vbox;
     @FXML
     LineChart<?,?> cgpa_graph,last_five_exam_result_graph,alltime_exam_result_graph;
     @FXML
@@ -47,20 +48,13 @@ public class MainPage implements Initializable {
     @FXML
     SplitMenuButton Running_courses_splitmenu;
     @FXML
-    ScrollPane newsfeed_scrollpane , section_selection_scrollpane ,  message_scrollpane;;
+    ScrollPane newsfeed_scrollpane , section_selection_scrollpane ;
     @FXML
     TextArea status_text_area ;
     @FXML
     Label username_lable_mainpage,studentid_lable_mainpage;
-    @FXML
-    Button send_message_button;
-    @FXML
-    TextField send_message_textfield ;
-    @FXML
-    TextArea chat_text_area;
 
 
-    Client c ;
     public ArrayList<VBox> vBoxes = new ArrayList<>();
     private Stack<MenuItem> runningcourseitems = new Stack<>();
     static String status="",status_username="",post_date="",post_tag="";
@@ -118,13 +112,19 @@ public class MainPage implements Initializable {
 
 
     @FXML
-    public void switch_to_messages(ActionEvent event){
+    public void switch_to_messages(ActionEvent event) throws Exception{
         vbox_change_colors(message_vbox);
         message_pane.setVisible(true);
         message_pane.toFront();
         section_pane.setVisible(false);
         newsfeed_pane.setVisible(false);
         quiz_pane.setVisible(false);
+        AnchorPane anchorPane = new AnchorPane();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
+        anchorPane = fxmlLoader.load();
+        ChatController chatController = fxmlLoader.getController();
+        chatController.SetPort(1234);
+        incoming_message_vbox.getChildren().add(anchorPane);
     }
 
 
@@ -369,54 +369,7 @@ public class MainPage implements Initializable {
 
 
 
-    @FXML
-    void startChatting(ActionEvent event) throws IOException{
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        if(!Server.isRunning) {
-            executorService.execute(() -> {
-                try {
-                    ServerSocket serverSocket = new ServerSocket(1234);
-                    Server server = new Server(serverSocket);
-                    System.out.println("Test");
-                    server.startServer();
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            });
-        }
-        executorService.execute(() -> {
-            try {
-                System.out.println("Enter your Username for the group chat:");
-                String username = username_lable_mainpage.getText();
-                Socket socket = new Socket("localhost", 1234);
-                Client client = new Client(socket, username);
-                c = client;
-                client.listenForMessage();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        });
-    }
 
-    @FXML
-    void SendMessage() throws IOException{
-
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        System.out.println(c.getUsername());
-            executorService.execute(() -> {
-                try {
-                    c.sendMessage(send_message_textfield.getText());
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            });
-
-        chat_text_area.appendText(send_message_textfield.getText());
-     //   System.out.println(send_message_textfield.getText());
-        }
 
 
 

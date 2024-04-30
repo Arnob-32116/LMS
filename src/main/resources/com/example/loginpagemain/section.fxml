@@ -6,23 +6,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="section_hbox" prefHeight="83.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.Section">
+<HBox fx:id="section_hbox" prefHeight="83.0" prefWidth="700.0" styleClass="hbox" stylesheets="@Section.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.Section">
    <children>
-      <Label fx:id="section_course_code_lable" prefHeight="50.0" prefWidth="161.0" text="Course Code" />
-      <Label fx:id="section_course_title_lable" prefHeight="50.0" prefWidth="318.0" text="Course Title" />
-      <VBox prefHeight="83.0" prefWidth="187.0">
+      <Label fx:id="section_course_code_lable" prefHeight="50.0" prefWidth="161.0" styleClass="coursecode" text="Course Code" />
+      <Label fx:id="section_course_title_lable" prefHeight="50.0" prefWidth="318.0" styleClass="coursetitle" text="Course Title" />
+      <VBox prefHeight="83.0" prefWidth="124.0" styleClass="vbox1">
          <children>
             <Button fx:id="section_add_btn" mnemonicParsing="false" onMouseClicked="#when_selected" prefHeight="24.0" prefWidth="83.0" text="Add">
                <VBox.margin>
-                  <Insets left="25.0" top="50.0" />
+                  <Insets left="20.0" top="50.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <VBox prefHeight="83.0" prefWidth="110.0">
+      <VBox prefHeight="83.0" prefWidth="110.0" styleClass="vbox2">
          <children>
             <Label fx:id="section_credit_lable" prefHeight="50.0" prefWidth="94.0" text="  Credit" />
-            <Button fx:id="section_remove_btn" mnemonicParsing="false" onMouseClicked="#when_unselected" prefHeight="24.0" prefWidth="83.0" text="Remove" />
+            <Button fx:id="section_remove_btn" mnemonicParsing="false" onMouseClicked="#when_unselected" prefHeight="24.0" prefWidth="83.0" text="Remove">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
    </children>

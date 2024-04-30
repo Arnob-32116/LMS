@@ -1,0 +1,23 @@
+.vbox{
+   -fx-background-color: #CBE9F6;
+}
+
+.name {
+    -fx-background-color: #769DC1;
+}
+
+.hbox2{
+    -fx-background-color: #C0DEE2;
+}
+.tag{
+    -fx-background-color: #E9F2E9;
+}
+.date{
+    -fx-background-color: #D5E9D6;
+}
+.imageview{
+    -fx-background-color: #D7F0FB;
+}
+.showtext{
+    -fx-background-color: #DDEAF4;
+}
