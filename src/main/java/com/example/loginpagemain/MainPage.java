@@ -144,18 +144,15 @@ public class MainPage implements Initializable {
             anchorPane = fxmlLoader1.load();
             ChatController chatController = fxmlLoader1.getController();
             chatController.SetPort(TitleAndPorts.get(i).getValue());
+            chatController.setLable(TitleAndPorts.get(i).getKey());
             message_buttons_and_panes.add(new Pair<VBox,AnchorPane>(vBox,anchorPane));
         }
 
        message_pane_vbox.getChildren().add(Message_Button_parent);
         //incoming_message_vbox.getChildren().add(anchorPane);
     }
-
-
+    int current_index = -1;
     public void Message_Button_Handeling() {
-
-        if(!incoming_message_vbox.getChildren().isEmpty())
-        incoming_message_vbox.getChildren().clear();
 
             for (int i = 0; i < message_buttons_and_panes.size(); i++) {
                 VBox vBox = message_buttons_and_panes.get(i).getKey();
@@ -163,10 +160,22 @@ public class MainPage implements Initializable {
                     if (node instanceof Button) {
                         Button button = (Button) node;
                         if (button.getText().equals(Current_Button_Message)) {
-                                 System.out.println("Current Button " + Current_Button_Message);
-                                 AnchorPane anchorPane1 = message_buttons_and_panes.get(i).getValue();
-                            Platform.runLater(() -> incoming_message_vbox.getChildren().add(anchorPane1));
-                            }
+                                if(current_index==-1) {
+                                    AnchorPane anchorPane1 = message_buttons_and_panes.get(i).getValue();
+                                    Platform.runLater(() -> incoming_message_vbox.getChildren().add(anchorPane1));
+                                    current_index = i;
+                                }
+                                else if (current_index != i) {
+                                    AnchorPane anchorPane1 = message_buttons_and_panes.get(i).getValue();
+                                    Platform.runLater(() -> {
+                                        incoming_message_vbox.getChildren().clear();
+                                        incoming_message_vbox.getChildren().add(anchorPane1);
+                                    });
+                                    current_index = i;
+                                }
+
+
+                        }
                         }
                     }
                 }

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,9 +11,14 @@
 
 <AnchorPane prefHeight="633.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.ChatController">
    <children>
-      <VBox layoutY="7.0" prefHeight="624.0" prefWidth="1017.0">
+      <VBox layoutY="7.0" onMouseEntered="#messages" onMouseMoved="#messages" prefHeight="624.0" prefWidth="1017.0">
          <children>
             <Button fx:id="start_chat_button" mnemonicParsing="false" onAction="#startChatting" text="Button" />
+            <Label fx:id="chat_section_label" prefHeight="16.0" prefWidth="190.0" text="Label">
+               <VBox.margin>
+                  <Insets left="500.0" />
+               </VBox.margin>
+            </Label>
             <ScrollPane fx:id="message_show_scrollpane" prefHeight="485.0" prefWidth="985.0">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="15.0" />
@@ -32,6 +38,11 @@
                   </Button>
                </children>
             </HBox>
+            <Button fx:id="stop_chat_button1" mnemonicParsing="false" onAction="#startChatting" text="Start">
+               <VBox.margin>
+                  <Insets left="100.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </children>

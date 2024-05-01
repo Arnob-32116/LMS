@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
 
 import java.io.*;
 import java.net.Socket;
@@ -14,15 +15,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
+
+    public static int Current_message_count = 0 ;
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String message;
+    private int port ;
     public static  String username ;
-    public static ArrayList<VBox> current_message = new ArrayList<VBox>();
-    public Client(Socket socket, String username) {
+    public static ArrayList<Pair<Integer,VBox>> current_message = new ArrayList<Pair<Integer, VBox>>();
+    public Client(Socket socket, String username, int port) {
         try {
             this.socket = socket;
+            this.port = port ;
             this.username = username;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -87,6 +92,7 @@ public class Client {
 
     private void setMessage(String incomingmessage) throws Exception{
         VBox vBox = new VBox();
+        Current_message_count++;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageLables.fxml"));
         VBox vbox = fxmlLoader.load();
         MessageLableController messageLableController = fxmlLoader.getController();
@@ -103,9 +109,8 @@ public class Client {
             }
             i++;
         }
-
         messageLableController.SetMessageAndUsername(msg,senderUsername);
-        current_message.add(vbox);
+        current_message.add(new Pair<>(port,vbox));
     }
 
 //    public static void main(String[] args) throws IOException {
