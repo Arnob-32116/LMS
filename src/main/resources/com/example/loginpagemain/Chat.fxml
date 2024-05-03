@@ -11,9 +11,8 @@
 
 <AnchorPane prefHeight="633.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.ChatController">
    <children>
-      <VBox layoutY="7.0" onMouseEntered="#messages" onMouseMoved="#messages" prefHeight="624.0" prefWidth="1017.0">
+      <VBox layoutY="7.0" prefHeight="624.0" prefWidth="1017.0">
          <children>
-            <Button fx:id="start_chat_button" mnemonicParsing="false" onAction="#startChatting" text="Button" />
             <Label fx:id="chat_section_label" prefHeight="16.0" prefWidth="190.0" text="Label">
                <VBox.margin>
                   <Insets left="500.0" />
@@ -38,11 +37,12 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="stop_chat_button1" mnemonicParsing="false" onAction="#startChatting" text="Start">
+            <Button fx:id="stop_chat_button1" mnemonicParsing="false" onMouseClicked="#startChatting" text="Start">
                <VBox.margin>
                   <Insets left="100.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="stop_chat_button11" mnemonicParsing="false" onAction="#close" text="Start" />
          </children>
       </VBox>
    </children>

@@ -24,8 +24,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ChatController implements Initializable {
-
+    boolean running = false;
     Client c ;
+    Server s;
     @FXML
     TextArea send_message_textarea;
     @FXML
@@ -45,6 +46,7 @@ public class ChatController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.username = getUsername();
+        running = true;
         scheduler.scheduleAtFixedRate(this::messages, 0, 1, TimeUnit.SECONDS);
 
     }
@@ -63,7 +65,8 @@ public class ChatController implements Initializable {
         executorService.execute(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(port);
-                Server server = new Server(serverSocket);
+                Server server = new Server(serverSocket , port);
+                s = server;
                 server.startServer();
             } catch (Exception e) {
                 System.out.println("Server Already Open");
@@ -88,6 +91,10 @@ public class ChatController implements Initializable {
         });
     }
 
+    int prev_message_size = 0 , this_port_message_size = 0 ;
+
+
+
     @FXML
     void SendMessage() throws IOException{
         ExecutorService executorService = Executors.newFixedThreadPool(1);
@@ -99,34 +106,64 @@ public class ChatController implements Initializable {
                 System.out.println("Sending Message Error");
             }
         });
-//
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageLables.fxml"));
-//        VBox vbox = fxmlLoader.load();
-//        MessageLableController messageLableController = fxmlLoader.getController();
-//        messageLableController.SetMessageAndUsername(send_message_textarea.getText() , username);
-//        Client.current_message.add(vbox);
+
     }
-//
+
 //    @FXML
 //    void messages(){
-//        ArrayList<VBox> curret_messages = Client.current_message;
+//        ArrayList<Pair<Integer,VBox>>  curret_messages = Client.current_message;
 //        VBox parent = new VBox();
-//        for(int i = 0 ; i < curret_messages.size() ; i++){
-//            parent.getChildren().add(curret_messages.get(i));
+//        for (int i = 0; i < curret_messages.size(); i++) {
+//            if(curret_messages.get(i).getKey()==port){
+//                this_port_message_size++;
+//                parent.getChildren().add(curret_messages.get(i).getValue());
+//            }
 //        }
-//        if(Client.Current_message_count<=curret_messages.size())
-//        Platform.runLater(()->message_show_scrollpane.setContent(parent));
+//        if(message_show_scrollpane.getContent()!=parent) {
+//            Platform.runLater(() -> message_show_scrollpane.setContent(parent));
+//            System.out.println("Yes Yes yes");
+//        }
+//        else{
+//            System.out.println("Else else else");
+//        }
 //    }
+
     @FXML
-    void messages(){
-            ArrayList<Pair<Integer,VBox>>  curret_messages = Client.current_message;
-          //  System.out.println("CMC" +curret_messages.size());
+    void messages() {
+            ArrayList<Pair<Integer, VBox>> currentMessages = Client.current_message;
             VBox parent = new VBox();
-            for (int i = 0; i < curret_messages.size(); i++) {
-                if(curret_messages.get(i).getKey()==port){
-                    parent.getChildren().add(curret_messages.get(i).getValue());
+
+            for (int i = 0; i < currentMessages.size(); i++) {
+                if (currentMessages.get(i).getKey() == port) {
+                    this_port_message_size++;
+                    parent.getChildren().add(currentMessages.get(i).getValue());
                 }
             }
-            Platform.runLater(() -> message_show_scrollpane.setContent(parent));
+
+            // Compare the visual content (number of children)
+            if (message_show_scrollpane.getContent() instanceof VBox) {
+                VBox currentContent = (VBox) message_show_scrollpane.getContent();
+                if (currentContent.getChildren().size() != parent.getChildren().size()) {
+                    Platform.runLater(() -> message_show_scrollpane.setContent(parent));
+                    System.out.println("Content updated");
+                } else {
+                    System.out.println("Content already set");
+                }
+            } else {
+                // If the current content is not a VBox, update it
+                Platform.runLater(() -> message_show_scrollpane.setContent(parent));
+                System.out.println("Content updated (different type)");
+            }
+
+
     }
+
+    @FXML
+    void close() throws Exception{
+
+    }
+
+
+
+
 }

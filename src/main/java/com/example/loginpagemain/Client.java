@@ -23,11 +23,13 @@ public class Client {
     private String message;
     private int port ;
     public static  String username ;
+    private int number_of_messages_in_this_client = 0 ;
     public static ArrayList<Pair<Integer,VBox>> current_message = new ArrayList<Pair<Integer, VBox>>();
     public Client(Socket socket, String username, int port) {
         try {
             this.socket = socket;
             this.port = port ;
+            System.out.println("New Client Created of Port " + port);
             this.username = username;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -82,6 +84,9 @@ public class Client {
         }
     }
 
+
+
+
     public String getUsername(){
         return username;
     }
@@ -92,7 +97,6 @@ public class Client {
 
     private void setMessage(String incomingmessage) throws Exception{
         VBox vBox = new VBox();
-        Current_message_count++;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageLables.fxml"));
         VBox vbox = fxmlLoader.load();
         MessageLableController messageLableController = fxmlLoader.getController();
@@ -110,7 +114,10 @@ public class Client {
             i++;
         }
         messageLableController.SetMessageAndUsername(msg,senderUsername);
+        if(!current_message.contains(vbox)){
         current_message.add(new Pair<>(port,vbox));
+        }
+
     }
 
 //    public static void main(String[] args) throws IOException {

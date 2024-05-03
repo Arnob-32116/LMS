@@ -7,9 +7,11 @@ import java.net.Socket;
 public class Server {
     private ServerSocket serverSocket;
     public static Boolean isRunning = false;
-    public Server(ServerSocket serverSocket) {
+    public int port ;
+    public Server(ServerSocket serverSocket , int port) {
         this.serverSocket = serverSocket;
         isRunning = true;
+        this.port = port ;
     }
 
     public void startServer() {
@@ -17,7 +19,7 @@ public class Server {
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
                 System.out.println("New Client Has Connected");
-                ClientHandler clientHandler = new ClientHandler(socket);
+                ClientHandler clientHandler = new ClientHandler(socket , port );
                 Thread thread = new Thread(clientHandler);
                 thread.start();
             }
@@ -35,6 +37,9 @@ public class Server {
             e.printStackTrace();
         }
     }
+
+
+
 
 //    public static void main(String[] args) throws Exception {
 //        ServerSocket serverSocket = new ServerSocket(1234);

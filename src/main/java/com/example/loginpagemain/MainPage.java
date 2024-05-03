@@ -153,7 +153,6 @@ public class MainPage implements Initializable {
     }
     int current_index = -1;
     public void Message_Button_Handeling() {
-
             for (int i = 0; i < message_buttons_and_panes.size(); i++) {
                 VBox vBox = message_buttons_and_panes.get(i).getKey();
                 for (Node node : vBox.getChildren()) {
