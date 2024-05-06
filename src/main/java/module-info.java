@@ -5,6 +5,7 @@ module com.example.loginpagemain {
     requires javax.mail;
     requires MaterialFX;
     requires java.sql;
+    requires mysql.connector.j;
 
     opens com.example.loginpagemain to javafx.fxml;
     exports com.example.loginpagemain;

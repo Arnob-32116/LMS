@@ -2,26 +2,29 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1200.0" style="-fx-border-width: 5; -fx-border-color: #B082C4;" styleClass="vbox" stylesheets="@post.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.Post">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1200.0" style="-fx-border-width: 5; -fx-border-color: #000000;" styleClass="vbox" stylesheets="@post.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.Post">
    <children>
-      <HBox prefHeight="250.0" prefWidth="1200.0">
+      <HBox prefHeight="190.0" prefWidth="1047.0" style="-fx-background-color: #E87E21;">
          <children>
-            <VBox prefHeight="301.0" prefWidth="1129.0">
+            <VBox prefHeight="190.0" prefWidth="978.0">
                <children>
-                  <HBox prefHeight="42.0" prefWidth="1102.0">
+                  <HBox prefHeight="42.0" prefWidth="1102.0" style="-fx-background-color: #EECC37;">
                      <children>
-                        <Label fx:id="username_lable" prefHeight="51.0" prefWidth="266.0" styleClass="name" stylesheets="@post.css" text="Name" />
-                        <Label fx:id="tag_lable" prefHeight="42.0" prefWidth="153.0" styleClass="tag" stylesheets="@post.css" text="Tag">
+                        <Label fx:id="username_lable" alignment="CENTER" prefHeight="32.0" prefWidth="331.0" text="Username">
                            <HBox.margin>
-                              <Insets left="400.0" />
+                              <Insets top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="date_lable" prefHeight="42.0" prefWidth="160.0" styleClass="date" stylesheets="@post.css" text="Date" />
+                        <Label fx:id="tag_lable" alignment="CENTER" prefHeight="42.0" prefWidth="153.0" style="-fx-background-color: #F8F8F8;" styleClass="tag" stylesheets="@post.css" text="Tag">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="date_lable" alignment="CENTER" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #F8F8F8;" styleClass="date" stylesheets="@post.css" text="Date" />
                      </children>
                   </HBox>
                   <Text fx:id="post_text_text" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="showtext" text="SHOW TEXT HERE " wrappingWidth="936.7294921875">
@@ -30,15 +33,16 @@
                      </VBox.margin>
                   </Text>
                </children>
-            </VBox>
-            <VBox prefHeight="300.0" prefWidth="407.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-               <children>
-                  <ImageView fitHeight="301.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true" styleClass="imageview" />
-               </children>
             </VBox>
+            <VBox prefHeight="190.0" prefWidth="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <VBox prefHeight="190.0" prefWidth="213.0" style="-fx-background-color: #F8F8F8;" />
          </children>
       </HBox>
    </children>

@@ -67,11 +67,11 @@ public class LoginDatabase {
                     "jdbc:mysql://localhost:3306/myDB",
                     "Arnob", "password_3306");
             Statement statement = connection.createStatement();
-           ResultSet resultSet =  statement.executeQuery(get_string_command);
-           while (resultSet.next()){
-               emails.add(resultSet.getString(1));
-             //  System.out.println(resultSet.getString(1));
-           }
+            ResultSet resultSet =  statement.executeQuery(get_string_command);
+            while (resultSet.next()){
+                emails.add(resultSet.getString(1));
+                //  System.out.println(resultSet.getString(1));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,13 +108,13 @@ public class LoginDatabase {
         ArrayList<Pair<String,String>> login_info = new ArrayList<Pair<String,String>>();
         ArrayList<String> emails = new ArrayList<String>();
         ArrayList<String>passwords = new ArrayList<String>();
-       // String get_password_command = "SELECT Password FROM Student_Login_Informations";
+        // String get_password_command = "SELECT Password FROM Student_Login_Informations";
         emails = get_all_emails();
         passwords = get_all_passwords();
 
-           for(int i = 0 ; i < emails.size() ; i++){
-               login_info.add(new Pair<>(emails.get(i) , passwords.get(i)));
-           }
+        for(int i = 0 ; i < emails.size() ; i++){
+            login_info.add(new Pair<>(emails.get(i) , passwords.get(i)));
+        }
 
 
         return login_info;
@@ -141,7 +141,7 @@ public class LoginDatabase {
             e.printStackTrace();
         }
         System.out.println(temp_username);
-    return temp_username;
+        return temp_username;
     }
 
     public String getStudent_ID(){

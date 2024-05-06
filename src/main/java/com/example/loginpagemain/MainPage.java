@@ -173,7 +173,9 @@ public class MainPage implements Initializable {
                                     current_index = i;
                                 }
 
-
+                        }
+                        else{
+                            vBox.setStyle("-fx-background-color : #FFFFFF");
                         }
                         }
                     }

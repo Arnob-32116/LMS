@@ -165,9 +165,60 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="admin_createuser_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <Pane fx:id="admin_section_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
-                        <VBox layoutX="1.0" prefHeight="648.0" prefWidth="1222.0">
+                        <HBox prefHeight="650.0" prefWidth="1222.0">
+                           <children>
+                              <VBox prefHeight="650.0" prefWidth="426.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="37.0" prefWidth="611.0" text="Search For a Student" textAlignment="JUSTIFY" />
+                                    <TextField fx:id="search_student_id_textfield" prefHeight="32.0" prefWidth="611.0" promptText="Enter Student ID" style="-fx-background-color: #000000; -fx-border-color: #FFFFFF; -fx-border-width: 10;">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </TextField>
+                                    <Button fx:id="admin_student_search_button" mnemonicParsing="false" onAction="#admin_get_search_student_info" prefHeight="33.0" prefWidth="118.0" text="Search">
+                                       <VBox.margin>
+                                          <Insets left="125.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="118.0" text="Show All">
+                                       <VBox.margin>
+                                          <Insets left="125.0" top="15.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <ScrollPane fx:id="student_id_scrollpane" prefHeight="470.0" prefWidth="382.0">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="650.0" prefWidth="844.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="37.0" prefWidth="611.0" text="Courses Available" textAlignment="JUSTIFY" />
+                                    <Button fx:id="admin_section_submit" mnemonicParsing="false" onAction="#add_selected_courses_to_database" prefHeight="41.0" prefWidth="97.0" text="SUBMIT">
+                                       <VBox.margin>
+                                          <Insets left="700.0" top="10.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <ScrollPane fx:id="available_Courses_scrollpane" prefHeight="599.0" prefWidth="726.0">
+                                       <VBox.margin>
+                                          <Insets left="20.0" top="20.0" />
+                                       </VBox.margin>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="admin_createuser_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="admin_creation_vbox" layoutX="1.0" prefHeight="648.0" prefWidth="1222.0">
                            <children>
                               <HBox prefHeight="92.0" prefWidth="1222.0">
                                  <children>
@@ -199,7 +250,7 @@
                               </HBox>
                               <HBox prefHeight="92.0" prefWidth="1222.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="39.0" prefWidth="229.0" style="-fx-background-color: #00cc44;" text="ID">
+                                    <Label alignment="CENTER" prefHeight="39.0" prefWidth="229.0" style="-fx-background-color: #00cc44;" text="Name">
                                        <HBox.margin>
                                           <Insets left="15.0" top="15.0" />
                                        </HBox.margin>
@@ -262,7 +313,7 @@
                                        <HBox.margin>
                                           <Insets left="70.0" top="20.0" />
                                        </HBox.margin></TextField>
-                                    <Button alignment="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="124.0" text="Submit">
+                                    <Button alignment="CENTER" mnemonicParsing="false" onMousePressed="#SetFacultyInformation" prefHeight="42.0" prefWidth="124.0" text="Submit">
                                        <HBox.margin>
                                           <Insets left="450.0" top="20.0" />
                                        </HBox.margin>
@@ -274,57 +325,6 @@
                               </HBox>
                            </children>
                         </VBox>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="admin_section_pane" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <HBox prefHeight="650.0" prefWidth="1222.0">
-                           <children>
-                              <VBox prefHeight="650.0" prefWidth="426.0">
-                                 <children>
-                                    <Label alignment="CENTER" prefHeight="37.0" prefWidth="611.0" text="Search For a Student" textAlignment="JUSTIFY" />
-                                    <TextField fx:id="search_student_id_textfield" prefHeight="32.0" prefWidth="611.0" promptText="Enter Student ID" style="-fx-background-color: #000000; -fx-border-color: #FFFFFF; -fx-border-width: 10;">
-                                       <font>
-                                          <Font name="System Bold" size="19.0" />
-                                       </font>
-                                    </TextField>
-                                    <Button fx:id="admin_student_search_button" mnemonicParsing="false" onAction="#admin_get_search_student_info" prefHeight="33.0" prefWidth="118.0" text="Search">
-                                       <VBox.margin>
-                                          <Insets left="125.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="118.0" text="Show All">
-                                       <VBox.margin>
-                                          <Insets left="125.0" top="15.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <ScrollPane fx:id="student_id_scrollpane" prefHeight="470.0" prefWidth="382.0">
-                                       <VBox.margin>
-                                          <Insets top="20.0" />
-                                       </VBox.margin>
-                                    </ScrollPane>
-                                 </children>
-                              </VBox>
-                              <VBox prefHeight="650.0" prefWidth="844.0">
-                                 <children>
-                                    <Label alignment="CENTER" prefHeight="37.0" prefWidth="611.0" text="Courses Available" textAlignment="JUSTIFY" />
-                                    <Button fx:id="admin_section_submit" mnemonicParsing="false" onAction="#add_selected_courses_to_database" prefHeight="41.0" prefWidth="97.0" text="SUBMIT">
-                                       <VBox.margin>
-                                          <Insets left="700.0" top="10.0" />
-                                       </VBox.margin>
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Button>
-                                    <ScrollPane fx:id="available_Courses_scrollpane" prefHeight="599.0" prefWidth="726.0">
-                                       <VBox.margin>
-                                          <Insets left="20.0" top="20.0" />
-                                       </VBox.margin>
-                                    </ScrollPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
                      </children>
                   </Pane>
                </children>

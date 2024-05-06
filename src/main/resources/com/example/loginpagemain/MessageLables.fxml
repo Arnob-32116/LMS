@@ -2,16 +2,28 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="InOutVbox_message" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="850.0" styleClass="roundvbox" stylesheets="@test.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.MessageLableController">
+<VBox fx:id="InOutVbox_message" minHeight="-Infinity" minWidth="-Infinity" prefHeight="57.0" prefWidth="495.0" style="-fx-background-color: #EECC37;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.MessageLableController">
    <children>
-      <Label fx:id="Message_Text_Username" prefHeight="31.0" prefWidth="177.0" text="Username">
+      <Label fx:id="Message_Text_Username" alignment="BASELINE_LEFT" prefHeight="31.0" prefWidth="641.0" style="-fx-background-color: #DBDBDB; -fx-text-fill: #000000;" stylesheets="@test.css" text="Username">
          <VBox.margin>
-            <Insets left="50.0" />
+            <Insets />
          </VBox.margin>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+         <font>
+            <Font size="15.0" />
+         </font>
       </Label>
-      <Text fx:id="message_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="802.7294921875" />
+      <HBox prefHeight="28.0" prefWidth="568.0" styleClass="vbox-with-curved-border" stylesheets="@ChatBubble.css">
+         <children>
+            <Text fx:id="message_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="482.7294921875" />
+         </children>
+      </HBox>
    </children>
 </VBox>

@@ -1,0 +1,7 @@
+.vbox-with-curved-border {
+    -fx-background-color:#EECC37; /* Set your desired background color */
+    -fx-border-color: #FFF176;
+    -fx-border-width: 5;
+    -fx-border-style: dotted solid double dashed;
+    -fx-border-radius: 10 25 10 0 ; /* Adjust the radius to make it curved on the right side */
+}

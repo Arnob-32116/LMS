@@ -16,6 +16,8 @@ import java.util.ResourceBundle;
 public class MessageButtonController implements Initializable {
     @FXML
     Button message_button_of_Courses;
+    @FXML
+    VBox message_button_vbox_fxml;
     public void setMessage_button_of_Courses(String title){
         message_button_of_Courses.setText(title);
     }
@@ -25,6 +27,12 @@ public class MessageButtonController implements Initializable {
         MainPage.Current_Button_Message = button.getText();
 
     }
+
+    public void SetBackgroundColor(){
+        message_button_vbox_fxml.setStyle("-fx-background-color : #000000");
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

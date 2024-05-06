@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,20 +9,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="633.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.ChatController">
    <children>
       <VBox layoutY="7.0" prefHeight="624.0" prefWidth="1017.0">
          <children>
-            <Label fx:id="chat_section_label" prefHeight="16.0" prefWidth="190.0" text="Label">
+            <Label fx:id="chat_section_label" alignment="CENTER" prefHeight="16.0" prefWidth="234.0" text="Label">
                <VBox.margin>
-                  <Insets left="500.0" />
+                  <Insets left="400.0" />
                </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Label>
-            <ScrollPane fx:id="message_show_scrollpane" prefHeight="485.0" prefWidth="985.0">
+            <ScrollPane fx:id="message_show_scrollpane" prefHeight="485.0" prefWidth="987.0" stylesheets="@test.css">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="msgscroll-pane" />
+                  <String fx:value="viewport" />
+               </styleClass>
             </ScrollPane>
             <HBox prefHeight="124.0" prefWidth="1017.0">
                <children>

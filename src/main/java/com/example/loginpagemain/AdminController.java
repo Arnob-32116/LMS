@@ -1,5 +1,6 @@
 package com.example.loginpagemain;
 
+import com.mysql.cj.log.Log;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +17,13 @@ import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 public class AdminController implements Initializable {
+    @FXML
+    TextField creation_username_textfield , creation_email_textfield , creation_id_textfield , creation_password_textfield , creation_retype_pass_textfield , creation_first_phonenum_textfield , creation_second_phone_textfield;
     @FXML
     Pane admin_section_pane,admin_createuser_pane;
     @FXML
@@ -27,7 +31,7 @@ public class AdminController implements Initializable {
     @FXML
     TextField search_student_id_textfield;
     @FXML
-    VBox admin_section_vbox , admin_createuser_vbox;
+    VBox admin_section_vbox , admin_createuser_vbox , admin_creation_vbox ;
     public  static String credit , course_code, course_name , static_student_id , static_student_name;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -237,6 +241,30 @@ public class AdminController implements Initializable {
 
     }
 
+
+
+    ArrayList<String> getFacultyInformation(){
+        ArrayList<String> facaulty_info = new ArrayList<String>();
+        for(Node node : admin_creation_vbox.getChildren()){
+            if(node instanceof HBox hBox){
+                for(Node node1 : hBox.getChildren()){
+                    if(node1 instanceof TextField textField){
+                        facaulty_info.add(textField.getText());
+                    }
+                }
+            }
+        }
+        return facaulty_info;
+    }
+
+    @FXML
+    void SetFacultyInformation(){
+        ArrayList<String> faculty_info = getFacultyInformation();
+        Hash hash = new Hash(faculty_info.get(3));
+        String password = hash.HashFunction();
+        LoginDatabase loginDatabase = new LoginDatabase(faculty_info.get(0),faculty_info.get(2), password , "None" , faculty_info.get(5), faculty_info.get(6),  faculty_info.get(1) , 1  );
+        loginDatabase.Login_Information_connection();
+    }
 
 
 
