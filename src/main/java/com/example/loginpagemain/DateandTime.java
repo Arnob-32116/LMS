@@ -65,7 +65,11 @@ public class DateandTime {
         System.out.println("gap between dates "+
                 "is a period of "+gap);
     }
-
+    public static long calculateDaysAgo(LocalDate otherDate) {
+        LocalDate today = LocalDate.now();
+        Period gap = Period.between(otherDate, today);
+        return gap.getDays();
+    }
     // Driver code
     public static void main(String[] args)
     {

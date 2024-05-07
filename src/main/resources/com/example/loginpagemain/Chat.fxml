@@ -26,6 +26,11 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <Button fx:id="stop_chat_button1" mnemonicParsing="false" onMouseClicked="#startChatting" prefHeight="24.0" prefWidth="142.0" text="Start Chatting">
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </Button>
             <ScrollPane fx:id="message_show_scrollpane" prefHeight="485.0" prefWidth="987.0" stylesheets="@test.css">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="15.0" />
@@ -49,12 +54,6 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="stop_chat_button1" mnemonicParsing="false" onMouseClicked="#startChatting" text="Start">
-               <VBox.margin>
-                  <Insets left="100.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="stop_chat_button11" mnemonicParsing="false" onAction="#close" text="Start" />
          </children>
       </VBox>
    </children>

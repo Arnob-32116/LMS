@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -32,6 +29,8 @@ public class AdminController implements Initializable {
     TextField search_student_id_textfield;
     @FXML
     VBox admin_section_vbox , admin_createuser_vbox , admin_creation_vbox ;
+    @FXML
+    Label submit_done_label;
     public  static String credit , course_code, course_name , static_student_id , static_student_name;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -264,6 +263,19 @@ public class AdminController implements Initializable {
         String password = hash.HashFunction();
         LoginDatabase loginDatabase = new LoginDatabase(faculty_info.get(0),faculty_info.get(2), password , "None" , faculty_info.get(5), faculty_info.get(6),  faculty_info.get(1) , 1  );
         loginDatabase.Login_Information_connection();
+        submit_done_label.setText("A New User Created");
+        for(Node node : admin_creation_vbox.getChildren()){
+            if(node instanceof HBox hBox){
+                for(Node node1 : hBox.getChildren()){
+                    if(node1 instanceof TextField textField){
+                        textField.clear();
+                    }
+                    else if (node1 instanceof PasswordField passwordField){
+                        passwordField.clear();
+                    }
+                }
+            }
+        }
     }
 
 

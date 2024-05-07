@@ -239,6 +239,31 @@ public class LoginDatabase {
         return all_acess_level;
     }
 
+    int get_individual_all_acess_level(String email ) {
+        System.out.println("Email "+email);
+        int acess_level = 0;
+        String get_string_command = "SELECT Acess_Level FROM myDB.Student_Login_Informations WHERE Email = '"+email+"'";
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery(get_string_command);
+            while (resultSet.next()){
+                System.out.println(resultSet.getInt(1));
+               acess_level = resultSet.getInt(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return acess_level;
+    }
+
     void add_courseinfo_to_signup_user(){
         String get_string_command = "INSERT INTO Student_Course_Selection (Student_ID) VALUES ('"+student_id+"')";
         Connection connection = null;

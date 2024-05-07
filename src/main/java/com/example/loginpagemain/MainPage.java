@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -257,11 +260,13 @@ public class MainPage implements Initializable {
 
     @FXML
     public void getTagboxdata(){
+
         tag_box.getItems().addAll("Admission","Academia","Research","Project","Lost and Found","Complain");
         tag_box.setPromptText("Choose Tag");
     }
     @FXML
     public void getDateboxdata(){
+
         date_box.getItems().addAll("Today","This week","This month","Last year");
         date_box.setPromptText("Choose Date");
     }
@@ -284,7 +289,7 @@ public class MainPage implements Initializable {
 
     }
 
-
+    String distance_of_date="";
     @FXML
     public void getposts() throws Exception {
         VBox parent = new VBox();
@@ -296,13 +301,47 @@ public class MainPage implements Initializable {
             status = rows.get(1);
             post_tag = rows.get(2);
             post_date = rows.get(4);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-            VBox vbox = fxmlLoader.load();
-            parent.getChildren().add(vbox);
+            LocalDateTime timestamp = LocalDateTime.parse((String)post_date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            LocalDate someDate = timestamp.toLocalDate();
+            long date = DateandTime.calculateDaysAgo(someDate);
+            if(distance_of_date.equals("Today") && date <= 1) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+                VBox vbox = fxmlLoader.load();
+                parent.getChildren().add(vbox);
+            }
+            else if (distance_of_date.equals("This week") && date <= 7){
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+                VBox vbox = fxmlLoader.load();
+                parent.getChildren().add(vbox);
+            }
+            else if(distance_of_date.equals("This month") && date <= 30){
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+                VBox vbox = fxmlLoader.load();
+                parent.getChildren().add(vbox);
+            }
+            else if (distance_of_date.equals("Last year") && date <= 365){
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+                VBox vbox = fxmlLoader.load();
+                parent.getChildren().add(vbox);
+            }
+            else{
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
+                VBox vbox = fxmlLoader.load();
+                parent.getChildren().add(vbox);
+            }
         }
         newsfeed_scrollpane.setContent(parent);
     }
 
+    @FXML
+    void setdate_distance(ActionEvent event){
+        if(date_box.getValue()==null){
+            distance_of_date = "none";
+        }
+        else {
+            distance_of_date = (String) date_box.getValue();
+        }
+    }
     @FXML
     public void add_section_selection(ActionEvent event) throws Exception{
         getsectionlist();

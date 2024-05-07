@@ -25,7 +25,7 @@ public class MessageButtonController implements Initializable {
     public void Message_Button_Handeling(ActionEvent event){
         Button button = (Button)(Node)event.getSource();
         MainPage.Current_Button_Message = button.getText();
-
+        FacultyController.Current_Button_Message = button.getText();
     }
 
     public void SetBackgroundColor(){

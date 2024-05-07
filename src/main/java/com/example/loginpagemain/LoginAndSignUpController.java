@@ -69,12 +69,24 @@ public class LoginAndSignUpController implements Initializable{
 
             }
             else if(correct_email_check(signin_email_txt_field.getText()) && check_login_credentials(loginDatabase.get_all_login_info(),loginemail,loginpassword)){
-                Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-                new FadeInRight(root).play();
+                int acess_level = 0 ;
+                acess_level = loginDatabase.get_individual_all_acess_level(signin_email_txt_field.getText());
+                if(acess_level==0) {
+                    Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                    new FadeInRight(root).play();
+                }
+                else if(acess_level == 1){
+                    Parent root = FXMLLoader.load(getClass().getResource("Faculty.fxml"));
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                    new FadeInRight(root).play();
+                }
             }
             else{
                 new Shake(signin_email_txt_field).play();
