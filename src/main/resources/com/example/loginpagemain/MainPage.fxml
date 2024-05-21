@@ -419,9 +419,9 @@
                                           </ImageView>
                                        </children>
                                     </HBox>
-                                    <HBox prefHeight="99.0" prefWidth="212.0">
+                                    <HBox prefHeight="111.0" prefWidth="194.0">
                                        <children>
-                                          <MFXComboBox fx:id="date_box" onAction="#setdate_distance" prefHeight="42.0" prefWidth="140.0">
+                                          <MFXComboBox fx:id="date_box" onAction="#setdate_distance" prefColumnCount="1" prefHeight="42.0" prefWidth="140.0">
                                              <HBox.margin>
                                                 <Insets left="35.0" />
                                              </HBox.margin>

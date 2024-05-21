@@ -210,6 +210,7 @@ public class AdminController implements Initializable {
         ArrayList<String> course_from_admin = new ArrayList<String>();
         student_id_from_admin = selected_students();
         course_from_admin = selected_course();
+        System.out.println("student_id_from_admin");
         AdminDatabase adminDatabase = new AdminDatabase();
         adminDatabase.insert_admin_course_selection(student_id_from_admin,course_from_admin);
     }

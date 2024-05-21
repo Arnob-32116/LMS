@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -101,6 +102,7 @@ public class ChatController implements Initializable {
         executorService.execute(() -> {
             try {
                 c.sendMessage(send_message_textarea.getText());
+                setSenderMessage(send_message_textarea.getText());
             }
             catch (Exception e){
                 System.out.println("Sending Message Error");
@@ -158,6 +160,20 @@ public class ChatController implements Initializable {
 
     }
 
+    private void setSenderMessage(String incomingmessage) throws Exception{
+        VBox vBox = new VBox();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageLables.fxml"));
+        VBox vbox = fxmlLoader.load();
+        MessageLableController messageLableController = fxmlLoader.getController();
+        LoginDatabase loginDatabase = new LoginDatabase();
+        messageLableController.SetMessageAndUsername(incomingmessage,"");
+        messageLableController.setTextColorOfUserSentMessage();
+        vbox.setPadding(new Insets(0,0,0,490));
+        if(!Client.current_message.contains(vbox)){
+            Client.current_message.add(new Pair<>(port,vbox));
+        }
+
+    }
     @FXML
     void close() throws Exception{
 

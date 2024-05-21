@@ -47,10 +47,12 @@ public class ClientHandler implements Runnable {
         try {
             for (Pair<Integer,ClientHandler> client: clientHandlers) {
                 if(client.getKey()==port) {
+                    if(sender!=this){
                     client.getValue().bufferedWriter.write(clientMessage);
                     client.getValue().bufferedWriter.newLine();
                     client.getValue().bufferedWriter.flush();
                     System.out.println(clientName + " " + clientMessage);
+                    }
                 }
             }
         } catch (IOException exception) {

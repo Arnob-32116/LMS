@@ -3,6 +3,7 @@ package com.example.loginpagemain;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -13,13 +14,26 @@ public class MessageLableController implements Initializable {
     Text message_text;
     @FXML
     Label Message_Text_Username;
+    @FXML
+    HBox messageLableHBOX;
+
 
     String message , username;
 
-    public void SetMessageAndUsername(String message , String username){
+    void SetMessageAndUsername(String message , String username){
         this.Message_Text_Username.setText(username);
         this.message_text.setText(message);
     }
+    void setTextColorOfUserSentMessage(){
+        messageLableHBOX.setStyle("-fx-background-color: #2769B4");
+
+    }
+
+    void setTextColorOfOthersSentMessage(){
+       messageLableHBOX.setStyle("-fx-background-color:#EECC37");
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

@@ -1,5 +1,5 @@
 .vbox-with-curved-border {
-    -fx-background-color:#EECC37; /* Set your desired background color */
+    //-fx-background-color:#EECC37; /* Set your desired background color */
     -fx-border-color: #FFF176;
     -fx-border-width: 5;
     -fx-border-style: dotted solid double dashed;

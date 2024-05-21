@@ -14,13 +14,12 @@ import java.util.ResourceBundle;
 
 public class Student_ID_Controller implements Initializable {
     @FXML
-    Label student_id_lable,full_name_lable;
+    private Label student_id_lable,full_name_lable;
     @FXML
-    HBox admin_student_id_hbox;
+    private HBox admin_student_id_hbox;
     @FXML
-    ScrollPane student_id_scrollpane;
-    String prev_selected_id = "-100";
-    int number_of_times_clicked =  0;
+    private ScrollPane student_id_scrollpane;
+    private int number_of_times_clicked =  0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         student_id_lable.setText(AdminController.static_student_id);

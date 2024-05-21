@@ -7,20 +7,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="InOutVbox_message" minHeight="-Infinity" minWidth="-Infinity" prefHeight="57.0" prefWidth="495.0" style="-fx-background-color: #EECC37;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.MessageLableController">
+<VBox fx:id="InOutVbox_message" minHeight="-Infinity" minWidth="-Infinity" prefHeight="57.0" prefWidth="495.0" style="-fx-background-color: #DBDBDB;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.MessageLableController">
    <children>
-      <Label fx:id="Message_Text_Username" alignment="BASELINE_LEFT" prefHeight="31.0" prefWidth="641.0" style="-fx-background-color: #DBDBDB; -fx-text-fill: #000000;" stylesheets="@test.css" text="Username">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-         <padding>
-            <Insets left="20.0" />
-         </padding>
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <HBox prefHeight="28.0" prefWidth="568.0" styleClass="vbox-with-curved-border" stylesheets="@ChatBubble.css">
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="Message_Text_Username" alignment="BASELINE_LEFT" prefHeight="30.0" prefWidth="495.0" style="-fx-background-color: #DBDBDB; -fx-text-fill: #000000;" stylesheets="@test.css" text="Username">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox fx:id="messageLableHBOX" prefHeight="28.0" prefWidth="568.0" styleClass="vbox-with-curved-border" stylesheets="@ChatBubble.css">
          <children>
             <Text fx:id="message_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="482.7294921875" />
          </children>

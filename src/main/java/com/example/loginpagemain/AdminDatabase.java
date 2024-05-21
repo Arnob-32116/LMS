@@ -196,7 +196,9 @@ public class AdminDatabase {
                     "jdbc:mysql://localhost:3306/myDB",
                     "Arnob", "password_3306");
             for(int i = 0 ; i < student_id_selected.size() ; i++){
+                System.out.println("First loop");
                 for(int j = 0 ; j < course_selected.size() ; j++) {
+                    System.out.println("Second loop");
                     String insertQuery = "UPDATE Student_Course_Selection SET " +course_selected.get(j)+" ='Current' WHERE Student_ID= '"+student_id_selected.get(i)+"'";
                     System.out.println(insertQuery);
                     Statement statement = connection.createStatement();
