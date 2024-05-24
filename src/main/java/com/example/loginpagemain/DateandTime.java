@@ -2,6 +2,7 @@ package com.example.loginpagemain;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class DateandTime {
     public static void LocalDateTimeApi()
@@ -54,26 +55,17 @@ public class DateandTime {
                 "current time : "+specificDate);
     }
 
-    public static void checkingPeriod()
-    {
-        LocalDate date1 = LocalDate.now();
 
-        LocalDate date2 =
-                LocalDate.of(2014, Month.DECEMBER, 12);
-
-        Period gap = Period.between(date2, date1);
-        System.out.println("gap between dates "+
-                "is a period of "+gap);
-    }
     public static long calculateDaysAgo(LocalDate otherDate) {
         LocalDate today = LocalDate.now();
-        Period gap = Period.between(otherDate, today);
-        return gap.getDays();
+        long daysDifference = ChronoUnit.DAYS.between(otherDate, today);
+        return daysDifference;
     }
     // Driver code
     public static void main(String[] args)
     {
+
         //LocalDateTimeApi();
-        checkingPeriod();
+        //checkingPeriod();
     }
 }

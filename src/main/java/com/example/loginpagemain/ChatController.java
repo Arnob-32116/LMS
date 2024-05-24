@@ -147,14 +147,14 @@ public class ChatController implements Initializable {
                 VBox currentContent = (VBox) message_show_scrollpane.getContent();
                 if (currentContent.getChildren().size() != parent.getChildren().size()) {
                     Platform.runLater(() -> message_show_scrollpane.setContent(parent));
-                    System.out.println("Content updated");
+                   // System.out.println("Content updated");
                 } else {
-                    System.out.println("Content already set");
+                   // System.out.println("Content already set");
                 }
             } else {
                 // If the current content is not a VBox, update it
                 Platform.runLater(() -> message_show_scrollpane.setContent(parent));
-                System.out.println("Content updated (different type)");
+                //System.out.println("Content updated (different type)");
             }
 
 
@@ -169,6 +169,7 @@ public class ChatController implements Initializable {
         messageLableController.SetMessageAndUsername(incomingmessage,"");
         messageLableController.setTextColorOfUserSentMessage();
         vbox.setPadding(new Insets(0,0,0,490));
+       // System.out.println(port);
         if(!Client.current_message.contains(vbox)){
             Client.current_message.add(new Pair<>(port,vbox));
         }

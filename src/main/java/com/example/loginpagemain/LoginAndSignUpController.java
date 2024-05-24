@@ -72,8 +72,11 @@ public class LoginAndSignUpController implements Initializable{
                 int acess_level = 0 ;
                 acess_level = loginDatabase.get_individual_all_acess_level(signin_email_txt_field.getText());
                 if(acess_level==0) {
-                    Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+                    Parent root = fxmlLoader.load();
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    MainPage mainPage = fxmlLoader.getController();
+                    mainPage.setPrimaryStage(stage);
                     scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();

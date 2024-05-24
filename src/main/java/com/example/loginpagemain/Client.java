@@ -116,6 +116,7 @@ public class Client {
         messageLableController.SetMessageAndUsername(msg,senderUsername);
         messageLableController.setTextColorOfOthersSentMessage();
         if(!current_message.contains(vbox)){
+            System.out.println("Added message");
         current_message.add(new Pair<>(port,vbox));
         }
 

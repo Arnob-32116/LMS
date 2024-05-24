@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,6 +36,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 
@@ -52,9 +55,7 @@ public class MainPage implements Initializable {
     @FXML
     PieChart credit_pie , assignment_pie ;
     @FXML
-    MFXComboBox<String> tag_box = new MFXComboBox<>();
-    @FXML
-    MFXComboBox<String> date_box = new MFXComboBox<>();
+    VBox tag_filter_vbox, date_filter_vbox;
     @FXML
     SplitMenuButton Running_courses_splitmenu;
     @FXML
@@ -69,7 +70,7 @@ public class MainPage implements Initializable {
     public static ArrayList<Pair<VBox,AnchorPane>> message_buttons_and_panes = new ArrayList<Pair<VBox,AnchorPane>>();
     public ArrayList<VBox> vBoxes = new ArrayList<>();
     private Stack<MenuItem> runningcourseitems = new Stack<>();
-    static String status="",status_username="",post_date="",post_tag="";
+    static String status="",status_username="",post_date="",post_tag="",image_url="";
     @Override
     public void initialize(URL location, ResourceBundle resources){
         vBoxes.add(newsfeed_vbox);
@@ -77,8 +78,6 @@ public class MainPage implements Initializable {
         vBoxes.add(quiz_vbox);
         vBoxes.add(message_vbox);
         vbox_change_colors(newsfeed_vbox);
-        tag_box.setPromptText("Choose Tag");
-        date_box.setPromptText("Choose Date");
         setusernameinpage();
         setuseridinpage();
         scheduler.scheduleAtFixedRate(this::Message_Button_Handeling, 0, 1, TimeUnit.SECONDS);
@@ -89,8 +88,7 @@ public class MainPage implements Initializable {
         catch(Exception e){
             System.out.println(e);
         }
-        getTagboxdata();
-        getDateboxdata();
+        get_distance_of_date(19);
         setCgpa_graph();
         setCredit_pie();
         setAssignment_pie();
@@ -99,7 +97,11 @@ public class MainPage implements Initializable {
         setLast_five_exam_result_graph();
 
     }
+    private Stage primaryStage;
 
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
     void vbox_change_colors(VBox selected ){
             for(VBox vbox : vBoxes){
                 if(vbox==selected) {
@@ -258,18 +260,7 @@ public class MainPage implements Initializable {
         last_five_exam_result_graph.getData().addAll(series);
     }
 
-    @FXML
-    public void getTagboxdata(){
 
-        tag_box.getItems().addAll("Admission","Academia","Research","Project","Lost and Found","Complain");
-        tag_box.setPromptText("Choose Tag");
-    }
-    @FXML
-    public void getDateboxdata(){
-
-        date_box.getItems().addAll("Today","This week","This month","Last year");
-        date_box.setPromptText("Choose Date");
-    }
 
     @FXML
     public void setRunning_courses_splitmenu(){
@@ -289,7 +280,7 @@ public class MainPage implements Initializable {
 
     }
 
-    String distance_of_date="";
+    Boolean distance_of_date;
     @FXML
     public void getposts() throws Exception {
         VBox parent = new VBox();
@@ -301,30 +292,12 @@ public class MainPage implements Initializable {
             status = rows.get(1);
             post_tag = rows.get(2);
             post_date = rows.get(4);
+            image_url = rows.get(5);
             LocalDateTime timestamp = LocalDateTime.parse((String)post_date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             LocalDate someDate = timestamp.toLocalDate();
             long date = DateandTime.calculateDaysAgo(someDate);
-            if(distance_of_date.equals("Today") && date <= 1) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-                VBox vbox = fxmlLoader.load();
-                parent.getChildren().add(vbox);
-            }
-            else if (distance_of_date.equals("This week") && date <= 7){
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-                VBox vbox = fxmlLoader.load();
-                parent.getChildren().add(vbox);
-            }
-            else if(distance_of_date.equals("This month") && date <= 30){
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-                VBox vbox = fxmlLoader.load();
-                parent.getChildren().add(vbox);
-            }
-            else if (distance_of_date.equals("Last year") && date <= 365){
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
-                VBox vbox = fxmlLoader.load();
-                parent.getChildren().add(vbox);
-            }
-            else{
+            distance_of_date = get_distance_of_date(date);
+            if(distance_of_date) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
                 VBox vbox = fxmlLoader.load();
                 parent.getChildren().add(vbox);
@@ -333,15 +306,53 @@ public class MainPage implements Initializable {
         newsfeed_scrollpane.setContent(parent);
     }
 
+
+
     @FXML
-    void setdate_distance(ActionEvent event){
-        if(date_box.getValue()==null){
-            distance_of_date = "none";
+    Boolean get_distance_of_date(long date){
+        ArrayList<String> date_filters = new ArrayList<>();
+        for(Node node :date_filter_vbox.getChildren()){
+            if(node instanceof HBox hbox){
+                for(Node node1 : hbox.getChildren()){
+                    if(node1 instanceof CheckBox checkBox){
+                        if(!date_filters.contains(checkBox.getText())){
+                            if(checkBox.isSelected()) {
+                                date_filters.add(checkBox.getText());
+                            }
+                        }
+                    }
+                }
+            }
         }
-        else {
-            distance_of_date = (String) date_box.getValue();
+
+        for(String st : date_filters){
+            if(st.equals("Today") && date==1){
+                return true;
+            }
+            else if(st.equals("Last Week") && date<=7){
+                return true;
+            }
+            else if(st.equals("This Month") && date<=30){
+                return true;
+            }
+            else if(st.equals("Last Year") && date<=365){
+                return true;
+            }
+
         }
+
+        return false;
     }
+
+    File selectedFile = null;
+    @FXML
+    void filechooser() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg","*.png"));
+        selectedFile = fileChooser.showOpenDialog(primaryStage);
+    }
+
+
     @FXML
     public void add_section_selection(ActionEvent event) throws Exception{
         getsectionlist();
@@ -376,11 +387,28 @@ public class MainPage implements Initializable {
 
     @FXML
     public void update_status(ActionEvent event) throws Exception{
-        String username , date , tag ;
+        String username , date , tag="" ,image_url="";
+        if(selectedFile!=null) {
+             image_url = selectedFile.getAbsolutePath();
+        }
+        else{
+            image_url = "none";
+        }
         LoginDatabase loginDatabase = new LoginDatabase();
         status = status_text_area.getText();
         username = loginDatabase.getUsername();
-        StatusDatabase statusDatabase = new StatusDatabase(status,"date", "tag" , username);
+        for(Node node : tag_filter_vbox.getChildren()){
+            if(node instanceof HBox hBox){
+                for(Node node1 : hBox.getChildren()){
+                    if(node1 instanceof CheckBox checkBox){
+                        if(checkBox.isSelected()){
+                            tag = checkBox.getText();
+                        }
+                    }
+                }
+            }
+        }
+        StatusDatabase statusDatabase = new StatusDatabase(status,"date", tag , username , image_url) ;
         statusDatabase.status_information_connection();
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
 //        VBox vbox = fxmlLoader.load();
