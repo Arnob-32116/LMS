@@ -31,12 +31,16 @@ public class AdminController implements Initializable {
     VBox admin_section_vbox , admin_createuser_vbox , admin_creation_vbox ;
     @FXML
     Label submit_done_label;
+    @FXML
+    Button search_student_button_option , search_faculty_button_option ;
     public  static String credit , course_code, course_name , static_student_id , static_student_name;
+    private String search_type = "student";
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             admin_get_allsection();
             admin_get_student_info();
+            student_search_option();
             admin_section_pane.toFront();
             admin_section_pane.setVisible(true);
             admin_createuser_pane.toBack();
@@ -91,6 +95,53 @@ public class AdminController implements Initializable {
         student_id_scrollpane.setContent(parent);
     }
 
+    void admin_get_faculty_info() throws Exception{
+        ArrayList<String> student_name = new ArrayList<String>();
+        ArrayList<String> student_id = new ArrayList<String>();
+        ArrayList<String> acess_level = new ArrayList<String>();
+        LoginDatabase loginDatabase = new LoginDatabase();
+        student_name = loginDatabase.get_all_student_name();
+        student_id = loginDatabase.get_all_student_ID();
+        acess_level = loginDatabase.get_all_acess_level();
+        VBox parent = new VBox();
+        for(int i = 0 ; i < student_name.size() ; i++){
+            if(!acess_level.get(i).equals("1"))
+                continue;
+            static_student_name = student_name.get(i);
+            static_student_id = student_id.get(i);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Student_ID.fxml"));
+            HBox hbox = fxmlLoader.load();
+            parent.getChildren().add(hbox);
+        }
+        student_id_scrollpane.setContent(parent);
+    }
+
+    @FXML
+    void student_search_option() throws Exception{
+        search_student_id_textfield.setText("Enter Student ID");
+        search_type = "student";
+        admin_get_student_info();
+    }
+
+    @FXML
+    void show_all_information() throws Exception{
+        if(search_type.equals("student")){
+            admin_get_student_info();
+        }
+        else{
+            admin_get_faculty_info();
+        }
+    }
+
+    @FXML
+    void faculty_search_option() throws Exception{
+        search_student_id_textfield.setText("Enter Faculty ID");
+        admin_get_faculty_info();
+        search_type = "faculty";
+    }
+
+
+
     @FXML
     void admin_get_search_student_info() throws Exception{
         ArrayList<String> student_name = new ArrayList<String>();
@@ -103,21 +154,40 @@ public class AdminController implements Initializable {
         String search =search_student_id_textfield.getText();
         VBox parent = new VBox();
         student_id_scrollpane.setContent(parent);
-        for(int i = 0 ; i < student_name.size() ; i++){
-            if(!acess_level.get(i).equals("0"))
-                continue;
-            static_student_name = student_name.get(i);
-            static_student_id = student_id.get(i);
-            if(static_student_id.contains(search))
-            {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Student_ID.fxml"));
-                HBox hbox = fxmlLoader.load();
-                parent.getChildren().add(hbox);
+        if(search_type.equals("student")) {
+            for (int i = 0; i < student_name.size(); i++) {
+                if (!acess_level.get(i).equals("0"))
+                    continue;
+                static_student_name = student_name.get(i);
+                static_student_id = student_id.get(i);
+                if (static_student_id.contains(search)) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Student_ID.fxml"));
+                    HBox hbox = fxmlLoader.load();
+                    parent.getChildren().add(hbox);
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < student_name.size(); i++) {
+                if (!acess_level.get(i).equals("1"))
+                    continue;
+                static_student_name = student_name.get(i);
+                static_student_id = student_id.get(i);
+                if (static_student_name.contains(search)) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Student_ID.fxml"));
+                    HBox hbox = fxmlLoader.load();
+                    parent.getChildren().add(hbox);
+                }
             }
         }
         student_id_scrollpane.setContent(parent);
     }
 
+
+    @FXML
+    void clear_text_filed(){
+        search_student_id_textfield.setText("");
+    }
 
     VBox get_vboxes() throws Exception{
         VBox all = new VBox();
@@ -168,7 +238,7 @@ public class AdminController implements Initializable {
             if(node instanceof HBox){
                 HBox hBox = (HBox) node;
                 Color color =(Color) hBox.getBorder().getStrokes().get(0).getBottomStroke();
-                if(color.equals(Color.BLUE)) {
+                if(color.equals(Color.BLACK)) {
                     for (Node node1 : hBox.getChildren()) {
                         Label label = (Label) node1;
                         if (label.getId().equals("student_id_lable")) {
@@ -189,7 +259,7 @@ public class AdminController implements Initializable {
             if(node instanceof HBox){
                 HBox hBox = (HBox) node;
                 Color color =(Color) hBox.getBorder().getStrokes().get(0).getBottomStroke();
-                if(color.equals(Color.BLUE)) {
+                if(!color.equals(Color.BLACK)) {
                     for (Node node1 : hBox.getChildren()) {
                         if(node1 instanceof Label){
                             Label lable = (Label) node1;
@@ -210,7 +280,6 @@ public class AdminController implements Initializable {
         ArrayList<String> course_from_admin = new ArrayList<String>();
         student_id_from_admin = selected_students();
         course_from_admin = selected_course();
-        System.out.println("student_id_from_admin");
         AdminDatabase adminDatabase = new AdminDatabase();
         adminDatabase.insert_admin_course_selection(student_id_from_admin,course_from_admin);
     }
@@ -262,7 +331,7 @@ public class AdminController implements Initializable {
         ArrayList<String> faculty_info = getFacultyInformation();
         Hash hash = new Hash(faculty_info.get(3));
         String password = hash.HashFunction();
-        LoginDatabase loginDatabase = new LoginDatabase(faculty_info.get(0),faculty_info.get(2), password , "None" , faculty_info.get(5), faculty_info.get(6),  faculty_info.get(1) , 1  );
+        LoginDatabase loginDatabase = new LoginDatabase(faculty_info.get(0),faculty_info.get(2), password , faculty_info.get(5) , faculty_info.get(5), faculty_info.get(6),  faculty_info.get(1) , 1  );
         loginDatabase.Login_Information_connection();
         submit_done_label.setText("A New User Created");
         for(Node node : admin_creation_vbox.getChildren()){

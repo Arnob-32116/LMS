@@ -45,7 +45,7 @@
             </VBox>
             <VBox prefHeight="190.0" prefWidth="213.0" style="-fx-background-color: #F8F8F8;">
                <children>
-                  <ImageView fx:id="post_image_view" fitHeight="187.0" fitWidth="212.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="post_image_view" fitHeight="187.0" fitWidth="212.0" onMouseClicked="#seeLarger" pickOnBounds="true" preserveRatio="true" />
                </children></VBox>
          </children>
       </HBox>

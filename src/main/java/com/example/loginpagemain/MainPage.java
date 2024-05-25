@@ -9,16 +9,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -280,7 +283,7 @@ public class MainPage implements Initializable {
 
     }
 
-    Boolean distance_of_date;
+    Boolean distance_of_date , correct_tag_check ;
     @FXML
     public void getposts() throws Exception {
         VBox parent = new VBox();
@@ -297,7 +300,8 @@ public class MainPage implements Initializable {
             LocalDate someDate = timestamp.toLocalDate();
             long date = DateandTime.calculateDaysAgo(someDate);
             distance_of_date = get_distance_of_date(date);
-            if(distance_of_date) {
+            correct_tag_check = is_correct_tag(post_tag);
+            if(distance_of_date && correct_tag_check) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
                 VBox vbox = fxmlLoader.load();
                 parent.getChildren().add(vbox);
@@ -308,8 +312,7 @@ public class MainPage implements Initializable {
 
 
 
-    @FXML
-    Boolean get_distance_of_date(long date){
+    private Boolean get_distance_of_date(long date){
         ArrayList<String> date_filters = new ArrayList<>();
         for(Node node :date_filter_vbox.getChildren()){
             if(node instanceof HBox hbox){
@@ -340,9 +343,25 @@ public class MainPage implements Initializable {
             }
 
         }
-
-        return false;
+        return date_filters.isEmpty();
     }
+
+    private Boolean is_correct_tag (String tag){
+        String selected ="empty";
+        for(Node node : tag_filter_vbox.getChildren()){
+            if(node instanceof HBox hBox){
+                for(Node node1 : hBox.getChildren()){
+                    if(node1 instanceof CheckBox checkBox){
+                        if(checkBox.isSelected()){
+                            selected = checkBox.getText();
+                        }
+                    }
+                }
+            }
+        }
+        return selected.equals(tag) || selected.equals("empty");
+    }
+
 
     File selectedFile = null;
     @FXML
@@ -384,10 +403,10 @@ public class MainPage implements Initializable {
         section_selection_scrollpane.setContent(parent);
 
     }
-
+    static String status_tag="tag";
     @FXML
     public void update_status(ActionEvent event) throws Exception{
-        String username , date , tag="" ,image_url="";
+        String username , date  ,image_url="";
         if(selectedFile!=null) {
              image_url = selectedFile.getAbsolutePath();
         }
@@ -397,24 +416,41 @@ public class MainPage implements Initializable {
         LoginDatabase loginDatabase = new LoginDatabase();
         status = status_text_area.getText();
         username = loginDatabase.getUsername();
-        for(Node node : tag_filter_vbox.getChildren()){
-            if(node instanceof HBox hBox){
-                for(Node node1 : hBox.getChildren()){
-                    if(node1 instanceof CheckBox checkBox){
-                        if(checkBox.isSelected()){
-                            tag = checkBox.getText();
-                        }
-                    }
-                }
-            }
-        }
-        StatusDatabase statusDatabase = new StatusDatabase(status,"date", tag , username , image_url) ;
+
+        StatusDatabase statusDatabase = new StatusDatabase(status,"date", status_tag , username , image_url) ;
         statusDatabase.status_information_connection();
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("post.fxml"));
 //        VBox vbox = fxmlLoader.load();
 //        System.out.println("TEST");
 //        newsfeed_scrollpane.setContent(vbox);
-        status_text_area.setText("");
+          status_text_area.setText("");
+    }
+
+    @FXML
+    void show_preview() throws Exception{
+        String username , date  ,image_url="";
+
+        LoginDatabase loginDatabase = new LoginDatabase();
+        status = status_text_area.getText();
+        username = loginDatabase.getUsername();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("post.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 200);
+        Post post = fxmlLoader.getController();
+        if(selectedFile!=null) {
+            image_url = selectedFile.getAbsolutePath();
+            post.setPost_image_view(new Image(new FileInputStream(image_url)));
+        }
+        else{
+            image_url = "none";
+        }
+        post.setPost_text_(status_text_area.getText());
+        post.setTag_lable(status_tag);
+        post.setDate_lable();
+        Stage newstage = new Stage();
+        newstage.setScene(scene);
+        newstage.setTitle("Preview");
+        newstage.show();
+
     }
 
     public void setusernameinpage(){
@@ -507,6 +543,21 @@ public class MainPage implements Initializable {
         }
         return  titlesandports;
     }
+
+
+    @FXML
+    void AddTag() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AddTag.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 250, 200);
+        scene.getStylesheets().add(getClass().getResource("MainPage.css").toExternalForm());
+        Stage newstage = new Stage();
+        newstage.setScene(scene);
+        newstage.setTitle("ADD TAG");
+        newstage.show();
+    }
+
+
+
 
 
 
