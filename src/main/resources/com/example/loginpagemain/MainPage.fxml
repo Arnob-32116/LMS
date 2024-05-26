@@ -317,7 +317,16 @@
                               </VBox>
                               <VBox fx:id="section_selection_vbox" prefHeight="649.0" prefWidth="700.0">
                                  <children>
-                                    <ScrollPane fx:id="section_selection_scrollpane" prefHeight="651.0" prefWidth="656.0" />
+                                    <ScrollPane fx:id="section_selection_scrollpane" prefHeight="574.0" prefWidth="656.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="mainpage_section_submit_button" mnemonicParsing="false" onAction="#add_section_student_side" prefHeight="37.0" prefWidth="104.0" text="Submit">
+                                             <HBox.margin>
+                                                <Insets left="530.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                  </children></VBox>
                               <VBox prefHeight="649.0" prefWidth="466.0">
                                  <HBox.margin>
@@ -360,7 +369,7 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <Pane fx:id="newsfeed_pane">
+                  <Pane fx:id="newsfeed_pane" visible="false">
                      <children>
                         <HBox layoutY="-5.0" prefHeight="153.0" prefWidth="1223.0" style="-fx-background-color: #FFFFFF;">
                            <children>

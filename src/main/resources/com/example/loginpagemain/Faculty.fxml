@@ -111,7 +111,7 @@
                   <VBox fx:id="newsfeed_vbox" prefHeight="130.0" prefWidth="138.0" />
                   <VBox fx:id="message_vbox" prefHeight="130.0" prefWidth="138.0">
                      <children>
-                        <Button fx:id="faculty_message_button" contentDisplay="TOP" mnemonicParsing="false" onAction="#Button_Action_something" prefHeight="115.0" prefWidth="137.0" style="-fx-background-color: #EC650B;" text="Message">
+                        <Button fx:id="faculty_message_button" contentDisplay="TOP" mnemonicParsing="false" onAction="#switch_to_messages" prefHeight="115.0" prefWidth="137.0" style="-fx-background-color: #EC650B;" text="Message">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -128,7 +128,21 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox fx:id="section_vbox" prefHeight="130.0" prefWidth="138.0" />
+                  <VBox fx:id="section_vbox" prefHeight="130.0" prefWidth="138.0">
+                     <children>
+                        <Button fx:id="faculty_message_button1" contentDisplay="TOP" mnemonicParsing="false" onAction="#switch_to_evaluation" prefHeight="115.0" prefWidth="134.0" style="-fx-background-color: #EC650B;" text="Evaluation">
+                           <graphic>
+                              <ImageView fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/evaluation_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children></VBox>
                   <VBox fx:id="quiz_vbox" prefHeight="130.0" prefWidth="138.0">
                      <children>
                         <Button fx:id="quiz_button" contentDisplay="TOP" mnemonicParsing="false" prefHeight="115.0" prefWidth="145.0" style="-fx-background-color: #EC650B;" text="Quiz" visible="false">
@@ -157,9 +171,15 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
+                  <Pane fx:id="evaluation_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="Faculty_Evaluation_vbox" prefHeight="649.0" prefWidth="167.0" />
+                        <VBox fx:id="outgoing_evaluation_vbox" layoutX="181.0" layoutY="8.0" prefHeight="627.0" prefWidth="1034.0" />
+                     </children>
+                  </Pane>
                   <Pane fx:id="message_pane" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <VBox fx:id="message_pane_vbox" layoutX="7.0" layoutY="1.0" prefHeight="647.0" prefWidth="135.0" />
+                        <VBox fx:id="message_pane_vbox" layoutX="7.0" layoutY="1.0" onMousePressed="#Evalutation_Button_Handeling" prefHeight="647.0" prefWidth="135.0" />
                         <VBox fx:id="incoming_message_vbox" layoutX="185.0" layoutY="8.0" onMouseClicked="#Message_Button_Handeling" prefHeight="633.0" prefWidth="1017.0" />
                      </children></Pane>
                </children>

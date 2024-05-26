@@ -32,6 +32,13 @@ public class MessageButtonController implements Initializable {
         message_button_vbox_fxml.setStyle("-fx-background-color : #000000");
     }
 
+    public void SetBackgroundColorButton(){
+        message_button_of_Courses.setStyle("-fx-background-color : #000000");
+    }
+
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

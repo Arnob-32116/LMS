@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="1030.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="145.0" text="ID" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="100.0" text="Class Test 1" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="110.0" text="Class Test 2" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="110.0" text="Class Test 3" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="110.0" text="Best Average" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="110.0" text="Assignment 1" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="110.0" text="Assignment 2" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="100.0" text="Mid Term" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="110.0" text="Final" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="145.0" text="ID NUM" />
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField prefWidth="70.0">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+   </children>
+</VBox>

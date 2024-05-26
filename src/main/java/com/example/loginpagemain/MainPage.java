@@ -39,6 +39,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -554,6 +555,38 @@ public class MainPage implements Initializable {
         newstage.setScene(scene);
         newstage.setTitle("ADD TAG");
         newstage.show();
+    }
+
+    @FXML
+    void add_section_student_side(){
+        ArrayList<String> student_id_from_admin = new ArrayList<String>();
+        ArrayList<String> course_from_admin = new ArrayList<String>();
+        student_id_from_admin.add(studentid_lable_mainpage.getText());
+        course_from_admin = selected_course();
+        AdminDatabase adminDatabase = new AdminDatabase();
+        adminDatabase.insert_admin_course_selection(student_id_from_admin,course_from_admin);
+    }
+
+    private ArrayList<String> selected_course(){
+        ArrayList<String> courses_selected = new ArrayList<String>();
+        VBox vBox = (VBox)section_selection_scrollpane.getContent();
+        for(Node node : vBox.getChildren()){
+            if(node instanceof HBox){
+                HBox hBox = (HBox) node;
+                Color color =(Color) hBox.getBorder().getStrokes().get(0).getBottomStroke();
+                if(!color.equals(Color.BLACK)) {
+                    for (Node node1 : hBox.getChildren()) {
+                        if(node1 instanceof Label){
+                            Label lable = (Label) node1;
+                            if(lable.getId().equals("section_course_code_lable")){
+                                courses_selected.add(lable.getText());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return courses_selected;
     }
 
 
