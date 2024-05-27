@@ -282,6 +282,9 @@ public class AdminController implements Initializable {
         course_from_admin = selected_course();
         AdminDatabase adminDatabase = new AdminDatabase();
         adminDatabase.insert_admin_course_selection(student_id_from_admin,course_from_admin);
+        if(search_type.equals("student")) {
+            adminDatabase.add_evaluation(student_id_from_admin, course_from_admin);
+        }
     }
 
     @FXML

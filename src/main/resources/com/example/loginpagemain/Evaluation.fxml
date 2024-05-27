@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="Evaluation_Vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.EvaluationController">
    <children>
       <HBox prefHeight="100.0" prefWidth="1030.0">
          <children>
@@ -24,7 +23,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="145.0" text="ID NUM" />
+            <Label fx:id="student_id_evaluation" alignment="CENTER" prefHeight="67.0" prefWidth="145.0" text="ID NUM" />
             <TextField prefWidth="70.0">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
@@ -63,6 +62,20 @@
             <TextField prefWidth="70.0">
                <HBox.margin>
                   <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="85.0" prefWidth="1030.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="43.0" prefWidth="144.0" text="Final Grade">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField prefHeight="24.0" prefWidth="72.0">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
                </HBox.margin>
             </TextField>
          </children>

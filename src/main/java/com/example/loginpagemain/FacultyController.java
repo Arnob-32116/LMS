@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,16 +30,18 @@ public class FacultyController implements Initializable {
     @FXML
     VBox message_pane_vbox , Faculty_Evaluation_vbox;
     @FXML
-    VBox incoming_message_vbox , outgoing_evaluation_vbox;
+    VBox incoming_message_vbox;
     @FXML
     Label username_lable_mainpage;
+    @FXML
+    ScrollPane outgoing_evaluation_scrollpane ;
     @FXML
     private Pane evaluation_pane , message_pane;
     public static String  Current_Button_Message="" ;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final ScheduledExecutorService evaluation = Executors.newScheduledThreadPool(1);
     public static ArrayList<Pair<VBox,AnchorPane>> message_buttons_and_panes = new ArrayList<Pair<VBox,AnchorPane>>();
-    public static ArrayList<Pair<VBox,VBox>> evaluation_buttons_and_panes = new ArrayList<Pair<VBox,VBox>>();
+    public static ArrayList<VBox> evaluation_buttons_and_panes = new ArrayList<VBox>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoginDatabase loginDatabase = new LoginDatabase();
@@ -157,40 +160,55 @@ public class FacultyController implements Initializable {
             messageButtonController.setMessage_button_of_Courses(Titles.get(i));
             messageButtonController.SetBackgroundColorButton();
             Message_Button_parent.getChildren().add(vBox);
-
-            VBox vBox1 = new VBox();
-            FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("Evaluation.fxml"));
-            vBox1 = fxmlLoader1.load();
-            evaluation_buttons_and_panes.add(new Pair<VBox,VBox>(vBox,vBox1));
+            evaluation_buttons_and_panes.add(vBox);
         }
-
         Faculty_Evaluation_vbox.getChildren().add(Message_Button_parent);
         //incoming_message_vbox.getChildren().add(anchorPane);
     }
 
     int current_index1 = - 1;
 
-    public void Evalutation_Button_Handeling() {
+    public void Evalutation_Button_Handeling(){
         for (int i = 0; i < evaluation_buttons_and_panes.size(); i++) {
-            VBox vBox = evaluation_buttons_and_panes.get(i).getKey();
+            VBox vBox = evaluation_buttons_and_panes.get(i);
             for (Node node : vBox.getChildren()) {
                 if (node instanceof Button) {
                     Button button = (Button) node;
                     if (button.getText().equals(Current_Button_Message)) {
                         if(current_index1==-1) {
-                            VBox vBox1 = evaluation_buttons_and_panes.get(i).getValue();
-                            Platform.runLater(() -> outgoing_evaluation_vbox.getChildren().add(vBox1));
+                            FacultyDatabase facultyDatabase = new FacultyDatabase();
+                            VBox parent = new VBox() ;
+                            try {
+                                ArrayList<VBox> evaluationVboxes = facultyDatabase.get_number_information(Current_Button_Message);
+                                for(int k = 0 ; k < evaluationVboxes.size() ; k++){
+                                    parent.getChildren().add(evaluationVboxes.get(k));
+                                }
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            Platform.runLater(() -> outgoing_evaluation_scrollpane.setContent(parent));
                             current_index1 = i;
+                            System.out.println(Current_Button_Message);
                         }
                         else if (current_index1!= i) {
-                            VBox vBox1= evaluation_buttons_and_panes.get(i).getValue();
+                            FacultyDatabase facultyDatabase = new FacultyDatabase();
+                            VBox parent = new VBox() ;
+                            try {
+                                ArrayList<VBox> evaluationVboxes = facultyDatabase.get_number_information(Current_Button_Message);
+                                for (int k = 0; k < evaluationVboxes.size(); k++) {
+                                    parent.getChildren().add(evaluationVboxes.get(k));
+                                }
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                            }
                             Platform.runLater(() -> {
-                               outgoing_evaluation_vbox.getChildren().clear();
-                               outgoing_evaluation_vbox.getChildren().add(vBox1);
+                               outgoing_evaluation_scrollpane.setContent(parent);
                             });
                             current_index1 = i;
                         }
-
                     }
                     else{
                         vBox.setStyle("-fx-background-color : #FFFFFF");

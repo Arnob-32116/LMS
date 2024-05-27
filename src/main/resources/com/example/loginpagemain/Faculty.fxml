@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -171,17 +172,22 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="evaluation_pane" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <VBox fx:id="Faculty_Evaluation_vbox" prefHeight="649.0" prefWidth="167.0" />
-                        <VBox fx:id="outgoing_evaluation_vbox" layoutX="181.0" layoutY="8.0" prefHeight="627.0" prefWidth="1034.0" />
-                     </children>
-                  </Pane>
                   <Pane fx:id="message_pane" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <VBox fx:id="message_pane_vbox" layoutX="7.0" layoutY="1.0" onMousePressed="#Evalutation_Button_Handeling" prefHeight="647.0" prefWidth="135.0" />
                         <VBox fx:id="incoming_message_vbox" layoutX="185.0" layoutY="8.0" onMouseClicked="#Message_Button_Handeling" prefHeight="633.0" prefWidth="1017.0" />
-                     </children></Pane>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="evaluation_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="Faculty_Evaluation_vbox" prefHeight="649.0" prefWidth="167.0" />
+                        <ScrollPane fx:id="outgoing_evaluation_scrollpane" layoutX="195.0" layoutY="5.0" prefHeight="556.0" prefWidth="1017.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </Pane>
                </children>
             </StackPane>
          </center>

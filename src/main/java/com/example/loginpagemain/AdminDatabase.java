@@ -200,7 +200,30 @@ public class AdminDatabase {
                 for(int j = 0 ; j < course_selected.size() ; j++) {
                     System.out.println("Second loop");
                     String insertQuery = "UPDATE Student_Course_Selection SET " +course_selected.get(j)+" ='Current' WHERE Student_ID= '"+student_id_selected.get(i)+"'";
-                    System.out.println(insertQuery);
+                  //  System.out.println(insertQuery);
+                    Statement statement = connection.createStatement();
+                    statement.execute(insertQuery);
+                }
+            }
+            connection.close();
+            System.out.println("Conncetion done");
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+    }
+
+    public void add_evaluation (ArrayList<String>student_id_front_admin , ArrayList<String>course_from_admin){
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            for(int i = 0 ; i < course_from_admin.size() ; i++){
+                for(int j = 0 ; j < student_id_front_admin.size() ; j++){
+                    String insertQuery = "INSERT INTO "+ course_from_admin.get(i)+"_Evaluation VALUES ('" +student_id_front_admin.get(j)+ "', 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 )";
                     Statement statement = connection.createStatement();
                     statement.execute(insertQuery);
                 }
