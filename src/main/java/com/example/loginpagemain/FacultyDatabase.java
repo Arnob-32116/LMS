@@ -44,4 +44,28 @@ public class FacultyDatabase {
         }
         return evaluation_vbox;
     }
+
+    public void SubmitGrade(String Course_id , String student_id , ArrayList<Float>grades){
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+         //   String insertQuery = "INSERT INTO "+ Course_id+"_Evaluation VALUES ('WHERE " ++ "', 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 )";
+            String insertQuery = "UPDATE "+Course_id+"_Evaluation"
+           +" SET CT1 = "+grades.get(0)+", CT2 = "+grades.get(1)+", CT3 ="+grades.get(2)+", Best_CT_AVG = "+grades.get(3)+", Assignment1 = "+grades.get(4)+", Assignment2= "+grades.get(5)+", MID ="+grades.get(6)+", Final = "+grades.get(7) +", Final_grade = "+grades.get(8)
+            +"WHERE Id = '"+student_id+"' " ;
+
+            Statement statement = connection.createStatement();
+             statement.execute(insertQuery);
+            connection.close();
+            System.out.println("Conncetion done");
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+
+    }
 }

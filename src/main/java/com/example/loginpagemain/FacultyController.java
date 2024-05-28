@@ -10,7 +10,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
@@ -218,4 +220,44 @@ public class FacultyController implements Initializable {
         }
 
     }
+
+    @FXML
+    void grade_submission(){
+        for(Node node : evaluation_pane.getChildren()){
+            if(node instanceof ScrollPane scrollPane){
+                VBox vBox = (VBox) scrollPane.getContent();
+                for(Node node1 : vBox.getChildren()){
+                    if(node1 instanceof VBox vBox1){
+                        ArrayList<Float> arrayList = new ArrayList<Float>();
+                        String Student_id ="";
+                        for(Node node2 : vBox1.getChildren()){
+
+                            if(node2 instanceof HBox hBox){
+                                for(Node node3 : hBox.getChildren()){
+                                    if(node3 instanceof Label label){
+
+                                        if(label.getId()!=null && label.getId().toString().equals("student_id_evaluation")){
+                                            Student_id = label.getText();
+                                        }
+                                    }
+                                    if(node3 instanceof TextField textField){
+                                       // System.out.println(textField.getText());
+                                        arrayList.add(Float.parseFloat(textField.getText()));
+                                    }
+                                }
+                            }
+
+                        }
+
+                        FacultyDatabase facultyDatabase = new FacultyDatabase();
+                        facultyDatabase.SubmitGrade(Current_Button_Message , Student_id , arrayList);
+
+                    }
+                }
+            }
+        }
+
+
+    }
+
 }
