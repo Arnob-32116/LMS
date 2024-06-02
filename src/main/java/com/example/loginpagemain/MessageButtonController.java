@@ -7,8 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -26,6 +28,7 @@ public class MessageButtonController implements Initializable {
         Button button = (Button)(Node)event.getSource();
         MainPage.Current_Button_Message = button.getText();
         FacultyController.Current_Button_Message = button.getText();
+        FacultyController.Current_Material_Button = button.getText();
     }
 
     public void SetBackgroundColor(){

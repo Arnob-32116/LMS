@@ -109,7 +109,24 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="newsfeed_vbox" prefHeight="130.0" prefWidth="138.0" />
+                  <VBox fx:id="newsfeed_vbox" prefHeight="130.0" prefWidth="138.0">
+                     <children>
+                        <Button fx:id="faculty_materials_button" contentDisplay="TOP" mnemonicParsing="false" onAction="#switch_to_materials" prefHeight="115.0" prefWidth="137.0" style="-fx-background-color: #EC650B;" text="Give Materials">
+                           <graphic>
+                              <ImageView fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../personal_icons/materials.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children></VBox>
                   <VBox fx:id="message_vbox" prefHeight="130.0" prefWidth="138.0">
                      <children>
                         <Button fx:id="faculty_message_button" contentDisplay="TOP" mnemonicParsing="false" onAction="#switch_to_messages" prefHeight="115.0" prefWidth="137.0" style="-fx-background-color: #EC650B;" text="Message">
@@ -142,6 +159,9 @@
                            <font>
                               <Font size="14.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
                         </Button>
                      </children></VBox>
                   <VBox fx:id="quiz_vbox" prefHeight="130.0" prefWidth="138.0">
@@ -172,13 +192,13 @@
          <center>
             <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="message_pane" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="message_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <VBox fx:id="message_pane_vbox" layoutX="7.0" layoutY="1.0" onMousePressed="#Evalutation_Button_Handeling" prefHeight="647.0" prefWidth="135.0" />
                         <VBox fx:id="incoming_message_vbox" layoutX="185.0" layoutY="8.0" onMouseClicked="#Message_Button_Handeling" prefHeight="633.0" prefWidth="1017.0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="evaluation_pane" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="evaluation_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <VBox fx:id="Faculty_Evaluation_vbox" prefHeight="649.0" prefWidth="167.0" />
                         <ScrollPane fx:id="outgoing_evaluation_scrollpane" layoutX="195.0" layoutY="5.0" prefHeight="556.0" prefWidth="1017.0">
@@ -187,6 +207,18 @@
                           </content>
                         </ScrollPane>
                         <Button fx:id="grade_submit_button" layoutX="1006.0" layoutY="588.0" mnemonicParsing="false" onAction="#grade_submission" prefHeight="47.0" prefWidth="152.0" text="Grade Submit" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="materials_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane fx:id="outgoing_materials_scrollpane" layoutX="166.0" prefHeight="556.0" prefWidth="1048.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                           </content>
+                        </ScrollPane>
+                        <VBox fx:id="Faculty_Materials_vbox" prefHeight="649.0" prefWidth="167.0" />
+                        <Button fx:id="Refreash_Materials" layoutX="1033.0" layoutY="580.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="152.0" text="Refresh Materials" />
+                        <Button layoutX="813.0" layoutY="582.0" mnemonicParsing="false" onMousePressed="#AddMaterials" prefHeight="46.0" prefWidth="140.0" text="Add Materials" />
                      </children>
                   </Pane>
                </children>

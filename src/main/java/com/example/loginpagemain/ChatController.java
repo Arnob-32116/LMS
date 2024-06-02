@@ -48,6 +48,8 @@ public class ChatController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.username = getUsername();
         running = true;
+
+
         scheduler.scheduleAtFixedRate(this::messages, 0, 1, TimeUnit.SECONDS);
 
     }
@@ -62,6 +64,7 @@ public class ChatController implements Initializable {
     }
     @FXML
     void startChatting() throws IOException {
+        setMessagesFromDatabase();
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.execute(() -> {
             try {
@@ -178,6 +181,47 @@ public class ChatController implements Initializable {
     @FXML
     void close() throws Exception{
 
+    }
+
+    private void setMessagesFromDatabase(ArrayList<Pair<String , String>> username_and_messages) throws Exception{
+        for(int i = 0 ; i < username_and_messages.size() ; i++){
+            if(username_and_messages.get(i).getKey().equals(username)){
+                setSenderMessage(username_and_messages.get(i).getValue());
+
+                System.out.println( username_and_messages.get(i).getValue());
+            }
+            else{
+                setRecieverMessage(username_and_messages.get(i).getKey() , username_and_messages.get(i).getValue());
+            }
+        }
+    }
+
+    private void setRecieverMessage(String username , String incomingmessage) throws Exception{
+        VBox vBox = new VBox();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageLables.fxml"));
+        VBox vbox = fxmlLoader.load();
+        MessageLableController messageLableController = fxmlLoader.getController();
+        LoginDatabase loginDatabase = new LoginDatabase();
+        messageLableController.SetMessageAndUsername(incomingmessage,username);
+        messageLableController.setTextColorOfOthersSentMessage();
+        if(!Client.current_message.contains(vbox)){
+            Client.current_message.add(new Pair<>(port,vbox));
+        }
+
+    }
+
+    public void setMessagesFromDatabase(){
+        MainPageDatabase mainPageDatabase = new MainPageDatabase();
+        String course_code = mainPageDatabase.get_course_code_of_port(port);
+        ArrayList<Pair<String , String >> username_and_message = new ArrayList<Pair<String , String >>();
+        username_and_message = mainPageDatabase.getMessage(course_code);
+        try {
+            System.out.println("This is working working " + username_and_message.size());
+            setMessagesFromDatabase(username_and_message);
+        }
+        catch (Exception e){
+            System.out.println("Exception in setting messages from database");
+        }
     }
 
 

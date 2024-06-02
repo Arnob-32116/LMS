@@ -42,7 +42,10 @@ public class Client {
         try {
 
             if(socket.isConnected()) {
+                MainPageDatabase mainPageDatabase = new MainPageDatabase();
+                String course_code = mainPageDatabase.get_course_code_of_port(port);
                 bufferedWriter.write(username + " " + message);
+                mainPageDatabase.sendMessage(course_code , username , message);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }

@@ -7,9 +7,9 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -178,7 +178,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox fx:id="quiz_vbox" prefHeight="130.0" prefWidth="138.0">
+                  <VBox fx:id="quiz_vbox" prefHeight="130.0" prefWidth="138.0" visible="false">
                      <children>
                         <Button fx:id="quiz_button" contentDisplay="TOP" mnemonicParsing="false" onAction="#switch_to_quiz" prefHeight="115.0" prefWidth="145.0" style="-fx-background-color: #EC650B;" text="Quiz">
                            <VBox.margin>
@@ -274,7 +274,7 @@
                         <VBox fx:id="message_pane_vbox" layoutX="7.0" layoutY="1.0" prefHeight="647.0" prefWidth="135.0" />
                         <VBox fx:id="incoming_message_vbox" layoutX="185.0" layoutY="8.0" onMouseClicked="#Message_Button_Handeling" prefHeight="633.0" prefWidth="1017.0" />
                      </children></Pane>
-                  <Pane fx:id="section_pane" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="section_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
                      <children>
                         <HBox layoutX="-1.0" prefHeight="649.0" prefWidth="1225.0">
                            <children>
@@ -302,16 +302,12 @@
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="71.0" prefWidth="146.0">
-                                       <children>
-                                          <SplitMenuButton fx:id="Running_courses_splitmenu" mnemonicParsing="false" prefHeight="60.0" prefWidth="190.0" text="Running Courses">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </SplitMenuButton>
-                                       </children>
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
+                                       <children>
+                                          <ComboBox fx:id="Running_courses_splitmenu" onAction="#running_course" prefHeight="44.0" prefWidth="146.0" promptText="Running Course" />
+                                       </children>
                                     </VBox>
                                  </children>
                               </VBox>
@@ -337,7 +333,7 @@
                                        <children>
                                           <VBox prefHeight="336.0" prefWidth="281.0">
                                              <children>
-                                                <PieChart fx:id="assignment_pie" legendVisible="false" title="Assignments Pending" VBox.vgrow="ALWAYS">
+                                                <PieChart fx:id="assignment_pie" disable="true" legendVisible="false" title="Assignments Pending" visible="false" VBox.vgrow="ALWAYS">
                                                    <VBox.margin>
                                                       <Insets />
                                                    </VBox.margin>
@@ -346,14 +342,14 @@
                                           </VBox>
                                           <VBox prefHeight="336.0" prefWidth="281.0">
                                              <children>
-                                                <PieChart fx:id="credit_pie" legendVisible="false" title="Credit Completed" VBox.vgrow="ALWAYS" />
+                                                <PieChart fx:id="credit_pie" title="Credit Completed" VBox.vgrow="ALWAYS" />
                                              </children>
                                           </VBox>
                                        </children>
                                     </HBox>
                                     <VBox prefHeight="289.0" prefWidth="536.0">
                                        <children>
-                                          <LineChart fx:id="cgpa_graph" legendVisible="false" title="CGPA GRAPH" titleSide="BOTTOM">
+                                          <LineChart fx:id="cgpa_graph" disable="true" legendVisible="false" title="CGPA GRAPH" titleSide="BOTTOM" visible="false">
                                              <xAxis>
                                                 <CategoryAxis side="BOTTOM" />
                                              </xAxis>
@@ -369,7 +365,7 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <Pane fx:id="newsfeed_pane" visible="false">
+                  <Pane fx:id="newsfeed_pane">
                      <children>
                         <HBox layoutY="-5.0" prefHeight="153.0" prefWidth="1223.0" style="-fx-background-color: #FFFFFF;">
                            <children>

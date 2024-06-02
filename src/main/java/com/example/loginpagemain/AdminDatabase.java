@@ -236,4 +236,145 @@ public class AdminDatabase {
         }
     }
 
+    ArrayList<String> get_completed_credit (ArrayList<String> courses){
+        ArrayList<String> credit_completed  = new ArrayList<>();
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            for(int i = 0 ; i < courses.size() ; i++){
+                String insertQuery = "SELECT "+courses.get(i)+" FROM Course_info WHERE Serial='2'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(insertQuery);
+                while (resultSet.next()){
+                    credit_completed.add(resultSet.getString(1));
+                }
+
+            }
+            connection.close();
+            System.out.println("Conncetion done");
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+        return credit_completed;
+    }
+
+
+    ArrayList<String> get_done_course_by_student(String Student_id){
+        ArrayList<String> current_course = new ArrayList<String>();
+        ArrayList<String> course_titles_list = new ArrayList<String>();
+        ArrayList<String> courses_given_list = new ArrayList<String>();
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            String insertQuery1 = "SELECT COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE\n" +
+                    "FROM INFORMATION_SCHEMA.COLUMNS\n" +
+                    "WHERE TABLE_NAME = 'Student_Course_Selection'\n" +
+                    "ORDER BY 2;\n";
+            String insertQuery = "Select * from Student_Course_Selection where Student_Id="+Student_id;
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(insertQuery);
+            while (resultSet.next()){
+                for(int i = 2 ; i < 19 ; i++) {
+                    current_course.add(resultSet.getString(i));
+                }
+            }
+
+            resultSet = statement.executeQuery(insertQuery1);
+
+            while (resultSet.next()){
+                course_titles_list.add(resultSet.getString(1));
+            }
+            connection.close();
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+
+        for(int i = 0 , j = 1 ; i<current_course.size() ; i++, j++ ){
+            if(current_course.get(i) == null)
+                continue;
+            if(current_course.get(i).equals("Done")){
+                courses_given_list.add(course_titles_list.get(j));
+            }
+        }
+
+        return courses_given_list;
+    }
+
+    int is_semster_break(){
+        int is_semester_break = 0 ;
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            String insertQuery = "Select End From Semester_End";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(insertQuery);
+            while (resultSet.next()){
+                is_semester_break = resultSet.getInt(1);
+            }
+            connection.close();
+            System.out.println("Conncetion done");
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+        return is_semester_break;
+    }
+
+    void change_semester_break_to_on(){
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            String insertQuery = "UPDATE Semester_End\n" +
+                    "SET End = 1\n" +
+                    "LIMIT 1";
+            Statement statement = connection.createStatement();
+            statement.execute(insertQuery);
+            connection.close();
+            System.out.println("Conncetion done");
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+    }
+
+    void change_semester_break_to_off(){
+        Connection connection = null;
+        try {
+            // below two lines are used for connectivity.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myDB",
+                    "Arnob", "password_3306");
+            String insertQuery = "UPDATE Semester_End\n" +
+                    "SET End = 0\n" +
+                    "LIMIT 1";
+            Statement statement = connection.createStatement();
+            statement.execute(insertQuery);
+            connection.close();
+            System.out.println("Conncetion done");
+        } catch (Exception exception) {
+            //System.out.println("AR");
+            System.out.println(exception);
+        }
+    }
+
+
 }

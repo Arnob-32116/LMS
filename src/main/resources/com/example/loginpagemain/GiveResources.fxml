@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpagemain.GiveResources">
+   <children>
+      <HBox prefHeight="50.0" prefWidth="656.0">
+         <children>
+            <Label fx:id="course_title_resources_lable" alignment="CENTER" prefHeight="43.0" prefWidth="194.0" text="Course_Title">
+               <HBox.margin>
+                  <Insets left="230.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="material_type_textfield" alignment="CENTER" prefHeight="24.0" prefWidth="234.0" promptText="Material Type">
+               <HBox.margin>
+                  <Insets left="20.0" top="15.0" />
+               </HBox.margin>
+            </TextField>
+            <HBox fx:id="attachment_hbox2" onMousePressed="#ShowAttachment" prefHeight="50.0" prefWidth="180.0">
+               <children>
+                  <Label fx:id="attachment_lable1" onMousePressed="#ShowAttachment" prefHeight="50.0" prefWidth="126.0" text="Show Attachment">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../personal_icons/attachment_icon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="-5.0" top="12.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets left="240.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <TextArea fx:id="text_textarea" prefHeight="100.0" prefWidth="361.0" promptText="Enter Text You Want to Share">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextArea>
+            <VBox prefHeight="100.0" prefWidth="165.0">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <children>
+                  <HBox fx:id="attachment_hbox" onMousePressed="#filechooser" prefHeight="50.0" prefWidth="144.0">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label fx:id="attachment_lable" prefHeight="50.0" prefWidth="115.0" text="Add Attachment">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../personal_icons/attachment_icon.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-5.0" top="12.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="165.0">
+               <children>
+                  <HBox fx:id="attachment_hbox1" prefHeight="50.0" prefWidth="144.0">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                     <children>
+                        <Button fx:id="Submit_button" mnemonicParsing="false" onMousePressed="#setInfoToDatabase" prefHeight="50.0" prefWidth="151.0" text="Submit">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

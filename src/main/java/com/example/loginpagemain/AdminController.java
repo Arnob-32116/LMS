@@ -1,22 +1,28 @@
 package com.example.loginpagemain;
 
 import com.mysql.cj.log.Log;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AdminController implements Initializable {
     @FXML
@@ -33,10 +39,19 @@ public class AdminController implements Initializable {
     Label submit_done_label;
     @FXML
     Button search_student_button_option , search_faculty_button_option ;
+    @FXML
+    MFXToggleButton semster_break_togglebutton;
+    public static int is_semster_break ;
     public  static String credit , course_code, course_name , static_student_id , static_student_name;
     private String search_type = "student";
+    public static Boolean password_match = false;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        AdminDatabase adminDatabase = new AdminDatabase();
+        is_semster_break = adminDatabase.is_semster_break();
+        scheduler.scheduleAtFixedRate(this::toggle_handler, 0, 1, TimeUnit.SECONDS);
         try {
             admin_get_allsection();
             admin_get_student_info();
@@ -349,6 +364,25 @@ public class AdminController implements Initializable {
                 }
             }
         }
+    }
+
+    @FXML
+    void clear_all_data () throws Exception{
+        check_surity();
+    }
+
+    private void  check_surity() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Areyousure.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 300);
+        scene.getStylesheets().add(getClass().getResource("MainPage.css").toExternalForm());
+        Stage newstage = new Stage();
+        newstage.setScene(scene);
+        newstage.setTitle("Sure?");
+        newstage.show();
+    }
+
+    private void toggle_handler(){
+        semster_break_togglebutton.setSelected(is_semster_break != 0);
     }
 
 

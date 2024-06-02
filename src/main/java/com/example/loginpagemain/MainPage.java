@@ -2,6 +2,8 @@ package com.example.loginpagemain;
 
 import javafx.application.Platform;
 import javafx.beans.Observable;
+
+import javafx.scene.Group;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,6 +45,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import org.jpedal.examples.viewer.Commands;
+import org.jpedal.examples.viewer.OpenViewerFX;
 
 
 public class MainPage implements Initializable {
@@ -61,7 +65,7 @@ public class MainPage implements Initializable {
     @FXML
     VBox tag_filter_vbox, date_filter_vbox;
     @FXML
-    SplitMenuButton Running_courses_splitmenu;
+    ComboBox Running_courses_splitmenu;
     @FXML
     ScrollPane newsfeed_scrollpane , section_selection_scrollpane ;
     @FXML
@@ -77,6 +81,7 @@ public class MainPage implements Initializable {
     static String status="",status_username="",post_date="",post_tag="",image_url="";
     @Override
     public void initialize(URL location, ResourceBundle resources){
+
         vBoxes.add(newsfeed_vbox);
         vBoxes.add(section_vbox);
         vBoxes.add(quiz_vbox);
@@ -222,17 +227,26 @@ public class MainPage implements Initializable {
         series.getData().add(new XYChart.Data("Semester 3", 4.00));
         cgpa_graph.getData().addAll(series);
     }
-
     @FXML
-    public void setCredit_pie(){
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Sem1", 9),
-                new PieChart.Data("Sem2", 11),
-                new PieChart.Data("Sem3", 14)
-        );
-        credit_pie.setData(pieChartData);
+    public void setCredit_pie() {
+        AdminDatabase adminDatabase = new AdminDatabase();
+        ArrayList<String> coursecode = adminDatabase.get_done_course_by_student(studentid_lable_mainpage.getText());
+        ArrayList<String> credit = adminDatabase.get_completed_credit(coursecode);
+        Double total_credit = 138.0;
+        Double completed_credit = 0.0;
+        for (String credits : credit) {
+            completed_credit += Double.parseDouble(credits);
+        }
 
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Incomplete", total_credit - completed_credit),
+                new PieChart.Data("Completed", completed_credit)
+        );
+
+
+        credit_pie.setData(pieChartData);
     }
+
 
     @FXML
     public void setAssignment_pie(){
@@ -249,6 +263,7 @@ public class MainPage implements Initializable {
     @FXML
     public void setAlltime_exam_result_graph(){
         XYChart.Series series = new XYChart.Series<>();
+       // ArrayList<Pair<String , Float>>
         series.getData().add(new XYChart.Data("Exam1", 4.00));
         series.getData().add(new XYChart.Data("Exam2", 3.50));
         series.getData().add(new XYChart.Data("Exam3", 4.00));
@@ -272,15 +287,14 @@ public class MainPage implements Initializable {
         AdminDatabase adminDatabase = new AdminDatabase();
         String id = studentid_lable_mainpage.getText();
         current_courses = adminDatabase.get_current_course_by_student(id);
-        ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+      //  current_courses.add("Huddai");
         for(int i = 0 ; i < current_courses.size() ; i++){
-            MenuItem menuItem = new MenuItem(current_courses.get(i));
-            menuItems.add(menuItem);
+            Running_courses_splitmenu.getItems().add(current_courses.get(i));
         }
-        for(int i = 0 ; i < menuItems.size() ; i++){
-            Running_courses_splitmenu.getItems().add(menuItems.get(i));
-
-        }
+//        for(int i = 0 ; i < menuItems.size() ; i++){
+//            Running_courses_splitmenu.getItems().add(menuItems.get(i));
+//
+//        }
 
     }
 
@@ -590,7 +604,18 @@ public class MainPage implements Initializable {
     }
 
 
+    @FXML
+    public void running_course(ActionEvent event) throws Exception{
 
+        VBox parent = new VBox();
+        ArrayList<VBox> courselist = new ArrayList<VBox>();
+        MainPageDatabase mainPageDatabase = new MainPageDatabase();
+        courselist = mainPageDatabase.get_materials_information((String)Running_courses_splitmenu.getValue());
+        for(int i = 0 ; i < courselist.size() ; i++){
+            parent.getChildren().add(courselist.get(i));
+        }
+        section_selection_scrollpane.setContent(parent);
+    }
 
 
 

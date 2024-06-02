@@ -43,7 +43,7 @@
                         <Insets left="830.0" top="10.0" />
                      </HBox.margin>
                      <children>
-                        <MFXToggleButton prefHeight="29.0" prefWidth="86.0" text="OFF" textFill="#faa011">
+                        <MFXToggleButton fx:id="semster_break_togglebutton" accessibleRole="BUTTON" onMousePressed="#clear_all_data" prefHeight="29.0" prefWidth="86.0" text="OFF" textFill="#faa011">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -51,7 +51,7 @@
                               <Insets />
                            </VBox.margin>
                         </MFXToggleButton>
-                        <Label prefHeight="21.0" prefWidth="141.0" text="Section Selection" textFill="#dd5d07">
+                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="141.0" text="Semester Break" textFill="#dd5d07">
                            <font>
                               <Font size="15.0" />
                            </font>

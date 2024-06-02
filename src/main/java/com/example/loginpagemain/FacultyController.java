@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.net.URL;
@@ -30,20 +32,22 @@ public class FacultyController implements Initializable {
     @FXML
     VBox message_vbox;
     @FXML
-    VBox message_pane_vbox , Faculty_Evaluation_vbox;
+    VBox message_pane_vbox , Faculty_Evaluation_vbox ,Faculty_Materials_vbox;
     @FXML
     VBox incoming_message_vbox;
     @FXML
     Label username_lable_mainpage;
     @FXML
-    ScrollPane outgoing_evaluation_scrollpane ;
+    ScrollPane outgoing_evaluation_scrollpane , outgoing_materials_scrollpane ;
     @FXML
-    private Pane evaluation_pane , message_pane;
-    public static String  Current_Button_Message="" ;
+    private Pane evaluation_pane , message_pane , materials_pane;
+    public static String  Current_Button_Message="" , Current_Material_Button = "";
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final ScheduledExecutorService evaluation = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService materials = Executors.newScheduledThreadPool(1);
     public static ArrayList<Pair<VBox,AnchorPane>> message_buttons_and_panes = new ArrayList<Pair<VBox,AnchorPane>>();
     public static ArrayList<VBox> evaluation_buttons_and_panes = new ArrayList<VBox>();
+    public static ArrayList<VBox> material_buttons_and_panes = new ArrayList<VBox>();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoginDatabase loginDatabase = new LoginDatabase();
@@ -58,6 +62,8 @@ public class FacultyController implements Initializable {
         }
         scheduler.scheduleAtFixedRate(this::Message_Button_Handeling, 0, 1, TimeUnit.SECONDS);
         evaluation.scheduleAtFixedRate(this::Evalutation_Button_Handeling, 0, 1, TimeUnit.SECONDS);
+        materials.scheduleAtFixedRate(this::Materials_Button_Handeling, 0, 1, TimeUnit.SECONDS);
+
     }
 
 
@@ -99,6 +105,7 @@ public class FacultyController implements Initializable {
     public void switch_to_messages() throws Exception{
         evaluation_pane.setVisible(false);
         message_pane.setVisible(true);
+        materials_pane.setVisible(false);
         message_pane.toFront();
         message_pane_vbox.getChildren().clear();
         ArrayList<Pair<String,Integer>> TitleAndPorts = getFacultyTitleAndPort();
@@ -147,6 +154,7 @@ public class FacultyController implements Initializable {
         System.out.println("Switch to evaluation activated");
         evaluation_pane.setVisible(true);
         message_pane.setVisible(false);
+        materials_pane.setVisible(false);
         evaluation_pane.toFront();
         Faculty_Evaluation_vbox.getChildren().clear();
         AdminDatabase adminDatabase = new AdminDatabase();
@@ -165,6 +173,33 @@ public class FacultyController implements Initializable {
             evaluation_buttons_and_panes.add(vBox);
         }
         Faculty_Evaluation_vbox.getChildren().add(Message_Button_parent);
+        //incoming_message_vbox.getChildren().add(anchorPane);
+    }
+
+    @FXML
+    public void switch_to_materials() throws Exception{
+        System.out.println("Switch to materials activated");
+        materials_pane.setVisible(true);
+        evaluation_pane.setVisible(false);
+        message_pane.setVisible(false);
+        materials_pane.toFront();
+        Faculty_Materials_vbox.getChildren().clear();
+        AdminDatabase adminDatabase = new AdminDatabase();
+        LoginDatabase loginDatabase = new LoginDatabase();
+        String id = loginDatabase.getStudent_ID();
+        ArrayList<String> Titles = adminDatabase.get_current_course_by_student(id);;
+        VBox Message_Button_parent = new VBox();
+        for(int i = 0 ; i < Titles.size() ; i++){
+            VBox vBox = new VBox();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MessageButton.fxml"));
+            vBox = fxmlLoader.load();
+            MessageButtonController messageButtonController = fxmlLoader.getController();
+            messageButtonController.setMessage_button_of_Courses(Titles.get(i));
+            messageButtonController.SetBackgroundColorButton();
+            Message_Button_parent.getChildren().add(vBox);
+            material_buttons_and_panes.add(vBox);
+        }
+        Faculty_Materials_vbox.getChildren().add(Message_Button_parent);
         //incoming_message_vbox.getChildren().add(anchorPane);
     }
 
@@ -219,6 +254,72 @@ public class FacultyController implements Initializable {
             }
         }
 
+    }
+
+    int current_index2 = -1 ;
+    public void Materials_Button_Handeling(){
+        for (int i = 0; i < material_buttons_and_panes.size(); i++) {
+            VBox vBox = material_buttons_and_panes.get(i);
+            for (Node node : vBox.getChildren()) {
+                if (node instanceof Button) {
+                    Button button = (Button) node;
+                    if (button.getText().equals(Current_Button_Message)) {
+                        if(current_index2==-1) {
+                            FacultyDatabase facultyDatabase = new FacultyDatabase();
+                            VBox parent = new VBox() ;
+                            try {
+                                System.out.println(Current_Button_Message);
+                                ArrayList<VBox> materialsVboxes = facultyDatabase.get_materials_information(Current_Button_Message);
+                                for(int k = 0 ; k < materialsVboxes.size() ; k++){
+                                    parent.getChildren().add(materialsVboxes.get(k));
+                                }
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                            Platform.runLater(() -> outgoing_materials_scrollpane.setContent(parent));
+                            current_index2 = i;
+                        }
+                        else if (current_index2!= i) {
+                            FacultyDatabase facultyDatabase = new FacultyDatabase();
+                            VBox parent = new VBox() ;
+                            try {
+                                ArrayList<VBox> materialsVboxes = facultyDatabase.get_materials_information(Current_Button_Message);
+                                for (int k = 0; k < materialsVboxes.size(); k++) {
+                                    parent.getChildren().add(materialsVboxes.get(k));
+                                }
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            Platform.runLater(() -> {
+                                outgoing_materials_scrollpane.setContent(parent);
+                            });
+                            current_index2 = i;
+                        }
+                    }
+                    else{
+                        vBox.setStyle("-fx-background-color : #FFFFFF");
+                    }
+                }
+            }
+        }
+
+    }
+
+    @FXML
+    public void AddMaterials () throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GiveResources.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 656, 200);
+        scene.getStylesheets().add(getClass().getResource("MainPage.css").toExternalForm());
+        Stage newstage = new Stage();
+        GiveResources giveResources = fxmlLoader.getController();
+        giveResources.setCourseTitle(Current_Button_Message);
+        giveResources.setPrimaryStage(newstage);
+        newstage.setScene(scene);
+        newstage.setTitle("Course Materials");
+        newstage.show();
     }
 
     @FXML
